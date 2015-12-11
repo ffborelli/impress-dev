@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+                      http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="IMPReSSWeb" transaction-type="RESOURCE_LOCAL">
+	
+		<class>eu.com.impress.model.Action</class>
+		<class>eu.com.impress.model.Context</class>
+		<class>eu.com.impress.model.ContextCount</class>
+		<class>eu.com.impress.model.ContextLog</class>
+		<class>eu.com.impress.model.ContextType</class>
+		<class>eu.com.impress.model.Fusion</class>
+		<class>eu.com.impress.model.FusionContext</class>
+		<class>eu.com.impress.model.FusionLog</class>
+		<class>eu.com.impress.model.FusionRule</class>
+		<class>eu.com.impress.model.FusionRuleLog</class>
+		<class>eu.com.impress.model.Place</class>
+		<class>eu.com.impress.model.PlaceType</class>
+		<class>eu.com.impress.model.Resource</class>
+		<class>eu.com.impress.model.ResourceActionType</class>
+		<class>eu.com.impress.model.ResourceContext</class>
+		<class>eu.com.impress.model.ResourceFusion</class>
+		<class>eu.com.impress.model.ResourceFusionLog</class>
+		<class>eu.com.impress.model.ResourceLog</class>
+		<class>eu.com.impress.model.ResourceType</class>
+		<class>eu.com.impress.model.Rule</class>
+		<class>eu.com.impress.model.RuleActionLog</class>
+		<class>eu.com.impress.model.RuleContext</class>
+		<class>eu.com.impress.model.Schedule</class>
+		<class>eu.com.impress.model.ScheduleLog</class>
+		<class>eu.com.impress.model.ResourceSchedule</class>
+		
+		
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/impress_recife" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="postgres" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+
+
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.use_sql_comments" value="false" />
+			<!-- <property name="hibernate.jdbc.wrap_result_sets" value="false" /> -->
+			<!-- <property name="hibernate.hibernate.cache.use_query_cache" -->
+			<!-- value="false" /> -->
+			<property name="eclipselink.weaving.changetracking" value="true" />
+			<property name="eclipselink.weaving.lazy" value="true" />
+			<property name="eclipselink.weaving.eager" value="true" />
+			<property name="eclipselink.weaving.fetchgroups" value="true" />
+			<property name="eclipselink.weaving.internal" value="false" />
+
+			<!-- Configure connection pool. -->
+			<!-- <property name="eclipselink.connection-pool.default.initial" -->
+			<!-- value="1" /> -->
+			<!-- <property name="eclipselink.connection-pool.default.min" -->
+			<!-- value="8" /> -->
+			<!-- <property name="eclipselink.connection-pool.default.max" -->
+			<!-- value="16" /> -->
+
+
+			<!-- <property name="hibernate.cache.use_second_level_cache" -->
+			<!-- value="false" /> -->
+			<!-- <property name="cache.provider_class" value="org.hibernate.cache.NoCacheProvider" 
+				/> -->
+
+			<!-- <property name="eclipselink.query-results-cache" value="false" /> -->
+			<!-- <property name="eclipselink.cache.size.default" value="0" /> -->
+			<!-- <property name="eclipselink.cache.type.default" value="None" /> -->
+
+			<!-- Important -->
+			<!-- <property name="hibernate.connection.provider_class" -->
+			<!-- value="org.hibernate.connection.C3P0ConnectionProvider" /> -->
+
+			<!-- <property name="hibernate.c3p0.max_size" value="20" /> -->
+			<!-- <property name="hibernate.c3p0.min_size" value="5" /> -->
+			<!-- <property name="hibernate.c3p0.acquire_increment" value="1" /> -->
+			<!-- <property name="hibernate.c3p0.idle_test_period" value="3000" /> -->
+			<!-- <property name="hibernate.c3p0.max_statements" value="50" /> -->
+			<!-- <property name="hibernate.c3p0.timeout" value="300" /> -->
+
+			<!-- Echo all executed SQL to stdout -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
+
+			<property name="eclipselink.query-results-cache" value="false" />
+			<property name="shared-cache-mode" value="None" />
+			<property name="eclipselink.flush-clear.cache" value="Drop" />
+
+			<property name="eclipselink.logging.level" value="FINE" />
+		</properties>
+	</persistence-unit>
+</persistence>

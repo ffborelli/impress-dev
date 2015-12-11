@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="ImpressContext" transaction-type="RESOURCE_LOCAL">
+		<class>br.ufabc.impress.model.Action</class>
+		<class>br.ufabc.impress.model.Context</class>
+		<class>br.ufabc.impress.model.ContextCount</class>
+		<class>br.ufabc.impress.model.ContextLog</class>
+		<class>br.ufabc.impress.model.ContextType</class>
+		<class>br.ufabc.impress.model.Fusion</class>
+		<class>br.ufabc.impress.model.FusionContext</class>
+		<class>br.ufabc.impress.model.FusionLog</class>
+		<class>br.ufabc.impress.model.FusionRule</class>
+		<class>br.ufabc.impress.model.FusionRuleLog</class>
+		<class>br.ufabc.impress.model.Place</class>
+		<class>br.ufabc.impress.model.PlaceType</class>
+		<class>br.ufabc.impress.model.Resource</class>
+		<class>br.ufabc.impress.model.ResourceActionType</class>
+		<class>br.ufabc.impress.model.ResourceContext</class>
+		<class>br.ufabc.impress.model.ResourceFusion</class>
+		<class>br.ufabc.impress.model.ResourceFusionLog</class>
+		<class>br.ufabc.impress.model.ResourceLog</class>
+		<class>br.ufabc.impress.model.ResourceType</class>
+		<class>br.ufabc.impress.model.Rule</class>
+		<class>br.ufabc.impress.model.RuleActionLog</class>
+		<class>br.ufabc.impress.model.RuleContext</class>
+		<class>br.ufabc.impress.model.EvalSdp</class>
+		
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/impress"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="postgres"/>
+<!-- 			<property name="eclipselink.weaving.changetracking" value="true" /> -->
+<!-- 			<property name="eclipselink.weaving.lazy" value="true" /> -->
+<!-- 			<property name="eclipselink.weaving.eager" value="true" /> -->
+<!-- 			<property name="eclipselink.weaving.fetchgroups" value="true" /> -->
+<!-- 			<property name="eclipselink.weaving.internal" value="false" /> -->
+<!-- 			<property name="eclipselink.query-results-cache" value="false" /> -->
+<!-- 			<property name="shared-cache-mode" value="None" /> -->
+<!-- 			<property name="eclipselink.flush-clear.cache" value="Drop" /> -->
+<!-- 			<property name="eclipselink.logging.level" value="FINE" /> -->
+		</properties>
+	</persistence-unit>
+</persistence>

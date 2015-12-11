@@ -1,0 +1,93 @@
+<div class="context_list_container" ng-app="context">
+
+<div ng-controller="contextController" ng-init="draw()">
+	<h1>Adjust</h1>
+	
+			<div class="row form-inline">
+			
+			<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+				<form name="nodeForm">
+			
+					<input id="id" name="id" type="text"
+						class="form-control" maxlength="100" ng-model="place.id"
+						placeholder="ID" />
+				</form>
+			</div>
+	
+	<table>
+		<tr>
+			<td>
+				<h2>Node</h2>
+				<table>
+					<tr>
+						<td></td>
+						<td><label for="node-id">Id</label></td>
+						<td><input id="node-id" type="text"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><label for="node-label">Label</label></td>
+						<td><input id="node-label" type="text"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><label for="node-type">Type</label></td>
+						<!--                     <td><input id="node-type" type="text" value="#ADD8E6"></td> -->
+
+						<td><select id="node-type">
+								<option value="#DCDCDC">Fusion</option>
+								<option value="#E6E6FA">Sensors</option>
+								<option value="#ADD8E2">Rules</option>
+								<option value="#FA8072">Actuators</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Action</td>
+						<td>
+							<button id="node-add" ng-click="addNode()">Add</button>
+							<button id="node-update" ng-click="updateNode();">Update</button>
+							<button id="node-remove" ng-click="removeNode();">Remove</button>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<h2>Edge</h2>
+				<table>
+					<tr>
+						<td></td>
+						<td><label for="edge-id">Id</label></td>
+						<td><input id="edge-id" type="text" value="5"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><label for="edge-from">From</label></td>
+						<td><input id="edge-from" type="text" value="3"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><label for="edge-to">To</label></td>
+						<td><input id="edge-to" type="text" value="4"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Action</td>
+						<td>
+							<button id="edge-add" ng-click="checkAdd();">Add</button>
+							<button id="edge-update" ng-click="check();">Update</button>
+							<button id="edge-remove" ng-click="removeEdge();">Remove</button>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+	</table>
+
+	<h1>View</h1>
+	<div id="network"></div>
+	<pre id="eventSpan"></pre>
+
+</div>
+</div>

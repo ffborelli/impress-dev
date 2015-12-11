@@ -1,0 +1,145 @@
+<div class="container" ng-app="fusionlist" ng-controller="fusionSimpleToggle">
+	<div class="form" ng-controller="fusionListController">
+
+		<form class="well form-search">
+			<div class="form-group">
+				<input ng-model="searchModel" type="text" class="form-control"
+					placeholder="Filter..." ng-change="apiSearch()"
+					style="min-width: 300px;" />
+
+				<!-- 				<button type="submit" class="btn btn-primary" ng-click="apiSearch()">Search</button> -->
+			</div>
+		</form>
+
+	</div>
+
+	<br>
+	
+	
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+		<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br> <a ng-click="Show1()"
+		class="btn btn-primary btn-lg">Open/Close Form</a>
+	<br>
+	<div ng-show="toggle">
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+	<div class="well form" ng-controller="fusionFormController">
+
+		<!-- Verify place, if there is no id present, that we are Adding a Place -->
+		<div ng-if="fusion.id == null">
+			<h3>Add Fusion</h3>
+		</div>
+		<!-- Otherwise it's an Edit -->
+		<div ng-if="fusion.id != null">
+			<h3>Edit Fusion</h3>
+		</div>
+
+		<div class="row">
+			<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+			<form name="fusionForm" ng-submit="updateFusion()" novalidate>
+
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+				<div class="form-group"
+					ng-class="{'has-error' : fusionForm.fusionName.$invalid && fusionForm.fusionName.$dirty}">
+					
+					<input id="fusionName" name="fusionName" type="text"
+						class="form-control" maxlength="100" ng-model="fusion.fusionName"
+						required ng-minlength="1" ng-maxlength="100"
+						placeholder="Fusion Name" style="min-width: 300px;"/>
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block"
+						ng-show="fusionForm.fusionName.$error.required">Add Fusion 
+						Name.</p>
+					<p class="help-block"
+						ng-show="fusionForm.fusionName.$error.minlength">Fusion Name
+						must be at least 1 characters long.</p>
+					<p class="help-block"
+						ng-show="fusionForm.fusionName.$error.maxlength">Fusion Name
+						cannot be longer than 100 characters.</p>
+				</div>
+				
+				<div class="form-group"
+					ng-class="{'has-error' : fusionForm.fusionText.$invalid && fusionForm.fusionText.$dirty}">
+					
+					<input id="fusionText" name="fusionText" type="text"
+						class="form-control" maxlength="100" ng-model="fusion.fusionText"
+						required ng-minlength="1" ng-maxlength="100"
+						placeholder="Fusion Text" style="min-width: 300px;"/>
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block"
+						ng-show="fusionForm.fusionText.$error.required">Add Fusion 
+						Text.</p>
+					<p class="help-block"
+						ng-show="fusionForm.fusionText.$error.minlength">Fusion Text
+						must be at least 1 characters long.</p>
+					<p class="help-block"
+						ng-show="fusionForm.fusionText.$error.maxlength">Fusion Text
+						cannot be longer than 100 characters.</p>
+				</div>
+				
+				<div class="form-group"
+						ng-class="{'has-error' : fusionForm.dependence.$invalid && fusionForm.dependence.$dirty}">
+
+						<select id="dependence" name="dependence" ng-model="fusion.dependentIndependent"
+							class="form-control" required
+							style="min-width: 300px">
+							<option value="">Select Dependence</option>
+							<option value="0">Dependent</option>
+							<option value="1">Independent</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="fusionForm.dependence.$error.required">Select 
+							Dependence.</p>
+					</div>
+
+				<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+				<div class="buttons">
+					<button type="button" class="btn btn-primary"
+						ng-click="clearForm()">Clear</button>
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="fusionForm.$invalid">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+
+	<br>
+
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the grid.-->
+	<div class="grid" ng-controller="fusionListController">
+		<div>
+			<h3>Fusion List</h3>
+		</div>
+
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions" ng-click="Show2()"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="fusion.totalResults" items-per-page="fusion.pageSize"
+			ng-model="fusion.currentPage" ng-change="refreshGrid()">
+		</pagination>
+	</div>
+</div>

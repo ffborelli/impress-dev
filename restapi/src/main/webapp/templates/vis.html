@@ -1,0 +1,434 @@
+<!doctype html>
+<html>
+<head>
+    <title>IMPReSS</title>
+
+    <style type="text/css">
+        html, body {
+            font: 11pt arial;
+        }
+
+        h1 {
+            font-size: 150%;
+            margin: 5px 0;
+        }
+
+        h2 {
+            font-size: 100%;
+            margin: 5px 0;
+        }
+
+        table.view {
+            width: 100%;
+        }
+
+        table td {
+            vertical-align: top;
+        }
+
+        table table {
+            background-color: #f5f5f5;
+            border: 1px solid #e5e5e5;
+        }
+
+        table table td {
+            vertical-align: middle;
+        }
+
+        input[type=text], pre {
+            border: 1px solid lightgray;
+        }
+
+        pre {
+            margin: 0;
+            padding: 5px;
+            font-size: 10pt;
+        }
+
+        #network {
+            width: 100%;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+		<script type="text/javascript" src="../lib/dependencies/vis.js"></script>
+<!-- 		<script type="text/javascript" src="../lib/dependencies/exampleUtil.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="../lib/dependencies/css/vis.css" />
+
+    <script type="text/javascript">
+    
+        var nodes, edges, network;
+        
+		var colors = ["#E6E6FA","#DCDCDC","#ADD8E2","#FA8072"];
+		var entities = ["Sensor", "Fusion", "Rule", "Actuator"];
+
+		var id_global = 4;
+		
+        // convenience method to stringify a JSON object
+        function toJSON(obj) {
+            return JSON.stringify(obj, null, 4);
+        }
+
+//         function changeColor() {
+//             nodes.update([{id:1, color:{background:'#ADD8E6'}}]);
+//         }
+
+        function addNode() {
+            try {
+                nodes.add({
+                    id: document.getElementById('node-id').value,
+                    label: document.getElementById('node-label').value,
+                    color: {background:document.getElementById('node-type').value},
+                    title: 'I have a popup!'
+                	
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+
+        function updateNode() {
+            try {
+                nodes.update({
+                    id: document.getElementById('node-id').value,
+                    label: document.getElementById('node-label').value
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+        function removeNode() {
+            try {
+                nodes.remove({id: document.getElementById('node-id').value});
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+
+        function addEdge() {
+            try {
+                edges.add({
+                    id: document.getElementById('edge-id').value,
+                    from: document.getElementById('edge-from').value,
+                    to: document.getElementById('edge-to').value,
+                    arrows:'to'
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+        function updateEdge() {
+            try {
+                edges.update({
+                    id: document.getElementById('edge-id').value,
+                    from: document.getElementById('edge-from').value,
+                    to: document.getElementById('edge-to').value,
+                    arrows:'to'
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+        function removeEdge() {
+            try {
+                edges.remove({id: document.getElementById('edge-id').value});
+            }
+            catch (err) {
+                alert(err);
+            }
+        }
+
+        function check(){
+
+        	var id = document.getElementById('edge-id').value;
+        	var from = document.getElementById('edge-from').value;
+            var to = document.getElementById('edge-to').value;
+
+            //console.log(edges);
+            //edges._data[1].from
+            
+            //for (i = 1; i <= edges.length; i++) { 
+				//it is a fusion node
+                if ( nodes._data[from].color.background == colors[1] ){
+					//it is a rule node
+					if (nodes._data[to].color.background == colors[2]){
+
+						//create the edge
+						updateEdge();
+						
+					}
+					//the edge can not be create
+					else {
+						alert('Fusion is not link with an rule!!!');
+					}
+                }
+
+				//it is a sensor node
+				else if ( nodes._data[from].color.background == colors[0] ){
+					//it is a fusion node 
+					if (nodes._data[to].color.background == colors[1]){
+
+						//create the edge
+						updateEdge();
+						
+					}
+					//the edge can not be create
+					else {
+						alert('Sensor is not link with a fusion!!!');
+					}
+                }
+
+				//it is a rule node
+				else if ( nodes._data[from].color.background == colors[2] ){
+					//it is a actuator node
+					if (nodes._data[to].color.background == colors[3]){
+
+						//create the edge
+						updateEdge();
+						
+					}
+					//the edge can not be create
+					else {
+						alert('Rule is not link with an actuator!!!');
+					}
+                }
+            //}
+            //console.log(nodes);
+        }
+
+        function checkAdd(){
+
+        	var id = document.getElementById('edge-id').value;
+        	var from = document.getElementById('edge-from').value;
+            var to = document.getElementById('edge-to').value;
+
+            var tmp = true;
+
+            for (i = 1; i <= edges.length; i++) { 
+
+            	if (edges._data[i].from == from && edges._data[i].to == to )  {
+            		alert('This node already exists!!!');
+            		tmp = false;
+            		break;
+                }
+            }
+
+            if (tmp){
+            	addEdge() ;
+            }
+        }
+
+        function draw() {
+            // create an array with nodes
+            nodes = new vis.DataSet();
+//             nodes.on('*', function () {
+//                 document.getElementById('nodes').innerHTML = JSON.stringify(nodes.get(), null, 4);
+//             });
+            nodes.add([
+                {id: '1', label: 'Sensor 1', color:{background:colors[0]}},
+                {id: '2', label: 'Fusion 1', color:{background:colors[1]}},
+                {id: '3', label: 'Rule 1' ,color:{background:colors[2]}},
+                {id: '4', label: 'Actuator 1' ,color:{background:colors[3]}}
+                
+            ]);
+
+            // create an array with edges
+            edges = new vis.DataSet();
+//             edges.on('*', function () {
+//                 document.getElementById('edges').innerHTML = JSON.stringify(edges.get(), null, 4);
+//             });
+            edges.add([
+                {id: '1', from: '1', to: '2', arrows:'to'},
+                {id: '2', from: '2', to: '3', arrows:'to'},
+                {id: '3', from: '3', to: '4' , arrows:'to'},
+               // {id: '4', from: '2', to: '5'},
+               // {id: '5', from: '1', to: '5'}
+            ]);
+
+            // create a network
+            var container = document.getElementById('network');
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            //var options = {};
+            var options = {
+        		interaction: {
+          			navigationButtons: true,
+          			keyboard: true
+        		}
+      		};
+      		
+            network = new vis.Network(container, data, options);
+
+            network.on("click", function (params) {
+                params.event = "[original event]";
+                document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("doubleClick", function (params) {
+                params.event = "[original event]";
+                document.getElementById('eventSpan').innerHTML = '<h2>doubleClick event:</h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("oncontext", function (params) {
+                params.event = "[original event]";
+                document.getElementById('eventSpan').innerHTML = '<h2>oncontext (right click) event:</h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("dragStart", function (params) {
+                params.event = "[original event]";
+                document.getElementById('eventSpan').innerHTML = '<h2>dragStart event:</h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("dragging", function (params) {
+                params.event = "[original event]";
+                document.getElementById('eventSpan').innerHTML = '<h2>dragging event:</h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("dragEnd", function (params) {
+                params.event = "[original event]";
+                document.getElementById('eventSpan').innerHTML = '<h2>dragEnd event:</h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("zoom", function (params) {
+                document.getElementById('eventSpan').innerHTML = '<h2>zoom event:</h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("showPopup", function (params) {
+                document.getElementById('eventSpan').innerHTML = '<h2>showPopup event: </h2>' + JSON.stringify(params, null, 4);
+            });
+            network.on("hidePopup", function () {
+                console.log('hidePopup Event');
+            });
+            network.on("select", function (params) {
+                console.log('select Event:', params);
+            });
+            network.on("selectNode", function (params) {
+                console.log('selectNode Event:', params);
+            });
+            network.on("selectEdge", function (params) {
+                console.log('selectEdge Event:', params);
+            });
+            network.on("deselectNode", function (params) {
+                console.log('deselectNode Event:', params);
+            });
+            network.on("deselectEdge", function (params) {
+                console.log('deselectEdge Event:', params);
+            });
+
+        }
+
+    </script>
+    
+    <script src="../lib/dependencies/googleAnalytics.js"></script>
+</head>
+
+<body onload="draw();">
+
+
+<h1>Adjust</h1>
+<table>
+    <tr>
+        <td>
+            <h2>Node</h2>
+            <table>
+                <tr>
+                    <td></td>
+                    <td><label for="node-id">Id</label></td>
+                    <td><input id="node-id" type="text" ></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><label for="node-label">Label</label></td>
+                    <td><input id="node-label" type="text" ></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><label for="node-type">Type</label></td>
+<!--                     <td><input id="node-type" type="text" value="#ADD8E6"></td> -->
+                    
+                    <td><select id="node-type">
+  						<option value="#DCDCDC">Fusion</option>
+  						<option value="#E6E6FA">Sensors</option>
+  						<option value="#ADD8E2">Rules</option>
+  						<option value="#FA8072">Actuators</option>
+						</select>
+					</td> 
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Action</td>
+                    <td>
+                        <button id="node-add" onclick="addNode();">Add</button>
+                        <button id="node-update" onclick="updateNode();">Update</button>
+                        <button id="node-remove" onclick="removeNode();">Remove</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <h2>Edge</h2>
+            <table>
+                <tr>
+                    <td></td>
+                    <td><label for="edge-id">Id</label></td>
+                    <td><input id="edge-id" type="text" value="5"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><label for="edge-from">From</label></td>
+                    <td><input id="edge-from" type="text" value="3"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><label for="edge-to">To</label></td>
+                    <td><input id="edge-to" type="text" value="4"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Action</td>
+                    <td>
+                        <button id="edge-add" onclick="checkAdd();">Add</button>
+                        <button id="edge-update" onclick="check();">Update</button>
+                        <button id="edge-remove" onclick="removeEdge();">Remove</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+<!--         <td> -->
+<!--         	<input type="button" onclick="changeColor()" value="Change Color Node 1"> <br /> -->
+<!--         </td> -->
+    </tr>
+
+</table>
+
+<h1>View</h1>
+<div id="network"></div>
+<pre id="eventSpan"></pre>
+<!-- <table class="view"> -->
+<!--     <colgroup> -->
+<!--         <col width="25%"> -->
+<!--         <col width="25%"> -->
+<!--         <col width="50%"> -->
+<!--     </colgroup> -->
+<!--     <tr> -->
+<!--         <td> -->
+<!--             <h2>Nodes</h2> -->
+<!--             <pre id="nodes"></pre> -->
+<!--         </td> -->
+
+<!--         <td> -->
+<!--             <h2>Edges</h2> -->
+<!--             <pre id="edges"></pre> -->
+<!--         </td> -->
+
+<!--         <td> -->
+<!--             <h2>Network</h2> -->
+
+<!--             <div id="network"></div> -->
+<!--         </td> -->
+<!--     </tr> -->
+<!-- </table> -->
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<div class="container" ng-app="actionlist" ng-controller="actionSimpleToggle">
+	<div class="form" ng-controller="actionListController">
+
+		<form class="well form-search">
+			<div class="form-group">
+				<input ng-model="searchModel" type="text" class="form-control"
+					placeholder="Filter..." ng-change="apiSearch()"
+					style="min-width: 300px;" />
+
+				<!-- 				<button type="submit" class="btn btn-primary" ng-click="apiSearch()">Search</button> -->
+			</div>
+		</form>
+
+	</div>
+
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br> <a ng-click="Show1()"
+		class="btn btn-primary btn-lg">Open/Close Form</a>
+	<br>
+	<div ng-show="toggle">
+	<br>
+		<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+		<div class="well form" ng-controller="actionFormController">
+
+			<!-- Verify place, if there is no id present, that we are Adding a Place -->
+			<div ng-if="action.id == null">
+				<h3>Add Action</h3>
+			</div>
+			<!-- Otherwise it's an Edit -->
+			<div ng-if="action.id != null">
+				<h3>Edit Action </h3>
+			</div>
+
+			<div class="row">
+				<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+				<form name="actionForm" ng-submit="updateAction()"
+					novalidate>
+
+					<div class="form-group"
+						ng-class="{'has-error' : actionForm.resource.$invalid && actionForm.resource.$dirty}">
+
+						<select id="resource" name="resource" ng-model="action.resource"
+							class="form-control" required
+							ng-options="item as item.description for item in resources"
+							style="min-width: 300px">
+							<option value="">Select Resource</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionForm.resource.$error.required">Select 
+							Resource.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : actionForm.resourceActionType.$invalid && actionForm.resourceActionType.$dirty}">
+
+						<select id="resourceActionType" name="resourceActionType" ng-model="action.resourceActionType"
+							class="form-control" required
+							ng-options="item as item.resourceActionTypeText for item in resourceActionTypes"
+							style="min-width: 300px">
+							<option value="">Select Resource Action Type</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionForm.resourceActionType.$error.required">Select Resource 
+							Action Type.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : actionForm.rule.$invalid && actionForm.rule.$dirty}">
+
+						<select id="rule" name="rule" ng-model="action.rule"
+							class="form-control" required
+							ng-options="item as item.ruleName for item in rules"
+							style="min-width: 300px">
+							<option value="">Select Rule</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionForm.rule.$error.required">Select 
+							Rule.</p>
+					</div>
+
+					<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+					<div class="buttons">
+						<button type="button" class="btn btn-primary"
+							ng-click="clearForm()">Clear</button>
+						<button type="submit" class="btn btn-primary"
+							ng-disabled="actionForm.$invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<br> <br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the grid.-->
+	<div class="grid" ng-controller="actionListController">
+		<div>
+			<h3>Action List</h3>
+		</div>
+
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions" ng-click="Show2()"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="action.totalResults"
+			items-per-page="action.pageSize"
+			ng-model="action.currentPage" ng-change="refreshGrid()">
+		</pagination>
+	</div>
+</div>

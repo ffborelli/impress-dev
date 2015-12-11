@@ -1,0 +1,146 @@
+<div class="container" ng-app="places" ng-controller="placeSimpleToggle">
+	<div class="form" ng-controller="placesListController">
+
+		<form class="well form-search">
+			<div class="form-group">
+				<input ng-model="searchModel" type="text" class="form-control"
+					placeholder="Filter..." ng-change="apiSearch()"
+					style="min-width: 300px;" />
+
+				<!-- 				<button type="submit" class="btn btn-primary" ng-click="apiSearch()">Search</button> -->
+			</div>
+		</form>
+
+	</div>
+
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br> <a ng-click="Show1()" class="btn btn-primary btn-lg">Open/Close
+		Form</a>
+	<div ng-show="toggle">
+		<br>
+		<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+		<div class="well form" ng-controller="placesFormController">
+
+			<!-- Verify place, if there is no id present, that we are Adding a Place -->
+			<div ng-if="place.id == null">
+				<h3>Add Place</h3>
+			</div>
+			<!-- Otherwise it's an Edit -->
+			<div ng-if="place.id != null">
+				<h3>Edit Place</h3>
+			</div>
+
+			<div class="row">
+				<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+				<form name="placeForm" ng-submit="updatePlace()" novalidate>
+
+					<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+					<div class="form-group"
+						ng-class="{'has-error' : placeForm.description.$invalid && placeForm.description.$dirty}">
+						<!-- 					<label for="description">Description:</label> -->
+						<!-- 					Display a check when the field is valid and was modified -->
+						<!-- 					<span -->
+						<!-- 						ng-class="{'glyphicon glyphicon-ok' : placeForm.description.$valid && placeForm.description.$dirty}"></span> -->
+
+						<input id="description" name="description" type="text"
+							class="form-control" maxlength="100" ng-model="place.description"
+							required ng-minlength="1" ng-maxlength="100"
+							placeholder="Description" style="min-width: 300px" />
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="placeForm.description.$error.required">Add
+							Description.</p>
+						<p class="help-block"
+							ng-show="placeForm.description.$error.minlength">Description
+							must be at least 1 characters long.</p>
+						<p class="help-block"
+							ng-show="placeForm.description.$error.maxlength">Description
+							cannot be longer than 100 characters.</p>
+					</div>
+					<div class="form-group"
+						ng-class="{'has-error' : placeForm.placeType.$invalid && placeForm.placeType.$dirty}">
+
+						<select id="placeType" name="placeType" ng-model="place.placeType"
+							class="form-control" required
+							ng-options="item as item.description for item in placeTypes"
+							style="min-width: 300px">
+							<option value="">Select Place Type</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="placeForm.placeType.$error.required">Select Place
+							Type.</p>
+					</div>
+
+					<div class="form-group"
+						ng-class="{'has-error' : placeForm.place.$invalid && placeForm.place.$dirty}">
+
+						<select id="place" name="place" ng-model="place.place"
+							class="form-control"
+							ng-options="item as item.description for item in places"
+							style="min-width: 300px">
+							<option value="">Select Place</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<!-- <p class="help-block" ng-show="placeForm.place.$error.required">Select
+							Place.</p>-->
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : placeForm.dependence.$invalid && placeForm.dependence.$dirty}">
+
+						<select id="dependence" name="dependence" ng-model="place.dependentIndependent"
+							class="form-control" required
+							style="min-width: 300px">
+							<option value="">Select Dependence</option>
+							<option value="0">Dependent</option>
+							<option value="1">Independent</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="placeForm.dependence.$error.required">Select 
+							Dependence.</p>
+					</div>
+
+
+					<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+					<div class="buttons">
+						<button type="button" class="btn btn-primary"
+							ng-click="clearForm()">Clear</button>
+						<button type="submit" class="btn btn-primary"
+							ng-disabled="placeForm.$invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the grid.-->
+	<div class="grid" ng-controller="placesListController">
+		<div>
+			<h3>List Places</h3>
+		</div>
+
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions" ng-click="Show2()"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="places.totalResults" items-per-page="places.pageSize"
+			ng-model="places.currentPage" ng-change="refreshGrid()">
+		</pagination>
+	</div>
+</div>
