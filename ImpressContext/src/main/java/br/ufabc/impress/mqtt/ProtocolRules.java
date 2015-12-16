@@ -9,6 +9,7 @@ import br.ufabc.impress.esper.Esper;
 import br.ufabc.impress.facade.EvalSdpFacade;
 import br.ufabc.impress.facade.ResourceFacade;
 import br.ufabc.impress.facade.ResourceLogFacade;
+import br.ufabc.impress.file.File;
 import br.ufabc.impress.model.EvalSdp;
 import br.ufabc.impress.model.Resource;
 import br.ufabc.impress.model.ResourceLog;
@@ -45,12 +46,16 @@ public class ProtocolRules  implements Runnable{
 				Main.startTime = System.currentTimeMillis();
 
 				// eval time
-				EvalSdp eval = new EvalSdp();
-				eval.setStart(new Timestamp(Main.startTime));
-				eval.setName(Param.name_experiment);
-				eval.setModule("START TIME");
-				eval.setDescription("START TIME with " + Param.number_of_topics + " topics , broker " + Param.address);
-				new EvalSdpFacade().create(eval);
+//				EvalSdp eval = new EvalSdp();
+//				eval.setStart(new Timestamp(Main.startTime));
+//				eval.setName(Param.name_experiment);
+//				eval.setModule("START TIME");
+//				eval.setDescription("START TIME with " + Param.number_of_topics + " topics , broker " + Param.address);
+//				new EvalSdpFacade().create(eval);
+			
+				//name , start, finish, duration,  duration_mil, module, description, 
+				File f = new File();
+				f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(Main.startTime) + ";" + ";" + ";" + ";" +  "START TIME" + ";" +"START TIME with " + Param.number_of_topics + " topics , broker " + Param.address);
 				System.out.println("START");
 			}
 
@@ -73,6 +78,10 @@ public class ProtocolRules  implements Runnable{
 					eval.setDescription("FINISH TIME with " + Param.number_of_topics + " topics , broker " + Param.address);
 					new EvalSdpFacade().create(eval);
 					System.out.println("FINISH");
+					
+					//name , start, finish, duration,  duration_mil, module, description, 
+					File f = new File();
+					f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(Main.startTime) + ";" + String.valueOf(Main.finishTime) + ";" + ";" + ";" +  "FINISH TIME" + ";" + "FINISH TIME with " + Param.number_of_topics + " topics , broker " + Param.address);
 
 					System.exit(0);
 				}
@@ -142,6 +151,11 @@ public class ProtocolRules  implements Runnable{
 					lr.setResource(res);
 
 					//this.getResourceLogFacade().create(lr);
+					
+					//id_resource_fk, resource_log_value, creation_date 
+					File f = new File();
+					f.write("resourceLog.txt",idResource + ";" + value + ";" );
+
 
 					Esper.addEventEsper(lr);
 

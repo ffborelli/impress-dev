@@ -109,9 +109,9 @@ public class MqttSubscribe implements MqttCallback, Runnable {
 		System.out.println("MQTT S: message arrived --> topic:\t" + topic
 				+ "  message:\t" + new String(message.getPayload()));
 
-		ThreadCounter threadCounter = new ThreadCounter();
-		threadCounter.addCounterIn();
-		System.out.println(threadCounter.getCounterIn());
+		//ThreadCounter threadCounter = new ThreadCounter();
+		//threadCounter.addCounterIn();
+		//System.out.println(threadCounter.getCounterIn());
 		ProtocolRules pr = new ProtocolRules(new String(message.getPayload()));
 		
 		Thread t = new Thread(pr);

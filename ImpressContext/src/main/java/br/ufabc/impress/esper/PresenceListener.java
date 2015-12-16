@@ -4,11 +4,13 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import br.ufabc.impress.Main;
 import br.ufabc.impress.Param;
 import br.ufabc.impress.drools.Drools;
 import br.ufabc.impress.facade.EvalSdpFacade;
 import br.ufabc.impress.facade.ResourceFacade;
 import br.ufabc.impress.facade.ResourceLogFacade;
+import br.ufabc.impress.file.File;
 import br.ufabc.impress.model.EvalSdp;
 import br.ufabc.impress.model.Resource;
 import br.ufabc.impress.model.ResourceLog;
@@ -68,7 +70,8 @@ public class PresenceListener implements UpdateListener {
 		lr.setCreationDate(new Timestamp(new Date().getTime()));
 		
 		this.getResourceLogFacade().create(lr);
-
+		
+		
 		// get status of button
 		//LogResourceFacade logResourceFacade = new LogResourceFacade();
 		//logResourceFacade.create(lr);
@@ -82,7 +85,7 @@ public class PresenceListener implements UpdateListener {
 		if (Param.is_eval) {
 			// eval time
 			EvalSdp eval = new EvalSdp();
-			eval.setStart(new Timestamp(new Date().getTime()));
+			eval.setStart(new Timestamp(startTime));
 			eval.setFinish(new Timestamp(finishTime));
 			eval.setDuration(new Timestamp(estimatedTime));
 			eval.setDurationMil(estimatedTime);
@@ -90,6 +93,11 @@ public class PresenceListener implements UpdateListener {
 			eval.setModule(Param.module_fusion_presence);
 			eval.setDescription(this.getClass().toString());
 			new EvalSdpFacade().create(eval);
+			
+			//name , start, finish, duration,  duration_mil, module, description
+			File f = new File();
+			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_fusion_presence + ";" + this.getClass().toString());
+
 		}
 
 		 startTime = System.currentTimeMillis();    

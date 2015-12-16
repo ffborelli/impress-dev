@@ -8,6 +8,7 @@ import br.ufabc.impress.drools.Drools;
 import br.ufabc.impress.facade.EvalSdpFacade;
 import br.ufabc.impress.facade.ResourceFacade;
 import br.ufabc.impress.facade.ResourceLogFacade;
+import br.ufabc.impress.file.File;
 import br.ufabc.impress.model.EvalSdp;
 import br.ufabc.impress.model.Resource;
 import br.ufabc.impress.model.ResourceLog;
@@ -64,6 +65,10 @@ public class StatusListener implements UpdateListener {
 			eval.setModule(Param.module_fusion_status);
 			eval.setDescription(this.getClass().toString());
 			this.getEvalSdpFacade().create(eval);
+			
+			//name , start, finish, duration,  duration_mil, module, description
+			File f = new File();
+			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_fusion_status + ";" + this.getClass().toString());
 		}
 		 
 	     startTime = System.currentTimeMillis();

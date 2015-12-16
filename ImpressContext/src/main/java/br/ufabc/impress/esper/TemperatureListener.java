@@ -9,6 +9,7 @@ import br.ufabc.impress.drools.Drools;
 import br.ufabc.impress.facade.EvalSdpFacade;
 import br.ufabc.impress.facade.ResourceFacade;
 import br.ufabc.impress.facade.ResourceLogFacade;
+import br.ufabc.impress.file.File;
 import br.ufabc.impress.model.EvalSdp;
 import br.ufabc.impress.model.Resource;
 import br.ufabc.impress.model.ResourceLog;
@@ -79,6 +80,10 @@ public class TemperatureListener implements UpdateListener {
 			eval.setDescription("Inference " + Param.module_rule_temperature);
 			this.getEvalSdpFacade().create(eval);
 			System.out.println(Param.module_rule_temperature);
+			
+			//name , start, finish, duration,  duration_mil, module, description
+			File f = new File();
+			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_fusion_temperature + ";" + this.getClass().toString());
 		}
 		 
 		}
