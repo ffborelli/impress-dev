@@ -16,6 +16,7 @@ public class File {
 	        String time = new Timestamp(System.currentTimeMillis()).toString();
 	        String[] msg = m.split(";");
 			FileWriter fw = new FileWriter(fileName, true);
+	        //FileWriter fw = new FileWriter("teste.txt", true);
 			BufferedWriter conexao = new BufferedWriter(fw);
 			String line = "\"" + msg[0] + "\";";
 			for(int i = 1; i < msg.length; i++){
