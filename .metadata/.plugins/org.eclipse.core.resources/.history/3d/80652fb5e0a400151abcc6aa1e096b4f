@@ -17,9 +17,9 @@ public class File {
 	        String[] msg = m.split(";");
 			FileWriter fw = new FileWriter(fileName, true);
 			BufferedWriter conexao = new BufferedWriter(fw);
-			String line = "\"" + msg[0] + "\";";
+			String line = msg[0];
 			for(int i = 1; i < msg.length; i++){
-				line = line  + "\"" + msg[i] + "\";";
+				line = line + ";" + "\"" + msg[i] + "\"";
 				
 			}
 			line = line +  "\"" + time + "\"";

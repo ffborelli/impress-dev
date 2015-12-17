@@ -296,3 +296,55 @@
 2015-12-17 14:06:40,216 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
 2015-12-17 14:06:40,217 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2015-12-17 14:06:40,217 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:01:22,296 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:01:22,296 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:01:22,297 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:01:22,298 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:01:23,352 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:01:23,352 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:01:23,353 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:01:23,353 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:03:07,510 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:07,510 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:03:07,512 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:07,512 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:03:08,708 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:08,708 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:03:08,710 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:08,710 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:03:20,006 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:20,006 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:03:20,008 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:20,008 [Worker-39] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:03:31,697 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:31,697 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:03:31,698 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:03:31,699 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:04:25,397 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:04:25,398 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:04:25,399 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:04:25,399 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:07:52,591 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:07:52,591 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:07:52,594 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:07:52,594 [Worker-44] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:07:53,793 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:07:53,793 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:07:53,794 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:07:53,794 [Worker-34] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:08:38,434 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:08:38,434 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:08:38,435 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:08:38,435 [Worker-37] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:08:40,247 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:08:40,247 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:08:40,249 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:08:40,249 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:10:35,668 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:10:35,668 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:10:35,670 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:10:35,670 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources
+2015-12-17 15:10:36,902 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:10:36,902 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/main/resources
+2015-12-17 15:10:36,903 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-12-17 15:10:36,904 [Worker-38] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/ivan/impress-dev/ImpressContext/src/test/resources

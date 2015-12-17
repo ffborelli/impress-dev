@@ -8,9 +8,9 @@ public class Param {
 	public static final String topic_publish = "impress/action";
 //<<<<<<< HEAD
 	
-	public static final int number_of_topics = 1;
+	public static int number_of_topics = 1;
 	
-	public static final int number_of_devices = 100;
+	public static int number_of_devices = 100;
 	
 //=======
 	public static final int experiment = -2;
