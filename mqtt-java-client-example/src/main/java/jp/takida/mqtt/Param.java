@@ -8,9 +8,10 @@ package jp.takida.mqtt;
 public class Param {
 
     // Metricas : 
-    public static final int experiment = -2;
-    public static final int number_of_topics = 1; // 1-5
-    public static final int number_of_devices = 100; // 50 - 150 - 300
+    public static String name_experiment = "Experiment 93";
+    public static final int number_of_devices = 600; // 50 - 200 - 600
+    
+    public static final int number_of_topics = 1;
     public static final int number_of_events = 3; // 100
     public static final int qos = 0; // 0 - 1 - 2
     public static final int maxTimeBetweenEvents = 3000; // 120000 - 30000 - 5000 ms
@@ -29,7 +30,6 @@ public class Param {
     public static final String module_rule_status = "rule status";
     public static final String module_rule_presence = "rule presence";
     public static final String module_rule_temperature = "rule temperature";
-    public static String name_experiment = "Experiment 1050";
 
     public static final int sensor_android = 13;
     public static final int sensor_avg_temperature = 15;
