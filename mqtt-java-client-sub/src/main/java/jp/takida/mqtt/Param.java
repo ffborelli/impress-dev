@@ -20,7 +20,7 @@ public class Param {
     public static final int maxTimeBetweenEvents = 3000; // 120000 - 30000 - 5000 ms
     public static final int minTimeBetweenEvents = 1000; // 60000 - 10000 - 1000 ms
     public static final int number_of_messages = 3;
-    public static final String path = "/home/ivan/Desktop/Universidade/IC/BrokerDados/sub";
+    public static final String path = "sub";
 
 
     public static final String address = "tcp://localhost:1884";
