@@ -21,6 +21,7 @@ public class ThreadCounter {
     }
 
     public void addCounter() {
+        //counter += 1;
         try {
             semaforo.acquire();
             counter += 1;

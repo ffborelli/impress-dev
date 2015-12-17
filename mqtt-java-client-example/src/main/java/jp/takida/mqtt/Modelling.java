@@ -47,7 +47,7 @@ public class Modelling implements Runnable, MqttCallback {
 
     @Override
     public void run() {
-        System.out.println("Thread id: " + threadId);
+        System.out.println("Thread id: " + threadId + " Sensor tipo: " + idSensor);
         random.setSeed(threadId);
         try {
             this.publish();
@@ -97,7 +97,7 @@ public class Modelling implements Runnable, MqttCallback {
         File arquivo = new File(Param.path + ".csv");
         try (FileWriter fw = new FileWriter(arquivo, true);
                 BufferedWriter bw = new BufferedWriter(fw)) {
-            m = "\"" + msg[0] + "\"" + ";" + "\"" + msg[1] + "\"" + ";" + "\"" + msg[2] + "\"" + ";" + "\"" + time + "\"";
+            m = "\""+ Param.name_experiment +"\""+";"+"\"" + msg[0] + "\"" + ";" + "\"" + msg[1] + "\"" + ";" + "\"" + msg[2] + "\"" + ";" + "\"" + time + "\"";
             //devNo;msgNo;time
             bw.write(m);
             bw.newLine();
