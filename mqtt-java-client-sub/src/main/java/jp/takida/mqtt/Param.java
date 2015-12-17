@@ -12,9 +12,9 @@ package jp.takida.mqtt;
  */
 public class Param {
        // Metricas : 
-    public static final int experiment = -2;
+    public static final int experiment = 1;
     public static final int number_of_topics = 1; // 1-5
-    public static final int number_of_devices = 100; // 50 - 150 - 300
+    public static final int number_of_devices = 99; // 50 - 150 - 300
     public static final int number_of_events = 3; // 100
     public static final int qos = 0; // 0 - 1 - 2
     public static final int maxTimeBetweenEvents = 3000; // 120000 - 30000 - 5000 ms
