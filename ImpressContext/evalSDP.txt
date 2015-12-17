@@ -1,0 +1,17 @@
+Experiment 1;1450312448197;;;;START TIME;START TIME with 1 topics , broker tcp://localhost:1884
+Experiment 1;1450312448197;1450312460454;;;FINISH TIME;FINISH TIME with 1 topics , broker tcp://localhost:1884
+Experiment 1;1450312835208;;;;START TIME;START TIME with 1 topics , broker tcp://localhost:1884
+Experiment 1;1450312835208;1450312847554;;;FINISH TIME;FINISH TIME with 1 topics , broker tcp://localhost:1884
+Experiment 1;1450313036250;;;;START TIME;START TIME with 1 topics , broker tcp://localhost:1884
+Experiment 1;1450313040681;1450313042232;1551;1551;fusion temperature;class br.ufabc.impress.esper.TemperatureListener
+Experiment 1;1450313036530;1450313042242;5712;5712;fusion temperature;class br.ufabc.impress.esper.TemperatureListener
+Experiment 1;1450313039563;1450313042242;2679;2679;fusion temperature;class br.ufabc.impress.esper.TemperatureListener
+Experiment 1;1450313042286;1450313042302;16;16;fusion presence;class br.ufabc.impress.esper.PresenceListener
+Experiment 1;1450313042120;1450313042385;265;265;fusion temperature;class br.ufabc.impress.esper.TemperatureListener
+Experiment 1;1450313042684;1450313042698;14;14;fusion presence;class br.ufabc.impress.esper.PresenceListener
+Experiment 1;1450313042474;1450313042928;454;454;fusion temperature;class br.ufabc.impress.esper.TemperatureListener
+Experiment 1;1450313043005;1450313043022;17;17;fusion presence;class br.ufabc.impress.esper.PresenceListener
+Experiment 1;1450313043326;1450313043343;17;17;fusion presence;class br.ufabc.impress.esper.PresenceListener
+Experiment 1;1450313045297;1450313045551;254;254;fusion temperature;class br.ufabc.impress.esper.TemperatureListener
+Experiment 1;1450313045563;1450313045577;14;14;fusion presence;class br.ufabc.impress.esper.PresenceListener
+Experiment 1;1450313036250;1450313048057;;;FINISH TIME;FINISH TIME with 1 topics , broker tcp://localhost:1884

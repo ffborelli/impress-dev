@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jp.takida.mqtt;
 
 /**
@@ -14,27 +13,21 @@ import java.util.concurrent.Semaphore;
 
 public class ThreadCounter {
 
-	static int counter;
-	private Semaphore semaforo = new Semaphore(1);
+    static int counter;
+    private final Semaphore semaforo = new Semaphore(1);
 
-	public int getCounter() {
-		return counter;
-	}
-//
-//	public static void setCounter(int counter) {
-//		counter = counter;
-//	}
-	
-	public void addCounter(){
-	
-		try {
-	        semaforo.acquire();
-	        counter +=1;
-	    } catch (InterruptedException e) {
-	        e.printStackTrace();
-	    } finally {
-	        semaforo.release();
-	    }
-	}
+    public int getCounter() {
+        return counter;
+    }
+
+    public void addCounter() {
+        try {
+            semaforo.acquire();
+            counter += 1;
+        } catch (InterruptedException e) {
+        } finally {
+            semaforo.release();
+        }
+    }
 
 }

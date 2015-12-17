@@ -3,14 +3,25 @@ package br.ufabc.impress;
 public class Param {
 	
 	//public static final String address = "tcp://impressufabc.cloudapp.net:1883";
-	public static final String address = "tcp://localhost:1883";
+	public static final String address = "tcp://localhost:1884";
 	public static final String topic = "impress/demo";
 	public static final String topic_publish = "impress/action";
+<<<<<<< HEAD
 	
 	public static int number_of_topics = 1;
 	
 	public static int number_of_devices = 10;
 	
+=======
+	public static final int experiment = -2;
+    public static final int number_of_topics = 1; // 1-5
+    public static final int number_of_devices = 6; // 50 - 150 - 300
+    public static final int number_of_events = 3; // 100
+    public static final int qos = 0; // 0 - 1 - 2
+    public static final int maxTimeBetweenEvents = 3000; // 120000 - 30000 - 5000 ms
+    public static final int minTimeBetweenEvents = 1000; // 60000 - 10000 - 1000 ms
+
+>>>>>>> 2eabc5526d76bb5b386fbe8dac1e593aa716a587
 	public static final String module_fusion_status = "fusion status";
 	public static final String module_fusion_presence = "fusion presence";
 	public static final String module_fusion_temperature = "fusion temperature";

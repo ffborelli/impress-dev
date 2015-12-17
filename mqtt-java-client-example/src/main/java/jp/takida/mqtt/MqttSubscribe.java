@@ -22,7 +22,7 @@ public class MqttSubscribe implements MqttCallback {
     public void subscribe() {
         try {
             //MqttClient client = new MqttClient("tcp://localhost:61613", "pahomqttpublish1");
-            MqttClient client = new MqttClient("tcp://localhost:1883", "pahomqttpublish100");
+            MqttClient client = new MqttClient(Param.address, "subscriber");
             client.setCallback(this);
 
             MqttConnectOptions options = new MqttConnectOptions();
@@ -31,7 +31,7 @@ public class MqttSubscribe implements MqttCallback {
 
             client.connect(options);
 
-            client.subscribe("impress/temperature");
+            client.subscribe(Param.topic);
             try {
                 System.in.read();
             } catch (IOException e) {

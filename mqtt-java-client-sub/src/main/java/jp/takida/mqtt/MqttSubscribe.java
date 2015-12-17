@@ -71,7 +71,7 @@ public class MqttSubscribe implements MqttCallback {
 
     public void writeFile(String m, String time) throws IOException {
         String[] msg = m.split(";");
-        File arquivo = new File(Param.path  + Param.experiment + ".txt");
+        File arquivo = new File(Param.path + ".txt");
         try (FileWriter fw = new FileWriter(arquivo, true);
                 BufferedWriter bw = new BufferedWriter(fw)) {
             m =  "\"" + msg[0] +  "\"" + ";" +"\"" + msg[1] +  "\"" + ";" + "\"" + msg[2] +  "\"" +";"+ "\"" +time + "\"" ; 
