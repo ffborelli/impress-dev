@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="impressApp">
+	<head>
+		<title>IMPReSS Context Web</title>
+		<meta charset="UTF-8" />
+		<link rel='shortcut icon' href='img/impress.ico' type='image/x-icon' />
+		<link rel="stylesheet" type="text/css" href="lib/dependencies/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="lib/dependencies/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="lib/dependencies/css/rdash.min.css" />
+		<link rel="stylesheet" type="text/css" href="lib/dependencies/css/ng-grid.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script type="text/javascript" src="lib/dependencies/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/angular.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/angular-resource.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/angular-cookies.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/ng-grid-2.0.11.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/toggles.js"></script>
+		
+		<script type="text/javascript" src="script/impress-app.js"></script>
+		<script type="text/javascript" src="script/place.js"></script>
+		<script type="text/javascript" src="script/placetype.js"></script>
+		<script type="text/javascript" src="script/resourcetype.js"></script>
+		<script type="text/javascript" src="script/resourcelog.js"></script>
+		<script type="text/javascript" src="script/resource.js"></script>
+		<script type="text/javascript" src="script/fusion.js"></script>
+		<script type="text/javascript" src="script/fusionlog.js"></script>
+		<script type="text/javascript" src="script/context.js"></script>
+		<script type="text/javascript" src="script/rule.js"></script>
+		<script type="text/javascript" src="script/action.js"></script>
+		<script type="text/javascript" src="script/rulelog.js"></script>
+		<script type="text/javascript" src="script/contexttype.js"></script>
+		<script type="text/javascript" src="script/contextentity.js"></script>
+		<script type="text/javascript" src="script/contextlog.js"></script>
+		<script type="text/javascript" src="script/contextgrid.js"></script>
+		<script type="text/javascript" src="script/actionlog.js"></script>
+		<script type="text/javascript" src="script/schedulelog.js"></script>
+		<script type="text/javascript" src="script/actiontype.js"></script>
+		
+		<script type="text/javascript" src="lib/dependencies/jquery-ui.js"></script>
+		<script type="text/javascript" src="lib/dependencies/schedule/moment.js"></script>
+		<script type="text/javascript" src="lib/dependencies/fullcalendar.min.js"></script>
+		<script type="text/javascript" src="lib/dependencies/schedule/calendar.js"></script>
+		<script type="text/javascript" src="lib/dependencies/schedule/gcal.js"></script>
+		
+		<!-- schedule dependencies  -->
+		
+		<link rel="stylesheet" type="text/css" href="css/frontierCalendar/jquery-frontier-cal-1.3.2.css" />
+        <link rel="stylesheet" type="text/css" href="css/colorpicker/colorpicker.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui/smoothness/jquery-ui-1.8.1.custom.css" />
+        <script type="text/javascript" src="lib/jquery-core/jquery-1.4.2-ie-fix.min.js"></script>
+        <script type="text/javascript" src="lib/jquery-ui/smoothness/jquery-ui-1.8.1.custom.min.js"></script>
+        <script type="text/javascript" src="lib/colorpicker/colorpicker.js"></script>
+        <script type="text/javascript" src="lib/jquery-qtip-1.0.0-rc3140944/jquery.qtip-1.0.js"></script>
+        <script type="text/javascript" src="lib/calendar-lib/jshashtable-2.1.js"></script>
+        <script type="text/javascript" src="lib/frontierCalendar/jquery-frontier-cal-1.3.2.min.js"></script>
+        <script type="text/javascript" src="script/schedule.js"></script>
+		
+		<!-- end schedule dependencies -->
+		
+		<script type="text/javascript" src="lib/dependencies/vis.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/dependencies/css/vis.css" />
+	</head>
+	<body ng-controller="MasterCtrl">
+		<div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+
+			<!-- Sidebar -->
+			<div id="sidebar-wrapper" ng-controller="MenuController">
+				<ul class="sidebar">
+					<li class="sidebar-main">
+						<a ng-click="toggleSidebar()">
+							Context Web UI
+							<span class="menu-icon glyphicon glyphicon-transfer" style="cursor: pointer"></span>
+						</a>
+					</li>
+					<li class="sidebar-title">
+						<span>NAVIGATION</span>
+					</li>
+					<li class="sidebar-list">
+						<a href="#/">Home</a>						
+					</li>
+					<li class="sidebar-list">
+						<a style="cursor: pointer" ng-click="placeSubList()">Place</a>						
+					</li>
+					<li class="sidebar-list sub_lst" ng-show="placeSubListState"><a href="#/placetype">Place Type</a></li>
+					<li class="sidebar-list sub_lst" ng-show="placeSubListState"><a href="#/placelist">Place List</a></li>
+					<li class="sidebar-list">
+						<a style="cursor: pointer" ng-click="resourceSubList()">Resource</a>
+					</li>
+					<li class="sidebar-list sub_lst" ng-show="resourceSubListState"><a href="#/resourcetype">Resource Type</a></li>
+					<li class="sidebar-list sub_lst" ng-show="resourceSubListState"><a href="#/resourcelist">Resource List</a></li>
+					<li class="sidebar-list sub_lst" ng-show="resourceSubListState"><a href="#/resourcelog">Resource Log</a></li>
+					<li class="sidebar-list">
+						<a style="cursor: pointer" ng-click="fusionSubList()">Fusion</a>
+					</li>
+					<li class="sidebar-list sub_lst" ng-show="fusionSubListState"><a href="#/fusionlist">Fusion List</a></li>
+					<li class="sidebar-list sub_lst" ng-show="fusionSubListState"><a href="#/fusionlog">Fusion Log</a></li>
+					<li class="sidebar-list">
+						<a style="cursor: pointer" ng-click="ruleSubList()">Rule</a>
+					</li>
+					<li class="sidebar-list sub_lst" ng-show="ruleSubListState"><a href="#/rulelist">Rule List</a></li>
+					<li class="sidebar-list sub_lst" ng-show="ruleSubListState"><a href="#/rulelog">Rule Log</a></li>
+					<li class="sidebar-list">
+						<a style="cursor: pointer" ng-click="contextSubList()">Context</a>
+					</li>
+					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contexttype">Context Type</a></li>
+					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextentity">Context List</a></li>
+					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextlog">Context Log</a></li>
+					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextcount">Context Count</a></li>
+					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextgrid">Context Grid</a></li>
+					<li class="sidebar-list">
+						<a style="cursor: pointer" ng-click="actionSubList()">Action</a>
+					</li>
+					<li class="sidebar-list sub_lst" ng-show="actionSubListState"><a href="#/actiontype">Action Type</a></li>
+					<li class="sidebar-list sub_lst" ng-show="actionSubListState"><a href="#/actionlist">Action List</a></li>
+					<li class="sidebar-list sub_lst" ng-show="actionSubListState"><a href="#/actionlog">Action Log</a></li>
+					<li class="sidebar-list">
+						<a style="cursor: pointer" ng-click="scheduleSubList()">Schedule</a>
+					</li>
+					<li class="sidebar-list sub_lst" ng-show="scheduleSubListState"><a href="#/schedulelist">Schedule List</a></li>
+					<li class="sidebar-list sub_lst" ng-show="scheduleSubListState"><a href="#/schedulelog">Schedule Log</a></li>
+				</ul>
+			</div>
+
+			<!-- Main -->
+			<div ui-view></div>
+
+		</div>
+	</body>
+</html>

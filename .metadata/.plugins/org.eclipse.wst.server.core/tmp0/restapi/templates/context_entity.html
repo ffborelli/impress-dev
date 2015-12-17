@@ -1,0 +1,163 @@
+<div class="container" ng-app="contextentity" ng-controller="contextSimpleToggle">
+	<div class="form" ng-controller="contextEntityListController">
+	
+		<form class="well form-search">
+			<div class="form-group">
+
+				<input ng-model="searchModel" type="text" class="form-control"
+					placeholder="Filter..." ng-change="apiSearch()"
+					style="min-width: 300px;" />
+			</div>
+		</form>
+
+	</div>
+
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+	<a ng-click="Show1()" class="btn btn-primary btn-lg">Open/Close Form</a>
+	
+	<div ng-show="toggle">
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+	<div class="well form" ng-controller="contextEntityFormController">
+
+		<!-- Verify place, if there is no id present, that we are Adding a Place -->
+		<div ng-if="contextEntity.id == null">
+			<h3>Add Context</h3>
+		</div>
+		<!-- Otherwise it's an Edit -->
+		<div ng-if="contextEntity.id != null">
+			<h3>Edit Context Type</h3>
+		</div>
+
+		<div class="row">
+			<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+			<form name="contextEntityForm" ng-submit="updateContextEntity()" novalidate>
+
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+				<div class="form-group"
+					ng-class="{'has-error' : contextEntityForm.contextName.$invalid && contextEntityForm.contextName.$dirty}">
+					
+					<input id="contextName" name="contextName" type="text"
+						class="form-control" maxlength="100" ng-model="context.contextName"
+						required ng-minlength="1" ng-maxlength="100"
+						placeholder="Context Name" style="min-width: 300px;"/>
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block"
+						ng-show="contextEntityForm.contextName.$error.required">Add Context 
+						Name.</p>
+					<p class="help-block"
+						ng-show="contextEntityForm.contextName.$error.minlength">Context Name
+						must be at least 1 characters long.</p>
+					<p class="help-block"
+						ng-show="contextEntityForm.contextName.$error.maxlength">Context Name
+						cannot be longer than 100 characters.</p>
+				</div>
+				
+				<div class="form-group"
+						ng-class="{'has-error' : contextEntityForm.contextType.$invalid && contextEntityForm.contextType.$dirty}">
+
+						<select id="contextType" name="contextType" ng-model="context.contextType"
+							class="form-control" required
+							ng-options="item as item.description for item in contextTypes"
+							style="min-width: 300px">
+							<option value="">Select Context Type</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="contextEntityForm.contextType.$error.required">Select Context 
+							Type.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : contextEntityForm.place.$invalid && contextEntityForm.place.$dirty}">
+
+						<select id="place" name="place" ng-model="context.place"
+							class="form-control" required
+							ng-options="item as item.description for item in places"
+							style="min-width: 300px">
+							<option value="">Select Place</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="contextEntityForm.place.$error.required">Select 
+							Place.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : contextEntityForm.contextConfig.$invalid && contextEntityForm.contextConfig.$dirty}">
+
+						<select id="contextConfig" name="contextConfig" ng-model="context.context"
+							class="form-control"
+							ng-options="item as item.contextName for item in contexts"
+							style="min-width: 300px">
+							<option value="">Select Context Config</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<!-- <p class="help-block"
+							ng-show="contextEntityForm.contextConfig.$error.required">Select Context 
+							Config.</p> -->
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : contextEntityForm.status.$invalid && contextEntityForm.status.$dirty}">
+
+						<select id="status" name="status" ng-model="context.enableDisable"
+							class="form-control" required
+							style="min-width: 300px">
+							<option value="">Select Status</option>
+							<option value="0">Enable</option>
+							<option value="1">Disable</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="contextEntityForm.status.$error.required">Select 
+							Status.</p>
+					</div>
+
+				<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+				<div class="buttons">
+					<button type="button" class="btn btn-primary"
+						ng-click="clearForm()">Clear</button>
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="contextEntityForm.$invalid">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+
+	<br>
+
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the grid.-->
+	<div class="grid" ng-controller="contextEntityListController">
+		<div>
+			<h3>Context List</h3>
+		</div>
+
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions"  ng-click="Show2()"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="contextEntity.totalResults" items-per-page="contextEntity.pageSize"
+			ng-model="contextEntity.currentPage" ng-change="refreshGrid()">
+		</pagination>
+	</div>
+</div>

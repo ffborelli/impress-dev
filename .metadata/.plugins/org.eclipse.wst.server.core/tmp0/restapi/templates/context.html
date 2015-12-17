@@ -1,0 +1,223 @@
+<div class="context_container" ng-app="context">
+
+	<div ng-controller="contextController" ng-init="draw()">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-4">
+					<h1>Entities</h1>
+
+					<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+					<form name="nodeForm">
+
+						<label>Sensor</label>
+						<select id="sensor" ng-model="sensor"
+							ng-options="sensor.description for sensor in sensors"
+							class="form-control">
+							<option value=''>Sensor</option>
+						</select>
+						
+						<label>Fusion</label> 
+						<select id="fusion" ng-model="fusion"
+							ng-options="fusion.fusionName for fusion in fusions"
+							class="form-control">
+							<option value=''>Fusion</option>
+						</select>
+
+						<label>Rule</label> 
+						<select id="rule" ng-model="rule"
+							ng-options="rule.ruleName for rule in rules" class="form-control">
+							<option value=''>Rule</option>
+						</select>
+
+						<label>Actuator</label> 
+						<select id="actuator" ng-model="actuator"
+							ng-options="actuator.description for actuator in actuators"
+							class="form-control">
+							<option value=''>Actuator</option>
+						</select>
+
+						<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+						<div class="buttons">
+							<button type="button" class="btn btn-primary"
+								ng-click="addNode()">Add Resource</button>
+
+						</div>
+					</form>
+
+				</div>
+				<div class="col-xs-4">
+
+					<h1>Link</h1>
+
+					<form name="edgeForm">
+
+						<label>Sensor</label> <select id="sensor_edge"
+							ng-model="sensor_edge"
+							ng-options="sensor_edge.name for sensor_edge in sensor_edges"
+							class="form-control">
+							<option value=''>Sensor</option>
+						</select>
+						
+						<label>Fusion</label> 
+						<select id="fusion_edge"
+							ng-model="fusion_edge"
+							ng-options="fusion_edge.name for fusion_edge in fusion_edges"
+							class="form-control">
+							<option value=''>Fusion</option>
+						</select> 
+						
+						<label>Rule</label>
+						<select id="rule_edge" ng-model="rule_edge"
+							ng-options="rule_edge.name for rule_edge in rule_edges"
+							class="form-control">
+							<option value=''>Rule</option>
+						</select>
+
+						 <label>Actuator</label> 
+						 <select id="actuator_edge"
+						 	ng-options="actuator_edge.name for actuator_edge in actuator_edges"
+							ng-model="actuator_edge" class="form-control">
+							<option value=''>Actuator</option>
+						 </select>
+
+
+						<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+						<div class="buttons">
+							<button type="button" class="btn btn-primary"
+								ng-click="addEdge()">Add Link</button>
+
+						</div>
+					</form>
+					<!-- 		</div> -->
+
+				</div>
+				<div class="col-xs-4">
+
+					<h1>Control</h1>
+
+					<div class="row form-inline">
+
+						<form name="controlForm">
+
+							<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+							<div class="buttons">
+								<button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+								<button type="button" class="btn btn-primary" ng-click="save()">Update</button>
+							</div>
+						</form>
+					</div>
+					<h1>Search</h1>
+
+
+					<div class="row form-inline">
+
+						<form name="searchForm">
+
+							<input ng-model="searchModelID" type="text" class="form-control"
+								placeholder="ID..." ng-change="apiSearch()" />
+								
+<!-- 							<input ng-model="searchModelCount" type="text" class="form-control" -->
+<!-- 								placeholder="Count" ng-change="apiSearch()" /> -->
+								
+							<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+							<div class="buttons">
+								<button type="button" class="btn btn-primary" ng-click="save()">Search</button>
+								<button type="button" class="btn btn-primary" ng-click="clean()">Clean</button>
+							</div>
+						</form>
+					</div>
+					
+					<h1>Select</h1>
+
+					<div class="row form-inline">
+
+						<form name="searchForm">
+
+							<button type="button" class="btn btn-primary"
+								ng-click="removeNode()">Remove Node</button>
+							<button type="button" class="btn btn-primary"
+								ng-click="removeEdge()">Remove Edge</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 		<table> -->
+		<!-- 		<tr> -->
+		<!-- 			<td> -->
+		<!-- 				<h2>Node</h2> -->
+		<!-- 				<table> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td><label for="node-id">Id</label></td> -->
+		<!-- 						<td><input id="node-id" type="text"></td> -->
+		<!-- 					</tr> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td><label for="node-label">Label</label></td> -->
+		<!-- 						<td><input id="node-label" type="text"></td> -->
+		<!-- 					</tr> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td><label for="node-type">Type</label></td> -->
+		<!-- 						                    <td><input id="node-type" type="text" value="#ADD8E6"></td> -->
+
+		<!-- 						<td><select id="node-type"> -->
+		<!-- 								<option value="#DCDCDC">Fusion</option> -->
+		<!-- 								<option value="#E6E6FA">Sensors</option> -->
+		<!-- 								<option value="#ADD8E2">Rules</option> -->
+		<!-- 								<option value="#FA8072">Actuators</option> -->
+		<!-- 						</select></td> -->
+		<!-- 					</tr> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td>Action</td> -->
+		<!-- 						<td> -->
+		<!-- 							<button id="node-add" ng-click="addNode()">Add</button> -->
+		<!-- 							<button id="node-update" ng-click="updateNode();">Update</button> -->
+		<!-- 							<button id="node-remove" ng-click="removeNode();">Remove</button> -->
+		<!-- 						</td> -->
+		<!-- 					</tr> -->
+		<!-- 				</table> -->
+		<!-- 			</td> -->
+		<!-- 			<td> -->
+		<!-- 				<h2>Edge</h2> -->
+		<!-- 				<table> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td><label for="edge-id">Id</label></td> -->
+		<!-- 						<td><input id="edge-id" type="text" value="5"></td> -->
+		<!-- 					</tr> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td><label for="edge-from">From</label></td> -->
+		<!-- 						<td><input id="edge-from" type="text" value="3"></td> -->
+		<!-- 					</tr> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td><label for="edge-to">To</label></td> -->
+		<!-- 						<td><input id="edge-to" type="text" value="4"></td> -->
+		<!-- 					</tr> -->
+		<!-- 					<tr> -->
+		<!-- 						<td></td> -->
+		<!-- 						<td>Action</td> -->
+		<!-- 						<td> -->
+		<!-- 							<button id="edge-add" ng-click="checkAdd();">Add</button> -->
+		<!-- 							<button id="edge-update" ng-click="check();">Update</button> -->
+		<!-- 							<button id="edge-remove" ng-click="removeEdge();">Remove</button> -->
+		<!-- 						</td> -->
+		<!-- 					</tr> -->
+		<!-- 				</table> -->
+		<!-- 			</td> -->
+		<!-- 		</tr> -->
+
+		<!-- 	</table> -->
+
+		<h1>Context</h1>
+		<div id="network"></div>
+		<pre id="eventSpan"></pre>
+
+	</div>
+</div>

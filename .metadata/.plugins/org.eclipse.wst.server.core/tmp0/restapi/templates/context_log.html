@@ -1,0 +1,41 @@
+<div class="container" ng-app="contextlog">
+	<div class="form" ng-controller="contextLogListController">
+
+		<form class="well form-search">
+			<div class="form-group">
+				<input ng-model="searchModel" type="text" class="form-control"
+					placeholder="Filter..." ng-change="apiSearch()"
+					style="min-width: 300px;" />
+
+				<!-- 				<button type="submit" class="btn btn-primary" ng-click="apiSearch()">Search</button> -->
+			</div>
+		</form>
+
+	</div>
+
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the grid.-->
+	<div class="grid" ng-controller="contextLogListController">
+		<div>
+			<h3>Context Log</h3>
+		</div>
+
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="contextLog.totalResults" items-per-page="contextLog.pageSize"
+			ng-model="contextLog.currentPage" ng-change="refreshGrid()">
+		</pagination>
+	</div>
+</div>
