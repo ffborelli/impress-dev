@@ -92,20 +92,17 @@ public class Modelling implements Runnable, MqttCallback {
         }
     }
 
-    public void writeFile(int i) throws IOException {
-
-        File arquivo = new File("/home/ivan/Desktop/Universidade/IC/BrokerDados/pub" + Param.experiment + ".txt");
+    public void writeFile(String m, String time) throws IOException {
+        String[] msg = m.split(";");
+        File arquivo = new File(Param.path + ".csv");
         try (FileWriter fw = new FileWriter(arquivo, true);
                 BufferedWriter bw = new BufferedWriter(fw)) {
-            String time = new Timestamp(System.currentTimeMillis()).toString();
-
-            String m = (threadId + ";" + i + ";" + time);
+            m = "\"" + msg[0] + "\"" + ";" + "\"" + msg[1] + "\"" + ";" + "\"" + msg[2] + "\"" + ";" + "\"" + time + "\"";
             //devNo;msgNo;time
             bw.write(m);
             bw.newLine();
         }
     }
-
     public void publish() throws IOException {
 
         if (client == null ) {
@@ -122,9 +119,9 @@ public class Modelling implements Runnable, MqttCallback {
                 if (client == null) {
                     this.connectMQTT();
                 }
-
+                String time = new Timestamp(System.currentTimeMillis()).toString();
                 client.publish(Param.topic /*+ random.nextInt(Param.number_of_topics)*/, m.getBytes(), Param.qos, false);
-                //writeFile(i + 1);
+                writeFile(m, time);
                 counter.addCounter();
 
             } catch (MqttException ex) {
