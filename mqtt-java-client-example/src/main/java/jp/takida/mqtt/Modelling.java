@@ -1,10 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jp.takida.mqtt;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -17,171 +16,117 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-/**
- *
- * @author fabrizio
- */
 public class Modelling implements Runnable, MqttCallback {
 
-    private long threadId;
+    private final int threadId;
 
-    private int timeBetweenEvents;
+    private final int timeBetweenEvents;
 
-    private int numberOfEvents;
+    private final int numberOfEvents;
 
-    private Random randon = new Random();
+    private final Random random = new Random();
 
     private MqttClient client;
 
+    private final int idSensor;
+
     private MqttConnectOptions options;
-    
-    private int idSensor;
-    
+
     private final CountDownLatch latch;
-
     ThreadCounter counter = new ThreadCounter();
-    
-    //private static int num = 0;
-    
-    public Modelling(int timeBetweenEvents, int numberOfEvents, int idSensor, CountDownLatch latch) {
-        
-        //randon.setSeed(System.currentTimeMillis());
-        this.numberOfEvents = numberOfEvents;
-        this.timeBetweenEvents = timeBetweenEvents;
-        //timeBetweenEvents = randon.nextInt(3000);
-        this.idSensor = idSensor;
-        this.latch = latch;
 
-    }
-    
-    private int getTimeBetweenEvents(){
-    
-        boolean check = true;
-        int time = 0;
-        
-        do{
-            
-            time = randon.nextInt(3500);
-            
-            if (time > 1500){
-                check = false;
-            }
-            
-        }while(check);
-        
-        return time;
+    // public Modelling(int timeBetweenEvents, int numberOfEvents, CountDownLatch latch) {
+    public Modelling(int TimeBetweenEvents, int idSensor, int threadId, int numberOfEvents, CountDownLatch latch) {
+        this.numberOfEvents = numberOfEvents;
+        this.timeBetweenEvents = TimeBetweenEvents;
+        this.threadId = threadId;
+        this.latch = latch;
+        this.idSensor = idSensor;
+
     }
 
     @Override
     public void run() {
-        threadId = Thread.currentThread().getId();
-        //System.out.println(threadId);
-        randon.setSeed(threadId);
-        //Logger.getLogger().debug("Thread # " + threadId + " is doing this task");
-        //timeBetweenEvents = this.getTimeBetweenEvents();
-        //idSensor = this.getIdSensor();
-        this.publish();
-    }
-
-    private void connectMQTT() {
+        System.out.println("Thread id: " + threadId);
+        random.setSeed(threadId);
         try {
-            //MqttClient client = new MqttClient("tcp://localhost:1883", "pahomqttpublish19"  + threadId);
-            client = new MqttClient(Param.address, "pahomqttpublish" + threadId);
-            //client = new MqttClient("tcp://localhost:1883", "pahomqttpublish" + threadId);
-            client.setCallback(this);
-
-            options = new MqttConnectOptions();
-            options.setUserName("admin");
-            options.setPassword("password".toCharArray());
-            //options.setWill("pahodemo/test", "crashed".getBytes(), 2, true);
-
-            client.connect(options);
-
-        } catch (MqttException e) {
-            //e.printStackTrace();
-            Logger.getLogger(Modelling.class.getName()).log(Level.SEVERE, null, e);
+            this.publish();
+        } catch (IOException ex) {
+            Logger.getLogger(Modelling.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void finishConnection() {
-    }
-    
-    private int getIdSensor(){
-    
-        int idResource = randon.nextInt(17);
-        boolean check = true;
-        int r = 0;
-
-        while (check) {
-            if (idResource == 5 || idResource == 6 || idResource == 13 || idResource == 16) {
-                r = idResource;
-                check = false;
-            }
-            else{
-                idResource = randon.nextInt(17);
-            }
-        }
-
-        return r;
     }
 
     private String getMessageFromSensor(int idResource) {
 
-        String m = null;
+        String m;
+        m = null;
         //temperature
         if (idResource == 5 || idResource == 6) {
-            m = "1;" + idResource + ";" + String.valueOf(randon.nextInt(50));
-                    //r = idResource;
-        } 
-        //android
+            m = "1;" + idResource + ";" + String.valueOf(random.nextInt(50));
+            //r = idResource;
+        } //android
         else if (idResource == 13) {
-            m = "4;" + String.valueOf(randon.nextInt(3));
+            m = "4;" + String.valueOf(random.nextInt(3));
 
-        } 
-        //presence
+        } //presence
         else if (idResource == 16) {
-            m = "1;" + idResource + ";" + String.valueOf(randon.nextInt(16));
+            m = "1;" + idResource + ";" + String.valueOf(random.nextInt(16));
 
-        } 
-        else {
+        } else {
         }
 
         return m;
 
     }
 
-    public void publish() {
+    private void connectMQTT() {
+        try {
+            client = new MqttClient(Param.address, "DeviceNo_" + threadId);
+            client.setCallback(this);
+            options = new MqttConnectOptions();
+            options.setUserName("admin");
+            options.setPassword("password".toCharArray());
+            client.connect(options);
+        } catch (MqttException e) {
+            Logger.getLogger(Modelling.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 
-        if (client == null || !client.isConnected()) {
+    public void writeFile(int i) throws IOException {
+
+        File arquivo = new File("/home/ivan/Desktop/Universidade/IC/BrokerDados/pub" + Param.experiment + ".txt");
+        try (FileWriter fw = new FileWriter(arquivo, true);
+                BufferedWriter bw = new BufferedWriter(fw)) {
+            String time = new Timestamp(System.currentTimeMillis()).toString();
+
+            String m = (threadId + ";" + i + ";" + time);
+            //devNo;msgNo;time
+            bw.write(m);
+            bw.newLine();
+        }
+    }
+
+    public void publish() throws IOException {
+
+        if (client == null ) {
             this.connectMQTT();
         }
 
         for (int i = 0; i < numberOfEvents; i++) {
 
             String m = this.getMessageFromSensor(idSensor);
-
-//            int idResource = (randon.nextInt(100) % 2) + 1 ;
-//            m = idResource + ";" + String.valueOf(randon.nextInt(40));
-            //randon.setSeed(System.nanoTime() + threadId );
-
-
             MqttMessage message = new MqttMessage();
             message.setPayload(m.getBytes());
+
             try {
-                if (client == null || !client.isConnected()) {
+                if (client == null) {
                     this.connectMQTT();
                 }
-                
-                //client.publish("impress/temperature", message);
-                
-                if (client.isConnected()){
-                
-                    client.publish("impress/demo" + randon.nextInt(Param.number_of_topics), m.getBytes(), 0, false);
-                    //System.out.println(num++);
-                    counter.addCounter();
-                    //client.publish("impress/demo", ("1;5;"+ randon.nextInt(50)).getBytes(), 0, false);
-                    // client.publish("impress/demo", ("1;1;1").getBytes(), 0, false);
-                }
+
+                client.publish(Param.topic /*+ random.nextInt(Param.number_of_topics)*/, m.getBytes(), Param.qos, false);
+                //writeFile(i + 1);
+                counter.addCounter();
+
             } catch (MqttException ex) {
                 Logger.getLogger(Modelling.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -194,25 +139,16 @@ public class Modelling implements Runnable, MqttCallback {
 
         }
         SendToken token = new SendToken();
-        token.setId((int)threadId);
-        token.setToken("FINISH");
-        token.setClient(client);
-        token.sendToken();
-
-        latch.countDown(); 
-        
-        System.out.println(counter.getCounter());
-        
-                try {
-            //client.subscribe("impress/temperature");
-            
-            
+        try {
+            token.sendToken("FINISH", (int) threadId);
             client.disconnect();
-            client.close();
         } catch (MqttException ex) {
             Logger.getLogger(Modelling.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        latch.countDown();
+        System.out.println("Contador: " + counter.getCounter());
+
     }
 
     public void connectionLost(Throwable msg) {
@@ -220,22 +156,22 @@ public class Modelling implements Runnable, MqttCallback {
     }
 
     public void deliveryComplete(IMqttDeliveryToken arg0) {
-//        try {
-//            if (arg0.getMessage() != null)
-//                System.out.println("Thread " + threadId +" -- Delivery completed. --> " + arg0.getMessage().toString());
-//            //System.nanoTime();
-//            
-//        } catch (MqttException ex) {
-//            Logger.getLogger(MqttPublish.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        //try {
+        //System.out.println("Thread " + threadId +" -- Delivery completed. --> " + arg0.getMessage().toString());
+        //System.nanoTime();
+
+        //} catch (MqttException ex) {
+        //Logger.getLogger(MqttPublish.class.getName()).log(Level.SEVERE, null, ex);
+        //}
     }
 
     public void messageArrived(String topic, MqttMessage message) throws Exception {
-//        String time = new Timestamp(System.currentTimeMillis()).toString();
-//        System.out.println("Time:\t" + time
-//                + "  Topic:\t" + topic
-//                + "  Message:\t" + new String(message.getPayload())
-//                + "  QoS:\t" + message.getQos());
+        String time = new Timestamp(System.currentTimeMillis()).toString();
+        System.out.println("Time:\t" + time
+                + "  Topic:\t" + topic
+                + "  Message:\t" + new String(message.getPayload())
+                + "  QoS:\t" + message.getQos());
+
     }
 
 }

@@ -6,7 +6,6 @@
 
 package jp.takida.mqtt;
 
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -23,23 +22,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class SendToken implements MqttCallback {
     
     private MqttClient client;
-    
     private MqttConnectOptions options;
     
-    private long threadId;
-
-    private String token;
-    
-    private int id;
-
-    public SendToken() {
-    }
-    
-    
-    private void connectMQTT() {
+   public void sendToken(String token, int id){
+   
         try {
             //MqttClient client = new MqttClient("tcp://localhost:1883", "pahomqttpublish19"  + threadId);
-            client = new MqttClient(Param.address, "pahomqttpublishToken" + threadId);
+            client = new MqttClient(Param.address, "tokensender"+id);
             //client = new MqttClient("tcp://localhost:1883", "pahomqttpublish" + threadId);
             client.setCallback(this);
 
@@ -49,48 +38,19 @@ public class SendToken implements MqttCallback {
             //options.setWill("pahodemo/test", "crashed".getBytes(), 2, true);
 
             client.connect(options);
-
-        } catch (MqttException e) {
-            //e.printStackTrace();
-            Logger.getLogger(Modelling.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-    
-   public void sendToken(){
-   
-        if (client == null || !client.isConnected()) {
-            this.connectMQTT();
-        }
-        try {
-//            //MqttClient client = new MqttClient("tcp://localhost:1883", "pahomqttpublish19"  + threadId);
-//            client = new MqttClient(Param.address, "tokensender"+id);
-//            //client = new MqttClient("tcp://localhost:1883", "pahomqttpublish" + threadId);
-//            client.setCallback(this);
-//
-//            options = new MqttConnectOptions();
-//            options.setUserName("admin");
-//            options.setPassword("password".toCharArray());
-//            //options.setWill("pahodemo/test", "crashed".getBytes(), 2, true);
-//
-//            client.connect(options);
             
-            client.publish("impress/demo0", token.getBytes(), 0, false);
-            //client.disconnect();
-            
+            client.publish(Param.topic, token.getBytes(), 0, false);
+            // client.publish("impress/demo0", token.getBytes(), 1, true);
 
         } catch (MqttException e) {
             //e.printStackTrace();
             Logger.getLogger(SendToken.class.getName()).log(Level.SEVERE, null, e);
         }
-       
-       
    }
 
     @Override
     public void connectionLost(Throwable cause) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        connectMQTT();
-        sendToken();    
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -102,31 +62,5 @@ public class SendToken implements MqttCallback {
     public void deliveryComplete(IMqttDeliveryToken token) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public MqttClient getClient() {
-        return client;
-    }
-
-    public void setClient(MqttClient client) {
-        this.client = client;
-    }
-    
-    
     
 }
