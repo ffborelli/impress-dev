@@ -11,10 +11,10 @@ public class EnergySafer {
 		try {
             // open websocket
             //final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("ws://192.168.1.101:10011"));
-            final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("ws://172.31.127.31:10011"));
+            //final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("ws://172.31.127.31:10011"));
             
 			//final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("wss://impressufabc.cloudapp.net:10010/"));
-            //final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("ws://130.188.58.101:10011/"));
+            final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("ws://130.188.58.101:10011/"));
             
             
             // add listener

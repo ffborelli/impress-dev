@@ -115,6 +115,7 @@ public class RecifeLights {
             clientEndPoint.sendMessage("[0, 0, {\"application ID\": \"7d1331c0-cf29-4d52-8089-9e0418dcc634\", \"resource specification ID\": \"8\", \"resource count\": 1}]");
             
             clientEndPoint.sendMessage("[0, 0, {\"application ID\": \"7d1331c0-cf29-4d52-8089-9e0418dcc634\", \"resource specification ID\": \"6\", \"resource count\": 1}]");
+            clientEndPoint.sendMessage("[0, 0, {\"application ID\": \"7d1331c0-cf29-4d52-8089-9e0418dcc634\", \"resource specification ID\": \"5\", \"resource count\": 1}]");
             
             
             

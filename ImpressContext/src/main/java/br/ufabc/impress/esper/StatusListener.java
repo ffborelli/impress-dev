@@ -39,7 +39,7 @@ public class StatusListener implements UpdateListener {
 		 lr.setResource(r);
 		 lr.setCreationDate(new Timestamp(new Date().getTime()));
 		 
-		 this.getResourceLogFacade().create(lr);
+		 //this.getResourceLogFacade().create(lr);
 		 
 		 //get status of button
 //		 LogResourceFacade logResourceFacade = new LogResourceFacade();
@@ -64,7 +64,7 @@ public class StatusListener implements UpdateListener {
 			eval.setName(Param.name_experiment);
 			eval.setModule(Param.module_fusion_status);
 			eval.setDescription(this.getClass().toString());
-			this.getEvalSdpFacade().create(eval);
+			//this.getEvalSdpFacade().create(eval);
 			
 			//name , start, finish, duration,  duration_mil, module, description
 			File f = new File();
@@ -91,8 +91,13 @@ public class StatusListener implements UpdateListener {
 			eval.setName(Param.name_experiment);
 			eval.setModule(Param.module_rule_status);
 			eval.setDescription("Inference " + Param.module_rule_status);
-			this.getEvalSdpFacade().create(eval);
+			//this.getEvalSdpFacade().create(eval);
 			//System.out.println(Param.module_rule_status);
+			
+
+			//name , start, finish, duration,  duration_mil, module, description
+			File f = new File();
+			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_rule_status + ";" + this.getClass().toString());
 		}
 	}
 	

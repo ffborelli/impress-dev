@@ -9,7 +9,7 @@ public class Param {
 	
 	public static int number_of_topics = 1;
 	
-	public static int number_of_devices = 1023;
+	public static int number_of_devices = 10;
 	
 	public static final String module_fusion_status = "fusion status";
 	public static final String module_fusion_presence = "fusion presence";

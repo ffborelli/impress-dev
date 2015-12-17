@@ -56,7 +56,12 @@ public class TemperatureListener implements UpdateListener {
 			eval.setName(Param.name_experiment);
 			eval.setModule(Param.module_fusion_temperature);
 			eval.setDescription(this.getClass().toString());
-			this.getEvalSdpFacade().create(eval);
+			//this.getEvalSdpFacade().create(eval);
+			
+
+			//name , start, finish, duration,  duration_mil, module, description
+			File f = new File();
+			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_fusion_temperature + ";" + this.getClass().toString());
 		}
 
 		startTime = System.currentTimeMillis();
@@ -83,7 +88,7 @@ public class TemperatureListener implements UpdateListener {
 			
 			//name , start, finish, duration,  duration_mil, module, description
 			File f = new File();
-			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_fusion_temperature + ";" + this.getClass().toString());
+			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_rule_temperature + ";" + this.getClass().toString());
 		}
 		 
 		}

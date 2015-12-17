@@ -84,15 +84,15 @@ public class PresenceListener implements UpdateListener {
 
 		if (Param.is_eval) {
 			// eval time
-			EvalSdp eval = new EvalSdp();
-			eval.setStart(new Timestamp(startTime));
-			eval.setFinish(new Timestamp(finishTime));
-			eval.setDuration(new Timestamp(estimatedTime));
-			eval.setDurationMil(estimatedTime);
-			eval.setName(Param.name_experiment);
-			eval.setModule(Param.module_fusion_presence);
-			eval.setDescription(this.getClass().toString());
-			new EvalSdpFacade().create(eval);
+//			EvalSdp eval = new EvalSdp();
+//			eval.setStart(new Timestamp(startTime));
+//			eval.setFinish(new Timestamp(finishTime));
+//			eval.setDuration(new Timestamp(estimatedTime));
+//			eval.setDurationMil(estimatedTime);
+//			eval.setName(Param.name_experiment);
+//			eval.setModule(Param.module_fusion_presence);
+//			eval.setDescription(this.getClass().toString());
+			//new EvalSdpFacade().create(eval);
 			
 			//name , start, finish, duration,  duration_mil, module, description
 			File f = new File();
@@ -111,16 +111,21 @@ public class PresenceListener implements UpdateListener {
 		if (Param.is_eval) {
 			// eval time
 			//System.out.println(Param.module_rule_presence);
-			EvalSdp eval = new EvalSdp();
-			eval.setStart(new Timestamp(startTime));
-			eval.setFinish(new Timestamp(finishTime));
-			eval.setDuration(new Timestamp(estimatedTime));
-			eval.setDurationMil(estimatedTime);
-			eval.setName(Param.name_experiment);
-			eval.setModule(Param.module_rule_presence);
-			eval.setDescription("Inference " + Param.module_rule_presence);
-			new EvalSdpFacade().create(eval);
+//			EvalSdp eval = new EvalSdp();
+//			eval.setStart(new Timestamp(startTime));
+//			eval.setFinish(new Timestamp(finishTime));
+//			eval.setDuration(new Timestamp(estimatedTime));
+//			eval.setDurationMil(estimatedTime);
+//			eval.setName(Param.name_experiment);
+//			eval.setModule(Param.module_rule_presence);
+//			eval.setDescription("Inference " + Param.module_rule_presence);
+			//new EvalSdpFacade().create(eval);
 			//System.out.println(Param.module_rule_presence);
+			
+
+			//name , start, finish, duration,  duration_mil, module, description
+			File f = new File();
+			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_rule_presence + ";" + this.getClass().toString());
 		}
 		
 
