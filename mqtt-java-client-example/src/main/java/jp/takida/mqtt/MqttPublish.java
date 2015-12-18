@@ -24,6 +24,7 @@ public class MqttPublish {
             se = new Modelling(getTimeBetweenEvents(), 5, i + 1, Param.number_of_messages, latch);
             thread = new Thread(se);
             thread.start();
+            
             if (i + 2 <= Param.number_of_devices) {
                 se = new Modelling(getTimeBetweenEvents(), 6, i + 2, Param.number_of_messages, latch);
                 thread = new Thread(se);
