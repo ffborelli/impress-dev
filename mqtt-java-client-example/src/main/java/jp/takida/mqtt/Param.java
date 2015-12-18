@@ -8,7 +8,7 @@ package jp.takida.mqtt;
 public class Param {
 
     // Metricas 
-    public static String name_experiment = "Experiment 78";
+    public static String name_experiment = "Experiment 87";
     public static final int number_of_devices = 600; // 50 - 200 - 600
     
     public static final int number_of_topics = 1;
