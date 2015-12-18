@@ -16,7 +16,7 @@ public class MqttPublish {
 
         SendToken s = new SendToken();
         s.sendToken("START", 9999);
-        for (int i = 0; i < (Param.number_of_devices); i = i + 3) {
+        for (int i = 0; i < (Param.number_of_devices); i = i + 2) {
 
             Modelling se;
             Thread thread;
@@ -28,11 +28,7 @@ public class MqttPublish {
                 se = new Modelling(getTimeBetweenEvents(), 6, i + 2, Param.number_of_messages, latch);
                 thread = new Thread(se);
                 thread.start();
-                if (i + 3 <= Param.number_of_devices) {
-                    se = new Modelling(getTimeBetweenEvents(), 16, i + 3, Param.number_of_messages, latch);
-                    thread = new Thread(se);
-                    thread.start();
-                }
+
             }
 
             try {
@@ -43,7 +39,6 @@ public class MqttPublish {
 
 //        s.sendToken("FINISH", 1000);
 //            System.out.println("Message sent");
-
         }
     }
 
