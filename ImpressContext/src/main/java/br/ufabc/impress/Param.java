@@ -1,8 +1,8 @@
 package br.ufabc.impress;
 
 public class Param {
-	
-	public static String name_experiment = "Experiment 93";
+
+	public static String name_experiment = "Experiment 190";
     public static final int number_of_devices = 600; // 50 - 200 - 600
 	//public static final String address = "tcp://impressufabc.cloudapp.net:1883";
 	public static final String address = "tcp://localhost:1884";

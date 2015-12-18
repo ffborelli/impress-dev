@@ -184,7 +184,7 @@ public class Esper {
 
 						" from "
 
-						+ " DemoEsperType().win:length_batch(3)  where DemoEsperType.resource.id = 5 or DemoEsperType.resource.id = 6"
+						+ " DemoEsperType().win:length_batch(24)  where DemoEsperType.resource.id = 5 or DemoEsperType.resource.id = 6"
 						+ "  ");
 
 		cepStatement.addListener(new TemperatureListener());
@@ -209,7 +209,7 @@ public class Esper {
 						+ " from "
 
 						//+ " DemoEsperType().win:time_batch(3 sec) "
-						+ " DemoEsperType().win:length_batch(3) "
+						+ " DemoEsperType().win:length_batch(24) "
 						+ " where DemoEsperType.resource.id = 16 ");
 
 		cepStatement2.addListener(new PresenceListener());
