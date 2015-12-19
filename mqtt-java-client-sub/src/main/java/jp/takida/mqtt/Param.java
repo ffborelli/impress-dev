@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package jp.takida.mqtt;
-
 /**
  
  * @author fabrizio
@@ -13,7 +12,7 @@ public class Param {
 
     // Metricas : 
 
-    public static String name_experiment = "Experiment 87";
+    public static String name_experiment = "Experiment 151";
     public static final int number_of_devices = 600; // 50 - 200 - 600
 
     public static final int number_of_topics = 1; // 1-5
