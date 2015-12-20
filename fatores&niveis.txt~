@@ -7,7 +7,9 @@ Experimentos:
 31 - 46	: 	600 - 1 // Erro no experimento 36, desconsidera-lo
 48 - 62	: 	50  - 3 // Erro no experimento 47, desconsidera-lo
 63 - 77	: 	200 - 3
-78 - 102:	600 - 3 // Erro no experimento 78, desconsidera-lo
+79 - 103:	600 - 3 // Erro no experimento 78, desconsidera-lo
 
 
-
+104 - 118:      50  - 30
+119 - 133:      200 - 30
+134 - 150:      600 - 30
