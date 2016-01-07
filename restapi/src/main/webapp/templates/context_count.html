@@ -1,3 +1,160 @@
-<div class="context_count_container" ng-app="contextcount">
-	<h1>Context Count</h1>
+<div class="container" ng-app="contextcount">
+	<div ng-controller="contextCountController" ng-init="draw()">
+
+		<div id="content_div">
+			<div id="add_nodes_div" ng-show="addNodesDiv">
+				<table width="500" height="250">
+					<tr>
+						<td>
+							<button type="button" class="add_resource_btns"
+								ng-click="showSensors()">Add Sensor</button>
+						</td>
+						<td>
+							<button type="button" class="add_resource_btns"
+								ng-click="showFusions()">Add Fusion</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button type="button" class="add_resource_btns"
+								ng-click="showRules()">Add Rule</button>
+						</td>
+						<td>
+							<button type="button" class="add_resource_btns"
+								ng-click="showActuators()">Add Actuator</button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button type="button" class="link_resources_btn"
+								ng-click="Link()">Link</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="add_sensor_div"  ng-show="addSensorDiv">
+				<form name="addSensorForm">
+					<table width="450" class="selectTable">
+						<tr>
+							<td>
+								<label>Sensor</label>
+							</td>
+							<td>
+								<select id="sensor" ng-model="sensor"
+									ng-options="sensor.description for sensor in sensors"
+									class="form-control">
+									<option value=''>Sensor</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<table width="225" class="addCancelTable">
+						<tr>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="cancel()">Cancel</button>
+							</td>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="addSensor()">Add</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div id="add_fusion_div"  ng-show="addFusionDiv">
+				<form name="addFusionForm">
+					<table width="450" class="selectTable">
+						<tr>
+							<td>
+								<label>Fusion</label>
+							</td>
+							<td>
+								<select id="fusion" ng-model="fusion"
+									ng-options="fusion.fusionName for fusion in fusions"
+									class="form-control">
+									<option value=''>Fusion</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<table width="225" class="addCancelTable">
+						<tr>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="cancel()">Cancel</button>
+							</td>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="addFusion()">Add</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div id="add_rule_div"  ng-show="addRuleDiv">
+				<form name="addRuleForm">
+					<table width="450" class="selectTable">
+						<tr>
+							<td>
+								<label>Rule</label>
+							</td>
+							<td>
+								<select id="rule" ng-model="rule"
+									ng-options="rule.ruleName for rule in rules" class="form-control">
+									<option value=''>Rule</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<table width="225" class="addCancelTable">
+						<tr>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="cancel()">Cancel</button>
+							</td>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="addRule()">Add</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div id="add_actuator_div"  ng-show="addActuatorDiv">
+				<form name="addActuatorForm">
+					<table width="450" class="selectTable">
+						<tr>
+							<td>
+								<label>Actuator</label>
+							</td>
+							<td>
+								<select id="actuator" ng-model="actuator"
+									ng-options="actuator.description for actuator in actuators"
+									class="form-control">
+									<option value=''>Actuator</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<table width="225" class="addCancelTable">
+						<tr>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="cancel()">Cancel</button>
+							</td>
+							<td>
+								<button type="button" class="link_resources_btn"
+									ng-click="addActuator()">Add</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+
+		<h1>Context</h1>
+		<div id="network"></div>
+
+	</div>
 </div>
