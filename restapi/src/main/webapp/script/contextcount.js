@@ -105,134 +105,136 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 	    });
 	    
 	    $scope.addSensor = function(){
-			// TODO
-			alert("Add Sensor");
+			
+	    	var node_id;
+			var node_label;
+			var color;
+			
+			try {
+		    	nodes.add({id : id_global_node,
+						   label : 'Sensor ' + $scope.sensor.description + ' ' + id_global_node,
+							color : {background : colors[0]},
+							title : 'I am a resource!'
+
+					      });
+		    	
+		    	var r = {local:$scope.sensor.id, global: id_global_node, type:"SENSOR" };
+		    	relation.push(r);
+		    	
+			} catch (err) {
+				alert(err);
+			}
+			
+			$scope.sensor_edges.push({ name: "Sensor " + $scope.sensor.description + ' ' + id_global_node , local:$scope.sensor.id, global: id_global_node, type:"SENSOR" });
+			id_global_node++;
+			count_sensor++;
+			
+			//reset select box
+			$scope.sensor = null;
+			
+			$scope.addSensorDiv = false;
+			$scope.addNodesDiv = true;
+	    	
 		};
 		
 		$scope.addFusion = function(){
-			// TODO
-			alert("Add Fusion");
-		};
-		
-		$scope.addRule = function(){
-			// TODO
-			alert("Add Rule");
-		};
-		
-		$scope.addActuator = function(){
-			// TODO
-			alert("Add Actuator");
-		};
-		
-		$scope.addNode = function () {
 			
 			var node_id;
 			var node_label;
 			var color;
 			
-			if($scope.rule != null && typeof $scope.rule != "undefined"){
-				//alert($scope.rule);
-				try {
-			    	nodes.add({id : id_global_node,
-							   label : 'Rule ' + $scope.rule.ruleName +  ' ' + id_global_node,
-								color : {background : colors[2]},
-								title : 'I am a Rule!'
+			try {
+		    	nodes.add({id : id_global_node,
+						   label : 'Fusion ' + $scope.fusion.fusionName + ' ' + id_global_node,
+							color : {background : colors[1]},
+							title : 'I am a Fusion!'
 
-						      });
-			    	
-			    	var r = {local:$scope.rule.id, global: id_global_node, type:'RULE'};
-			    	relation.push(r);
-			    	
-				} catch (err) {
-					alert(err);
-				}
-				
-				$scope.rule_edges.push({ name: "Rule " + $scope.rule.ruleName +  ' ' + id_global_node, local: $scope.rule.id, global: id_global_node, type:"RULE" });
-				id_global_node++;
-				count_rule++;
-				
-				//reset select box
-				$scope.rule = null;
-			}
-			if ($scope.fusion != null && typeof $scope.fusion != "undefined"){
-				
-				try {
-			    	nodes.add({id : id_global_node,
-							   label : 'Fusion ' + $scope.fusion.fusionName + ' ' + id_global_node,
-								color : {background : colors[1]},
-								title : 'I am a Fusion!'
-
-						      });
-			    	
-			    	var r = {local:$scope.fusion.id, global: id_global_node, type:"FUSION" };
-			    	relation.push(r);
-			    
-				} catch (err) {
-					alert(err);
-				}
-				
-				$scope.fusion_edges.push({ name: "Fusion " + $scope.fusion.fusionName + ' ' + id_global_node, local:$scope.fusion.id, global: id_global_node, type:"FUSION" });
-				id_global_node++;
-				count_fusion++;
-				
-				//reset select box
-				$scope.fusion = null;
-				
+					      });
+		    	
+		    	var r = {local:$scope.fusion.id, global: id_global_node, type:"FUSION" };
+		    	relation.push(r);
+		    
+			} catch (err) {
+				alert(err);
 			}
 			
-			if ($scope.sensor != null && typeof $scope.sensor != "undefined"){
-				
-				try {
-			    	nodes.add({id : id_global_node,
-							   label : 'Sensor ' + $scope.sensor.description + ' ' + id_global_node,
-								color : {background : colors[0]},
-								title : 'I am a resource!'
+			$scope.fusion_edges.push({ name: "Fusion " + $scope.fusion.fusionName + ' ' + id_global_node, local:$scope.fusion.id, global: id_global_node, type:"FUSION" });
+			id_global_node++;
+			count_fusion++;
+			
+			//reset select box
+			$scope.fusion = null;
+			
+			$scope.addFusionDiv = false;
+			$scope.addNodesDiv = true;
+			
+		};
+		
+		$scope.addRule = function(){
+			
+			var node_id;
+			var node_label;
+			var color;
+			
+			try {
+		    	nodes.add({id : id_global_node,
+						   label : 'Rule ' + $scope.rule.ruleName +  ' ' + id_global_node,
+							color : {background : colors[2]},
+							title : 'I am a Rule!'
 
-						      });
-			    	
-			    	var r = {local:$scope.sensor.id, global: id_global_node, type:"SENSOR" };
-			    	relation.push(r);
-			    	
-				} catch (err) {
-					alert(err);
-				}
-				
-				$scope.sensor_edges.push({ name: "Sensor " + $scope.sensor.description + ' ' + id_global_node , local:$scope.sensor.id, global: id_global_node, type:"SENSOR" });
-				id_global_node++;
-				count_sensor++;
-				
-				//reset select box
-				$scope.sensor = null;
-				
+					      });
+		    	
+		    	var r = {local:$scope.rule.id, global: id_global_node, type:'RULE'};
+		    	relation.push(r);
+		    	
+			} catch (err) {
+				alert(err);
 			}
 			
-			if ($scope.actuator != null && typeof $scope.actuator != "undefined"){
-				
-				try {
-			    	nodes.add({id : id_global_node,
-							   label : 'Actuator ' + $scope.actuator.description + ' ' + id_global_node,
-								color : {background : colors[3]},
-								title : 'I am a actuator!'
+			$scope.rule_edges.push({ name: "Rule " + $scope.rule.ruleName +  ' ' + id_global_node, local: $scope.rule.id, global: id_global_node, type:"RULE" });
+			id_global_node++;
+			count_rule++;
+			
+			//reset select box
+			$scope.rule = null;
+			
+			$scope.addRuleDiv = false;
+			$scope.addNodesDiv = true;
+			
+		};
+		
+		$scope.addActuator = function(){
+			
+			var node_id;
+			var node_label;
+			var color;
+			
+			try {
+		    	nodes.add({id : id_global_node,
+						   label : 'Actuator ' + $scope.actuator.description + ' ' + id_global_node,
+							color : {background : colors[3]},
+							title : 'I am a actuator!'
 
-						      });
-			    	
-			    	var r = {local:$scope.actuator.id, global: id_global_node, type:"ACTUATOR" };
-			    	relation.push(r);
+					      });
+		    	
+		    	var r = {local:$scope.actuator.id, global: id_global_node, type:"ACTUATOR" };
+		    	relation.push(r);
 
-				} catch (err) {
-					alert(err);
-				}
-				
-				$scope.actuator_edges.push({ name: "Actuator " + $scope.actuator.description + ' ' + id_global_node, local:$scope.actuator.id , global: id_global_node, type:"ACTUATOR"  });
-				id_global_node++;
-				count_actuator++;
-				
-				//reset select box
-				$scope.actuator = null;
+			} catch (err) {
+				alert(err);
 			}
 			
-
-		}
+			$scope.actuator_edges.push({ name: "Actuator " + $scope.actuator.description + ' ' + id_global_node, local:$scope.actuator.id , global: id_global_node, type:"ACTUATOR"  });
+			id_global_node++;
+			count_actuator++;
+			
+			//reset select box
+			$scope.actuator = null;
+			
+			$scope.addActuatorDiv = false;
+			$scope.addNodesDiv = true;
+			
+		};
 		
 		$scope.removeNode = function() {
 			try {
