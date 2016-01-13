@@ -246,9 +246,9 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 			}
 		}
 		
-		$scope.Link = function(){
+		$scope.Connect = function(){
 			// TODO
-			alert("Link");
+			alert("Connect");
 		};
 		
 		$scope.addEdge = function() {

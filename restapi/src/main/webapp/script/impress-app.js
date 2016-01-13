@@ -74,6 +74,10 @@ impressApp.config(function($stateProvider, $urlRouterProvider){
 			url: "/contextgrid",
 			templateUrl: "templates/context_grid.html"
 		})
+		.state("context", {
+			url: "/context",
+			templateUrl: "templates/context.html"
+		})
 		.state("contextgraph", {
 			url: "/contextgraph",
 			templateUrl: "templates/context.html"
