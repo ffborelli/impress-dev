@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<button type="button" class="link_resources_btn"
+							<button type="button" class="connect_resources_btn"
 								ng-click="Connect()">Connect</button>
 						</td>
 					</tr>
@@ -51,11 +51,11 @@
 					<table width="225" class="addCancelTable">
 						<tr>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="cancel()">Cancel</button>
 							</td>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="addSensor()">Add</button>
 							</td>
 						</tr>
@@ -81,11 +81,11 @@
 					<table width="225" class="addCancelTable">
 						<tr>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="cancel()">Cancel</button>
 							</td>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="addFusion()">Add</button>
 							</td>
 						</tr>
@@ -110,11 +110,11 @@
 					<table width="225" class="addCancelTable">
 						<tr>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="cancel()">Cancel</button>
 							</td>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="addRule()">Add</button>
 							</td>
 						</tr>
@@ -140,11 +140,11 @@
 					<table width="225" class="addCancelTable">
 						<tr>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="cancel()">Cancel</button>
 							</td>
 							<td>
-								<button type="button" class="link_resources_btn"
+								<button type="button" class="add_cancel_btn"
 									ng-click="addActuator()">Add</button>
 							</td>
 						</tr>
@@ -152,7 +152,41 @@
 				</form>
 			</div>
 		</div>
-
+		
+		<div id="controls_div">
+			<form name="controlsForm">
+				<table>
+					<tr>
+						<td>
+							<button type="button" class="remove_btn"
+								ng-click="removeNode()">Remove Node</button>
+							<br />
+							<br />
+							<button type="button" class="remove_btn"
+								ng-click="removeEdge()">Remove Edge</button>
+						</td>
+						<td>
+							<div style="margin-left: 70px;">
+								<h3>Search</h3>
+								<input ng-model="searchModelID" type="text" class="form-control"
+									placeholder="ID..." ng-change="apiSearch()" />
+								<br />
+								<button type="button" class="controls_btn" ng-click="save()">Search</button>
+								<button type="button" class="controls_btn" ng-click="clean()">Clean</button>
+							</div>
+						</td>
+						<td>
+							<div style="margin-left: 70px;">
+								<h3>Control</h3>
+								<button type="button" class="controls_btn" ng-click="save()">Save</button>
+								<button type="button" class="controls_btn" ng-click="save()">Update</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
 		<h1>Context</h1>
 		<div id="network"></div>
 
