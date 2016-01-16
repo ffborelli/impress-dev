@@ -247,8 +247,11 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 		}
 		
 		$scope.Connect = function(){
-			// TODO
-			alert("Connect");
+			
+			addEdgeVis(network.getSelectedNodes()[0], network.getSelectedNodes()[1]);
+			
+			//TODO
+			// Use o "relations" para confirmar o tipo dos nodes!!
 		};
 		
 		$scope.addEdge = function() {
@@ -653,7 +656,8 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 				var options = {
 					interaction : {
 						navigationButtons : true,
-						keyboard : true
+						keyboard : true,
+						multiselect: true
 					}
 				};
 
