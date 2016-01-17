@@ -114,7 +114,7 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 		    	nodes.add({id : id_global_node,
 						   label : 'Sensor ' + $scope.sensor.description + ' ' + id_global_node,
 							color : {background : colors[0]},
-							title : 'I am a resource!'
+							title : 'I am a Sensor!'
 
 					      });
 		    	
@@ -248,10 +248,50 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 		
 		$scope.Connect = function(){
 			
-			addEdgeVis(network.getSelectedNodes()[0], network.getSelectedNodes()[1]);
+			var sensorId = null;
+			var fusionId = null;
+			var ruleId = null;
+			var actuatorId = null;
 			
-			//TODO
-			// Use o "relations" para confirmar o tipo dos nodes!!
+			if(network.getSelectedNodes().length == 0){
+				alert('There\'s not a selected node.');
+			}else if(network.getSelectedNodes().length == 1){
+				alert('Select one more node to connect with this.');
+			}else if(network.getSelectedNodes().length > 2){
+				alert('Select just two nodes to be connected.');
+			}else{
+				
+				for(var i=0; i<relation.length; i++){
+					
+					if(relation[i].global == network.getSelectedNodes()[0] ||
+							relation[i].global == network.getSelectedNodes()[1]){
+						
+						if(relation[i].type == 'SENSOR'){
+							sensorId = relation[i].global;
+						}else if(relation[i].type == 'FUSION'){
+							fusionId = relation[i].global;
+						}else if(relation[i].type == 'RULE'){
+							ruleId = relation[i].global;
+						}else if(relation[i].type == 'ACTUATOR'){
+							actuatorId = relation[i].global;
+						}
+						
+					}
+					
+				}
+				
+				if(sensorId != null && fusionId != null){
+					addEdgeVis(sensorId, fusionId);
+				}else if(fusionId != null && ruleId != null){
+					addEdgeVis(fusionId, ruleId);
+				}else if(ruleId != null && actuatorId != null){
+					addEdgeVis(ruleId, actuatorId);
+				}else{
+					alert('Is not possible to connect this nodes.');
+				}
+				
+			}
+			
 		};
 		
 		$scope.addEdge = function() {
