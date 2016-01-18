@@ -294,6 +294,30 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 			
 		};
 		
+		$scope.clean = function(){
+			
+			for(var i=1; i<=id_global_edge; i++){
+				try {
+					edges.remove({
+						id: i
+					});
+		 	    } catch (err) {
+		 	    	alert(err);
+				}
+			}
+			
+			for(var i=1; i<=id_global_node; i++){
+				try {
+					nodes.remove({
+						id: i
+					});
+				} catch (err) {
+					alert(err);
+				}
+			}
+			
+		};
+		
 		$scope.addEdge = function() {
 			
 					
