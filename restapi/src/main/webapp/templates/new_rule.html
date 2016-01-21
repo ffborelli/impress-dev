@@ -1,2 +1,96 @@
 <div class="container" ng-app="rulelist">
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+	<div class="well form" ng-controller="ruleFormController">
+
+		<!-- Verify place, if there is no id present, that we are Adding a Place -->
+		<div ng-if="rule.id == null">
+			<h3>Add Rule</h3>
+		</div>
+		<!-- Otherwise it's an Edit -->
+		<div ng-if="rule.id != null">
+			<h3>Edit Rule</h3>
+		</div>
+
+		<div class="row">
+			<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+			<form name="ruleForm" ng-submit="updateRule()" novalidate>
+
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+				<div class="form-group"
+					ng-class="{'has-error' : ruleForm.ruleName.$invalid && ruleForm.ruleName.$dirty}">
+					
+					<input id="ruleName" name="ruleName" type="text"
+						class="form-control" maxlength="100" ng-model="rule.ruleName"
+						required ng-minlength="1" ng-maxlength="100"
+						placeholder="Rule Name" style="min-width: 300px;"/>
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block"
+						ng-show="ruleForm.ruleName.$error.required">Add Rule 
+						Name.</p>
+					<p class="help-block"
+						ng-show="ruleForm.ruleName.$error.minlength">Rule Name
+						must be at least 1 characters long.</p>
+					<p class="help-block"
+						ng-show="ruleForm.ruleName.$error.maxlength">Rule Name
+						cannot be longer than 100 characters.</p>
+				</div>
+				
+				<div class="form-group"
+					ng-class="{'has-error' : ruleForm.ruleText.$invalid && ruleForm.ruleText.$dirty}">
+					
+					<input id="ruleText" name="ruleText" type="text"
+						class="form-control" maxlength="100" ng-model="rule.ruleText"
+						required ng-minlength="1" ng-maxlength="100"
+						placeholder="Rule Text" style="min-width: 300px;"/>
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block"
+						ng-show="ruleForm.ruleText.$error.required">Add Rule 
+						Text.</p>
+					<p class="help-block"
+						ng-show="ruleForm.ruleText.$error.minlength">Rule Text
+						must be at least 1 characters long.</p>
+					<p class="help-block"
+						ng-show="ruleForm.ruleText.$error.maxlength">Rule Text
+						cannot be longer than 100 characters.</p>
+				</div>
+				
+				<div class="form-group"
+						ng-class="{'has-error' : ruleForm.dependence.$invalid && ruleForm.dependence.$dirty}">
+
+						<select id="dependence" name="dependence" ng-model="rule.dependentIndependent"
+							class="form-control" required
+							style="min-width: 300px">
+							<option value="">Select Dependence</option>
+							<option value="0">Dependent</option>
+							<option value="1">Independent</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="ruleForm.dependence.$error.required">Select 
+							Dependence.</p>
+					</div>
+
+				<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+				<div class="buttons">
+					<button type="button" class="btn btn-primary"
+						ng-click="clearForm()">Clear</button>
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="ruleForm.$invalid">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
 </div>

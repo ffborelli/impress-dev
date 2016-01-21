@@ -1,2 +1,60 @@
 <div class="container" ng-app="contexttype">
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+		<div class="well form" ng-controller="contextTypeFormController">
+
+			<!-- Verify place, if there is no id present, that we are Adding a Place -->
+			<div ng-if="contextType.id == null">
+				<h3>Add Context Type</h3>
+			</div>
+			<!-- Otherwise it's an Edit -->
+			<div ng-if="contextType.id != null">
+				<h3>Edit Context Type</h3>
+			</div>
+
+			<div class="row">
+				<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+				<form name="contextTypeForm" ng-submit="updateContextType()"
+					novalidate>
+
+					<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+					<div class="form-group"
+						ng-class="{'has-error' : contextTypeForm.description.$invalid && contextTypeForm.description.$dirty}">
+
+						<input id="description" name="description" type="text"
+							class="form-control" maxlength="100"
+							ng-model="contextType.description" required ng-minlength="1"
+							ng-maxlength="100" placeholder="Description" style="min-width: 300px;" />
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="contextTypeForm.description.$error.required">Add
+							Description.</p>
+						<p class="help-block"
+							ng-show="contextTypeForm.description.$error.minlength">Description
+							must be at least 1 characters long.</p>
+						<p class="help-block"
+							ng-show="contextTypeForm.description.$error.maxlength">Description
+							cannot be longer than 100 characters.</p>
+					</div>
+
+					<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+					<div class="buttons">
+						<button type="button" class="btn btn-primary"
+							ng-click="clearForm()">Clear</button>
+						<button type="submit" class="btn btn-primary"
+							ng-disabled="contextTypeForm.$invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
 </div>

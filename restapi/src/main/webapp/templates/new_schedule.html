@@ -1,2 +1,281 @@
 <div class="container" ng-app="schedule">
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+	<div class="well form" ng-controller="scheduleFormController">
+
+		<!-- Verify place, if there is no id present, that we are Adding a Place -->
+		<div ng-if="schedule.id == null">
+			<h3>Add Event </h3>
+		</div>
+		<!-- Otherwise it's an Edit -->
+		<div ng-if="schedule.id != null">
+			<h3>Edit Event</h3>
+		</div>
+
+		<div class="row">
+			<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+			<form name="scheduleForm" ng-submit="updateSchedule()" novalidate>
+
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+				<div class="form-group"
+					ng-class="{'has-error' : scheduleForm.description.$invalid && scheduleForm.description.$dirty}">
+					
+					<table style="width: 100%">
+						<tr>
+							<td style="width: 65%">
+								<input id="description" name="description" type="text"
+									class="form-control" maxlength="100" ng-model="schedule.description"
+									required ng-minlength="1" ng-maxlength="100"
+									placeholder="Description" style="min-width: 300px" />
+							</td>
+
+							<!-- Validation messages to be displayed on required, minlength and maxlength -->
+							<td style="width: 30%">
+								<p class="help-block"
+									ng-show="scheduleForm.description.$error.required">Add
+									Description.</p>
+								<p class="help-block"
+									ng-show="scheduleForm.description.$error.minlength">Description
+									must be at least 1 characters long.</p>
+								<p class="help-block"
+									ng-show="scheduleForm.description.$error.maxlength">Description
+									cannot be longer than 100 characters.</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : scheduleForm.place.$invalid && scheduleForm.place.$dirty}">
+						
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 65%">
+									<select id="place" name="place" ng-model="schedule.place"
+										class="form-control" required
+										ng-options="item as item.description for item in places"
+										style="min-width: 300px">
+										<option value="">Select Place</option>
+									</select>
+								</td>
+
+								<td style="width: 30%">
+									<!-- Validation messages to be displayed on required, minlength and maxlength -->
+									<p class="help-block"
+										ng-show="scheduleForm.place.$error.required">Select 
+										Place.</p>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : scheduleForm.rule.$invalid && scheduleForm.rule.$dirty}">
+
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 65%">
+									<select id="rule" name="rule" ng-model="schedule.rule"
+										class="form-control" required
+										ng-options="item as item.ruleName for item in rules"
+										style="min-width: 300px">
+										<option value="">Select Rule</option>
+									</select>
+								</td>
+
+								<td style="width: 30%">
+									<!-- Validation messages to be displayed on required, minlength and maxlength -->
+									<p class="help-block"
+										ng-show="scheduleForm.rule.$error.required">Select 
+										Rule.</p>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : scheduleForm.recurrence.$invalid && scheduleForm.recurrence.$dirty}">
+
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 65%">
+									<select id="recurrence" name="recurrence" ng-model="schedule.recurrence"
+										class="form-control" required
+										style="min-width: 300px">
+										<option value="">Select Recurrence</option>
+										<option value="Daily">Daily</option>
+										<option value="Weekly">Weekly</option>
+										<option value="Monthly">Monthly</option>
+									</select>
+								</td>
+
+								<td style="width: 30%">
+									<!-- Validation messages to be displayed on required, minlength and maxlength -->
+									<p class="help-block"
+										ng-show="scheduleForm.recurrence.$error.required">Select 
+										Recurrence.</p>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : scheduleForm.status.$invalid && scheduleForm.status.$dirty}">
+
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 65%">
+									<select id="status" name="status" ng-model="schedule.status"
+										class="form-control" required
+										style="min-width: 300px">
+										<option value="">Select Status</option>
+										<option value="Scheduled">Scheduled</option>
+										<option value="Canceled">Canceled</option>
+										<option value="In Progress">In Progress</option>
+										<option value="Late">Late</option>
+									</select>
+								</td>
+
+								<td style="width: 30%">
+									<!-- Validation messages to be displayed on required, minlength and maxlength -->
+									<p class="help-block"
+										ng-show="scheduleForm.status.$error.required">Select 
+										Status.</p>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : scheduleForm.priorityTime.$invalid && scheduleForm.priorityTime.$dirty}">
+						
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 65%">
+									<input id="priorityTime" name="priorityTime" type="text"
+										class="form-control" maxlength="100" ng-model="schedule.priorityTime"
+										required ng-minlength="1" ng-maxlength="100"
+										placeholder="Priority Time (min.)" style="min-width: 300px" />
+								</td>
+
+								<td style="width: 30%">
+									<!-- Validation messages to be displayed on required, minlength and maxlength -->
+									<p class="help-block"
+										ng-show="scheduleForm.priorityTime.$error.required">Add
+										Priority Time.</p>
+									<p class="help-block"
+										ng-show="scheduleForm.priorityTime.$error.minlength">Priority Time
+										must be at least 1 characters long.</p>
+									<p class="help-block"
+										ng-show="scheduleForm.priorityTime.$error.maxlength">Priority Time
+										cannot be longer than 100 characters.</p>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="form-group" context-schedule>
+						
+						<table style="width: 100%; padding: 5px;">
+							<tr>
+								<td><label>Start Date</label> <input type="text"
+									name="startDate" id="startDate" value=""
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;" /></td>
+								<td>&nbsp;</td>
+								<td><label>Start Hour</label> <select id="startHour"
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;">
+									<option value="12" SELECTED>12</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+								</select></td>
+								<td><label>Start Minute</label> <select id="startMin"
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;">
+									<option value="00" SELECTED>00</option>
+									<option value="10">10</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="40">40</option>
+									<option value="50">50</option>
+								</select></td>
+								<td><label>Start AM/PM</label> <select id="startMeridiem"
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;">
+									<option value="AM" SELECTED>AM</option>
+									<option value="PM">PM</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td><label>End Date</label> <input type="text" name="endDate"
+									id="endDate" value=""
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;" /></td>
+								<td>&nbsp;</td>
+								<td><label>End Hour</label> <select id="endHour"
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;">
+									<option value="12" SELECTED>12</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+								</select></td>
+								<td><label>End Minute</label> <select id="endMin"
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;">
+									<option value="00" SELECTED>00</option>
+									<option value="10">10</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="40">40</option>
+									<option value="50">50</option>
+								</select></td>
+								<td><label>End AM/PM</label> <select id="endMeridiem"
+									class="text ui-widget-content ui-corner-all"
+									style="margin-bottom: 12px; width: 95%; padding: .4em;">
+									<option value="AM" SELECTED>AM</option>
+									<option value="PM">PM</option>
+								</select></td>
+							</tr>
+						</table>
+						
+					</div>
+
+				<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+				<div class="buttons">
+					<button type="button" class="btn btn-primary"
+						ng-click="clearForm()">Clear</button>
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="scheduleForm.$invalid">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
 </div>

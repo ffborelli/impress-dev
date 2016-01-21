@@ -1,2 +1,108 @@
 <div class="container" ng-app="resourcelist">
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+	<div class="well form" ng-controller="resourceFormController">
+
+		<!-- Verify place, if there is no id present, that we are Adding a Place -->
+		<div ng-if="resource.id == null">
+			<h3>Add Resource </h3>
+		</div>
+		<!-- Otherwise it's an Edit -->
+		<div ng-if="resource.id != null">
+			<h3>Edit Resource</h3>
+		</div>
+
+		<div class="row">
+			<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+			<form name="resourceForm" ng-submit="updateResource()" novalidate>
+
+				<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+				<div class="form-group"
+					ng-class="{'has-error' : resourceForm.description.$invalid && resourceForm.description.$dirty}">
+					
+					<input id="description" name="description" type="text"
+						class="form-control" maxlength="100" ng-model="resource.description"
+						required ng-minlength="1" ng-maxlength="100"
+						placeholder="Description" style="min-width: 300px" />
+
+					<!-- Validation messages to be displayed on required, minlength and maxlength -->
+					<p class="help-block"
+						ng-show="resourceForm.description.$error.required">Add
+						Description.</p>
+					<p class="help-block"
+						ng-show="resourceForm.description.$error.minlength">Description
+						must be at least 1 characters long.</p>
+					<p class="help-block"
+						ng-show="resourceForm.description.$error.maxlength">Description
+						cannot be longer than 100 characters.</p>
+				</div>
+				
+				<div class="form-group"
+						ng-class="{'has-error' : resourceForm.resourceType.$invalid && resourceForm.resourceType.$dirty}">
+
+						<select id="resourceType" name="resourceType" ng-model="resource.resourceType"
+							class="form-control" required
+							ng-options="item as item.description for item in resourceTypes"
+							style="min-width: 300px">
+							<option value="">Select Resource Type</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="resourceForm.resourceType.$error.required">Select Resource 
+							Type.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : resourceForm.place.$invalid && resourceForm.place.$dirty}">
+
+						<select id="place" name="place" ng-model="resource.place"
+							class="form-control" required
+							ng-options="item as item.description for item in places"
+							style="min-width: 300px">
+							<option value="">Select Place</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="resourceForm.place.$error.required">Select 
+							Place.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : resourceForm.dependence.$invalid && resourceForm.dependence.$dirty}">
+
+						<select id="dependence" name="dependence" ng-model="resource.dependentIndependent"
+							class="form-control" required
+							style="min-width: 300px">
+							<option value="">Select Dependence</option>
+							<option value="0">Dependent</option>
+							<option value="1">Independent</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="resourceForm.dependence.$error.required">Select 
+							Dependence.</p>
+					</div>
+
+				<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+				<div class="buttons">
+					<button type="button" class="btn btn-primary"
+						ng-click="clearForm()">Clear</button>
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="resourceForm.$invalid">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
 </div>

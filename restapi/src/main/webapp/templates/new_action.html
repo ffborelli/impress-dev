@@ -1,2 +1,87 @@
 <div class="container" ng-app="actionlist">
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+		<div class="well form" ng-controller="actionFormController">
+
+			<!-- Verify place, if there is no id present, that we are Adding a Place -->
+			<div ng-if="action.id == null">
+				<h3>Add Action</h3>
+			</div>
+			<!-- Otherwise it's an Edit -->
+			<div ng-if="action.id != null">
+				<h3>Edit Action </h3>
+			</div>
+
+			<div class="row">
+				<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+				<form name="actionForm" ng-submit="updateAction()"
+					novalidate>
+
+					<div class="form-group"
+						ng-class="{'has-error' : actionForm.resource.$invalid && actionForm.resource.$dirty}">
+
+						<select id="resource" name="resource" ng-model="action.resource"
+							class="form-control" required
+							ng-options="item as item.description for item in resources"
+							style="min-width: 300px">
+							<option value="">Select Resource</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionForm.resource.$error.required">Select 
+							Resource.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : actionForm.resourceActionType.$invalid && actionForm.resourceActionType.$dirty}">
+
+						<select id="resourceActionType" name="resourceActionType" ng-model="action.resourceActionType"
+							class="form-control" required
+							ng-options="item as item.resourceActionTypeText for item in resourceActionTypes"
+							style="min-width: 300px">
+							<option value="">Select Resource Action Type</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionForm.resourceActionType.$error.required">Select Resource 
+							Action Type.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : actionForm.rule.$invalid && actionForm.rule.$dirty}">
+
+						<select id="rule" name="rule" ng-model="action.rule"
+							class="form-control" required
+							ng-options="item as item.ruleName for item in rules"
+							style="min-width: 300px">
+							<option value="">Select Rule</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionForm.rule.$error.required">Select 
+							Rule.</p>
+					</div>
+
+					<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+					<div class="buttons">
+						<button type="button" class="btn btn-primary"
+							ng-click="clearForm()">Clear</button>
+						<button type="submit" class="btn btn-primary"
+							ng-disabled="actionForm.$invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
 </div>

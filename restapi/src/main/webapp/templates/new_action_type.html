@@ -1,2 +1,76 @@
 <div class="container" ng-app="actiontype">
+
+	<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+	<div class="message" ng-controller="alertMessagesController">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+			close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+
+	<br>
+	
+	<!-- Specify a Angular controller script that binds Javascript variables to the form.-->
+		<div class="well form" ng-controller="actionTypeFormController">
+
+			<!-- Verify place, if there is no id present, that we are Adding a Place -->
+			<div ng-if="actionType.id == null">
+				<h3>Add Resource Action Type</h3>
+			</div>
+			<!-- Otherwise it's an Edit -->
+			<div ng-if="actionType.id != null">
+				<h3>Edit Resource Action Type</h3>
+			</div>
+
+			<div class="row">
+				<!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+				<form name="actionTypeForm" ng-submit="updateResourceActionType()"
+					novalidate>
+
+					<!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+					<div class="form-group"
+						ng-class="{'has-error' : actionTypeForm.value.$invalid && actionTypeForm.value.$dirty}">
+
+						<input id="value" name="value" type="text"
+							class="form-control" maxlength="100"
+							ng-model="resourceActionType.resourceActionTypeText" required ng-minlength="1"
+							ng-maxlength="100" placeholder="Value" style="min-width: 300px;" />
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionTypeForm.value.$error.required">Add
+							Value.</p>
+						<p class="help-block"
+							ng-show="actionTypeForm.Value.$error.minlength">Value
+							must be at least 1 characters long.</p>
+						<p class="help-block"
+							ng-show="actionTypeForm.value.$error.maxlength">Value
+							cannot be longer than 100 characters.</p>
+					</div>
+					
+					<div class="form-group"
+						ng-class="{'has-error' : actionTypeForm.resourceType.$invalid && actionTypeForm.resourceType.$dirty}">
+
+						<select id="resourceType" name="resourceType" ng-model="resourceActionType.resourceType"
+							class="form-control" required
+							ng-options="item as item.description for item in resourceTypes"
+							style="min-width: 300px">
+							<option value="">Select Resource Type</option>
+						</select>
+
+						<!-- Validation messages to be displayed on required, minlength and maxlength -->
+						<p class="help-block"
+							ng-show="actionTypeForm.resourceType.$error.required">Select Resource 
+							Type.</p>
+					</div>
+
+					<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
+					<div class="buttons">
+						<button type="button" class="btn btn-primary"
+							ng-click="clearForm()">Clear</button>
+						<button type="submit" class="btn btn-primary"
+							ng-disabled="actionTypeForm.$invalid">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
 </div>
