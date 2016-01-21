@@ -101,6 +101,50 @@ impressApp.config(function($stateProvider, $urlRouterProvider){
 		.state("schedulelog", {
 			url: "/schedulelog",
 			templateUrl: "templates/schedule_log.html"
+		})
+		.state("newactiontype", {
+			url: "/newactiontype",
+			templateUrl: "templates/new_action_type.html"
+		})
+		.state("newaction", {
+			url: "/newaction",
+			templateUrl: "templates/new_action.html"
+		})
+		.state("newcontexttype", {
+			url: "/newcontexttype",
+			templateUrl: "templates/new_context_type.html"
+		})
+		.state("newcontext", {
+			url: "/newcontext",
+			templateUrl: "templates/new_context.html"
+		})
+		.state("newfusion", {
+			url: "/newfusion",
+			templateUrl: "templates/new_fusion.html"
+		})
+		.state("newplacetype", {
+			url: "/newplacetype",
+			templateUrl: "templates/new_place_type.html"
+		})
+		.state("newplace", {
+			url: "/newplace",
+			templateUrl: "templates/new_place.html"
+		})
+		.state("newresourcetype", {
+			url: "/newresourcetype",
+			templateUrl: "templates/new_resource_type.html"
+		})
+		.state("newresource", {
+			url: "/newresource",
+			templateUrl: "templates/new_resource.html"
+		})
+		.state("newrule", {
+			url: "/newrule",
+			templateUrl: "templates/new_rule.html"
+		})
+		.state("newschedule", {
+			url: "/newschedule",
+			templateUrl: "templates/new_schedule.html"
 		});
 
 });
