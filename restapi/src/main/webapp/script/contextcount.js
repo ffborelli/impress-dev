@@ -249,7 +249,7 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 		$scope.Connect = function(){
 			
 			var sensorId = null;
-			var fusionId = null;
+			var fusionId = [];
 			var ruleId = null;
 			var actuatorId = null;
 			
@@ -269,7 +269,11 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 						if(relation[i].type == 'SENSOR'){
 							sensorId = relation[i].global;
 						}else if(relation[i].type == 'FUSION'){
-							fusionId = relation[i].global;
+							if(fusionId.length == 0){
+								fusionId[0] = relation[i].global;
+							}else{
+								fusionId[1] = relation[i].global;
+							}
 						}else if(relation[i].type == 'RULE'){
 							ruleId = relation[i].global;
 						}else if(relation[i].type == 'ACTUATOR'){
@@ -280,12 +284,14 @@ app.controller('contextCountController', function($scope, $rootScope,$http, cont
 					
 				}
 				
-				if(sensorId != null && fusionId != null){
-					addEdgeVis(sensorId, fusionId);
-				}else if(fusionId != null && ruleId != null){
-					addEdgeVis(fusionId, ruleId);
+				if(sensorId != null && fusionId.length == 1){
+					addEdgeVis(sensorId, fusionId[0]);
+				}else if(fusionId.length == 1 && ruleId != null){
+					addEdgeVis(fusionId[0], ruleId);
 				}else if(ruleId != null && actuatorId != null){
 					addEdgeVis(ruleId, actuatorId);
+				}else if(fusionId.length == 2){
+					addEdgeVis(fusionId[0], fusionId[1]);
 				}else{
 					alert('Is not possible to connect this nodes.');
 				}
