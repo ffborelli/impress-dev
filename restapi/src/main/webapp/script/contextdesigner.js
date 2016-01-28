@@ -733,69 +733,6 @@ app.controller('contextDesignerController', function($scope, $rootScope,$http, c
 
 				network = new vis.Network(container, data, options);
 
-				network.on("click", function(params) {
-											params.event = "[original event]";
-											document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
-										});
-				network.on("doubleClick", function(params) {
-											params.event = "[original event]";
-											document.getElementById('eventSpan').innerHTML = '<h2>doubleClick event:</h2>' + JSON.stringify(params, null, 4);
-									}
-				);
-				network.on("oncontext", function(params) {
-											params.event = "[original event]";
-											document.getElementById('eventSpan').innerHTML = '<h2>oncontext (right click) event:</h2>' + JSON.stringify(params, null, 4);
-										}
-				);
-			    network.on("dragStart", function(params) {
-											params.event = "[original event]";
-											document.getElementById('eventSpan').innerHTML = '<h2>dragStart event:</h2>' + JSON.stringify(params, null, 4);
-										}
-			    );
-				network.on("dragging", function(params) {
-											params.event = "[original event]";
-											document.getElementById('eventSpan').innerHTML = '<h2>dragging event:</h2>'	+ JSON.stringify(params, null, 4);
-										}
-				);
-				network.on("dragEnd", function(params) {
-											params.event = "[original event]";
-											document.getElementById('eventSpan').innerHTML = '<h2>dragEnd event:</h2>' + JSON.stringify(params,	null, 4);
-									   }
-				);
-				network.on("zoom", function(params) {
-											document.getElementById('eventSpan').innerHTML = '<h2>zoom event:</h2>' + JSON.stringify(params, null, 4);
-									}
-				);
-				network.on("showPopup", function(params) {
-											document.getElementById('eventSpan').innerHTML = '<h2>showPopup event: </h2>' + JSON.stringify(params, null, 4);
-										}
-				);
-				network.on("hidePopup", function() {
-											console.log('hidePopup Event');
-										}
-				);
-				network.on("select", function(params) {
-										console.log('select Event:', params);
-										selected = params;
-									 });
-				
-				network.on("selectNode", function(params) {
-							console.log('selectNode Event:', params);
-										}
-				);
-				network.on("selectEdge", function(params) {
-							console.log('selectEdge Event:', params);
-										}
-				);
-				network.on("deselectNode", function(params) {
-							console.log('deselectNode Event:', params);
-					    }
-				);
-				network.on("deselectEdge", function(params) {
-							console.log('deselectEdge Event:', params);
-					    }
-				);
-
 			}
 		});
 
