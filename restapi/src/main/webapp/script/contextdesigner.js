@@ -733,6 +733,11 @@ app.controller('contextDesignerController', function($scope, $rootScope,$http, c
 
 				network = new vis.Network(container, data, options);
 
+				network.on("select", function(params) {
+					console.log('select Event:', params);
+					selected = params;
+				});
+
 			}
 		});
 
