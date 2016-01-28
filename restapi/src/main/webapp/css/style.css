@@ -104,7 +104,7 @@ h3 {
 #content_div {
 	position: relative;
 	width: 500px;
-	height: 250px;
+	height: 200px;
 	margin-left: -250px;
 	left: 50%;
 	margin-top: 30px;
@@ -144,12 +144,12 @@ h3 {
 
 .selectTable {
 	position: absolute;
-	margin-top: 80px;
+	margin-top: 60px;
 }
 
 .addCancelTable {
 	position: absolute;
-	margin-top: 200px;
+	margin-top: 150px;
 	margin-left: 250px;
 }
 
@@ -159,7 +159,7 @@ h3 {
 	border: none;
 	color: #ffffff;
 	width: 200px;
-	height: 80px;
+	height: 60px;
 	font-size: 20px;
 }
 
