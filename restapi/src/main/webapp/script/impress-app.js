@@ -6,7 +6,7 @@
 
 var impressApp = angular.module("impressApp",
 		["ui.bootstrap", "ui.router", "ngCookies", "places", "placetype", "resourcetype", "contexttype", "actiontype"
-		 , "contextentity", "contextgrid", "resource", "fusion", "contextcount", "action", "schedule"]);
+		 , "contextentity", "contextgrid", "resource", "fusion", "contextdesigner", "action", "schedule"]);
 
 // routes
 impressApp.config(function($stateProvider, $urlRouterProvider){
@@ -66,9 +66,9 @@ impressApp.config(function($stateProvider, $urlRouterProvider){
 			url: "/contextlog",
 			templateUrl: "templates/context_log.html"
 		})
-		.state("contextcount", {
-			url: "/contextcount",
-			templateUrl: "templates/context_count.html"
+		.state("contextdesigner", {
+			url: "/contextdesigner",
+			templateUrl: "templates/context_designer.html"
 		})
 		.state("contextgrid", {
 			url: "/contextgrid",
