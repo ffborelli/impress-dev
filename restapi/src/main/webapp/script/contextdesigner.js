@@ -724,10 +724,18 @@ app.controller('contextDesignerController', function($scope, $rootScope,$http, c
 				};
 				// var options = {};
 				var options = {
-					interaction : {
-						navigationButtons : true,
-						keyboard : true,
+					interaction: {
+						navigationButtons: true,
+						keyboard: true,
 						multiselect: true
+					},
+					edges: {
+						smooth: {
+							enabled: false
+						}
+					},
+					nodes: {
+						physics: false
 					}
 				};
 
