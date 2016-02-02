@@ -2,7 +2,7 @@ var app = angular.module('contextdesigner', [ 'ngResource', 'ui.bootstrap', 'imp
 
 // Create a controller with name placesListController to bind to the grid
 // section.
-app.controller('contextDesignerController', function($scope, $rootScope,$http, contextCountService) {
+app.controller('contextDesignerController', function($scope, $rootScope, $http, contextCountService) {
 	
 	$scope.addNodesDiv = true;
 	$scope.addSensorDiv = false;
