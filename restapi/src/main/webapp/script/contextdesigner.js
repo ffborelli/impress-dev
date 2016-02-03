@@ -324,6 +324,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				}
 			}
 			
+			$scope.searchModelID = null;
+			
 		};
 		
 		$scope.addEdge = function() {
