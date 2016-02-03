@@ -1,7 +1,7 @@
 var actiontype = angular.module('contextgrid', ['ngResource', 'ngGrid', 'ui.bootstrap','impressApp']);
 
 //Create a controller with name placesListController to bind to the grid section.
-app.controller('contextGridController', function ($scope, $rootScope, contextGridService, contextGridServiceSearch) {
+app.controller('contextGridController', function ($scope, $rootScope, $window, contextGridService, contextGridServiceSearch) {
     // Initialize required information: sorting, the first page to show and the grid options.
     $scope.sortInfo = {fields: ['id'], directions: ['asc']};
     $scope.contextGrid = {currentPage: 1};
@@ -75,6 +75,10 @@ app.controller('contextGridController', function ($scope, $rootScope, contextGri
     
     $scope.$on('search', function(event, data) {
         $scope.contextGrid = data;
+    });
+    
+    $scope.$on('contextGridSelected', function (event, id) {
+    	$window.location.href = '#/contextdesigner/'+id;
     });
     
     $scope.apiSearch = function() {

@@ -6,11 +6,6 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 	
 	$scope.searchModelID = null;
 	
-	if($routeParams.id != null){
-		//alert($routeParams.id);
-		$scope.searchModelID = $routeParams.id;
-	}
-	
 	$scope.addNodesDiv = true;
 	$scope.addSensorDiv = false;
 	$scope.addFusionDiv = false;
@@ -714,7 +709,10 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 		            
 			}
 			
-			
+			if($routeParams.id != null){
+				$scope.searchModelID = $routeParams.id;
+				$scope.apiSearch();
+			}
 
 			$scope.draw = function() {
 				// create an array with nodes
@@ -742,7 +740,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						}
 					},
 					nodes: {
-						physics: false
+						physics: true
 					}
 				};
 
