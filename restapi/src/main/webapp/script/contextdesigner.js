@@ -1,8 +1,15 @@
-var app = angular.module('contextdesigner', [ 'ngResource', 'ui.bootstrap', 'impressApp' ]);
+var app = angular.module('contextdesigner', [ 'ngResource', 'ui.bootstrap', 'impressApp', 'ngRoute' ]);
 
 // Create a controller with name placesListController to bind to the grid
 // section.
-app.controller('contextDesignerController', function($scope, $rootScope, $http, contextCountService) {
+app.controller('contextDesignerController', function($scope, $rootScope, $http, $routeParams, contextCountService) {
+	
+	$scope.searchModelID = null;
+	
+	if($routeParams.id != null){
+		//alert($routeParams.id);
+		$scope.searchModelID = $routeParams.id;
+	}
 	
 	$scope.addNodesDiv = true;
 	$scope.addSensorDiv = false;

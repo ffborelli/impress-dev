@@ -54,6 +54,9 @@ impressApp.config(['$routeProvider', function($routeProvider){
 		.when('/contextdesigner', {
 			templateUrl: 'templates/context_designer.html'
 		})
+		.when('/contextdesigner/:id', {
+			templateUrl: 'templates/context_designer.html'
+		})
 		.when('/contextgrid', {
 			templateUrl: 'templates/context_grid.html'
 		})
