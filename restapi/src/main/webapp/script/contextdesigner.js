@@ -487,7 +487,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 			}
 			
-			/*$scope.apiSearch = function(){
+			$scope.apiSearch = function(){
 				
 				if ($scope.searchModelID != null || $scope.searchModelID != ''){
 					
@@ -511,22 +511,16 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						
 						for(var i=0; i<graphStr.length; i++){
 							
-							if(real == false && graphStr[i] != '*'){
-								i++;
-							}else if(real == false && graphStr[i] == '*'){
+							if(real == false && graphStr[i] == '*'){
 								real = true;
-								i++;
 							}else if(real == true){
 								
 								if(idType == false && graphStr[i] != ','){
 									newId = newId + graphStr[i];
-									i++;
 								}else if(idType == false && graphStr[i] == ','){
 									idType = true;
-									i++;
 								}else if(idType == true && (graphStr[i] != ':' && graphStr[i] != ';')){
 									newType = newType + graphStr[i];
-									i++;
 								}else if(idType == true && (graphStr[i] == ':' || graphStr[i] == ';')){
 									
 									if(newType == 'SENSOR'){
@@ -571,17 +565,17 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						}
 						
 						for(var i=0; i<newFusion.length; i++){
-							addNodeVis('Fusion ', colors[0]);
+							addNodeVis('Fusion ', colors[1]);
            					count_fusion++;
 						}
 						
 						for(var i=0; i<newRule.length; i++){
-							addNodeVis('Rule ', colors[0]);
+							addNodeVis('Rule ', colors[2]);
            					count_rule++;
 						}
 						
 						for(var i=0; i<newActuator.length; i++){
-							addNodeVis('Actuator ', colors[0]);
+							addNodeVis('Actuator ', colors[3]);
            					count_actuator++;
 						}
 						
@@ -589,9 +583,9 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 					
 				}
 				
-			};*/
+			};
 			
-			$scope.apiSearch = function (){
+			/*$scope.apiSearch = function (){
 				//alert ('a');
 				
 				if ($scope.searchModelID != null || $scope.searchModelID != ''){
@@ -813,7 +807,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 					}
 				//}
 		            
-			}
+			}*/
 			
 			if($routeParams.id != null){
 				$scope.searchModelID = $routeParams.id;
