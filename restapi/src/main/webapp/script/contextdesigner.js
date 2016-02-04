@@ -487,6 +487,110 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 			}
 			
+			/*$scope.apiSearch = function(){
+				
+				if ($scope.searchModelID != null || $scope.searchModelID != ''){
+					
+					var listContextArgs = {
+							id: $scope.searchModelID
+					};
+					
+					contextCountService.get(listContextArgs, function (data){
+						
+						var graphStr = data.contextSequence;
+						
+						var real = false;
+						var idType = false;
+						var newId = '';
+						var newType = '';
+						
+						var newSensor = [];
+						var newFusion = [];
+						var newRule = [];
+						var newActuator = [];
+						
+						for(var i=0; i<graphStr.length; i++){
+							
+							if(real == false && graphStr[i] != '*'){
+								i++;
+							}else if(real == false && graphStr[i] == '*'){
+								real = true;
+								i++;
+							}else if(real == true){
+								
+								if(idType == false && graphStr[i] != ','){
+									newId = newId + graphStr[i];
+									i++;
+								}else if(idType == false && graphStr[i] == ','){
+									idType = true;
+									i++;
+								}else if(idType == true && (graphStr[i] != ':' && graphStr[i] != ';')){
+									newType = newType + graphStr[i];
+									i++;
+								}else if(idType == true && (graphStr[i] == ':' || graphStr[i] == ';')){
+									
+									if(newType == 'SENSOR'){
+										newSensor.push({
+											id: parseInt(newId),
+											graphId: null
+										});
+									}else if(newType == 'FUSION'){
+										newFusion.push({
+											id: parseInt(newId),
+											graphId: null,
+											connId: []
+										});
+									}else if(newType == 'RULE'){
+										newRule.push({
+											id: parseInt(newId),
+											graphId: null,
+											connId: []
+										});
+									}else if(newType == 'ACTUATOR'){
+										newActuator.push({
+											id: parseInt(newId),
+											graphId: null,
+											connId: []
+										});
+									}
+									
+									newType = '';
+									newId = '';
+									real = false;
+									idType = false;
+									
+								}
+								
+							}
+							
+						}
+						
+						for(var i=0; i<newSensor.length; i++){
+							addNodeVis('Sensor ', colors[0]);
+           					count_sensor++;
+						}
+						
+						for(var i=0; i<newFusion.length; i++){
+							addNodeVis('Fusion ', colors[0]);
+           					count_fusion++;
+						}
+						
+						for(var i=0; i<newRule.length; i++){
+							addNodeVis('Rule ', colors[0]);
+           					count_rule++;
+						}
+						
+						for(var i=0; i<newActuator.length; i++){
+							addNodeVis('Actuator ', colors[0]);
+           					count_actuator++;
+						}
+						
+					});
+					
+				}
+				
+			};*/
+			
 			$scope.apiSearch = function (){
 				//alert ('a');
 				
