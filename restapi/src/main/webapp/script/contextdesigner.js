@@ -502,6 +502,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						var real = false;
 						var idType = false;
 						var newId = '';
+						var newGraphId = '';
 						var newType = '';
 						
 						var newSensor = [];
@@ -511,7 +512,9 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						
 						for(var i=0; i<graphStr.length; i++){
 							
-							if(real == false && graphStr[i] == '*'){
+							if(real == false && graphStr[i] != '*'){
+								newGraphId = newGraphId + graphStr[i];
+							}else if(real == false && graphStr[i] == '*'){
 								real = true;
 							}else if(real == true){
 								
@@ -524,28 +527,52 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								}else if(idType == true && (graphStr[i] == ':' || graphStr[i] == ';')){
 									
 									if(newType == 'SENSOR'){
-										newSensor.push({
-											id: parseInt(newId),
-											graphId: null
-										});
+										
+										if(checkRepetition({id: parseInt(newId), graphId: null}) == false){
+										
+											newSensor.push({
+												id: parseInt(newId),
+												graphId: null
+											});
+										
+										}
+										
 									}else if(newType == 'FUSION'){
-										newFusion.push({
-											id: parseInt(newId),
-											graphId: null,
-											connId: []
-										});
+										
+										if(checkRepetition({id: parseInt(newId), graphId: null, connId: []}) == false){
+											
+											newFusion.push({
+												id: parseInt(newId),
+												graphId: null,
+												connId: []
+											});
+											
+										}
+										
 									}else if(newType == 'RULE'){
-										newRule.push({
-											id: parseInt(newId),
-											graphId: null,
-											connId: []
-										});
+										
+										if(checkRepetition({id: parseInt(newId), graphId: null, connId: []}) == false){
+											
+											newRule.push({
+												id: parseInt(newId),
+												graphId: null,
+												connId: []
+											});
+											
+										}
+										
 									}else if(newType == 'ACTUATOR'){
-										newActuator.push({
-											id: parseInt(newId),
-											graphId: null,
-											connId: []
-										});
+										
+										if(checkRepetition({id: parseInt(newId), graphId: null, connId: []}) == false){
+											
+											newActuator.push({
+												id: parseInt(newId),
+												graphId: null,
+												connId: []
+											});
+											
+										}
+										
 									}
 									
 									newType = '';
