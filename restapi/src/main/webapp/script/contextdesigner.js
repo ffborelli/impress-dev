@@ -543,10 +543,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newSensor.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: null
 											});
-											
-											id_global_node++;
 											
 										}
 										
@@ -560,10 +558,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newFusion.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: null
 											});
-											
-											id_global_node++;
 											
 										}
 											
@@ -577,10 +573,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newRule.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: null
 											});
-											
-											id_global_node++;
 											
 										}
 										
@@ -594,10 +588,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newActuator.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: null
 											});
-											
-											id_global_node++;
 											
 										}
 										
@@ -615,21 +607,25 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						}
 						
 						for(var i=0; i<newSensor.length; i++){
+							newSensor[i].graphId = id_global_node;
 							addNodeVis('Sensor '+newSensor[i].id, colors[0]);
            					count_sensor++;
 						}
 						
 						for(var i=0; i<newFusion.length; i++){
+							newFusion[i].graphId = id_global_node;
 							addNodeVis('Fusion '+newFusion[i].id, colors[1]);
            					count_fusion++;
 						}
 						
 						for(var i=0; i<newRule.length; i++){
+							newRule[i].graphId = id_global_node;
 							addNodeVis('Rule '+newRule[i].id, colors[2]);
            					count_rule++;
 						}
 						
 						for(var i=0; i<newActuator.length; i++){
+							newActuator[i].graphId = id_global_node;
 							addNodeVis('Actuator '+newActuator[i].id, colors[3]);
            					count_actuator++;
 						}
@@ -778,230 +774,6 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				}
 				
 			};
-			
-			/*$scope.apiSearch = function (){
-				//alert ('a');
-				
-				if ($scope.searchModelID != null || $scope.searchModelID != ''){
-				
-		        var listContextArgs = {
-		                id: $scope.searchModelID
-		        };
-		            //console.log($scope.search.value);
-		        contextCountService.get(listContextArgs, function (data) {
-		            	
-		           	//alert('a');
-		           	var graphStr = data;
-		           	
-		           	var graph = graphStr.contextSequence.split(";");
-		           	
-		           	//if (typeof graph[0] == "undefined") {
-		           		
-		           	//}
-		           	
-		           	for (a = 0; a < graph.length - 1; a++ ){
-		           	
-		           	//var nodesJS = graph[a].split(":");
-		           	
-		           	// var real;
-		           	// var virtual;
-		           		var tmp = graph[a].split(":");
-		           		//for (b = 0; b < nodesJS.length; b++){
-		           		
-		           		
-		           			var tmp1 = tmp[0].split("*");
-		           			var tmp2 = tmp[1].split("*");
-		           		
-		           			var tmp3 = tmp1[1].split(",");
-		           			
-		           			var realFrom = tmp3[0];
-		           			var virtualFrom = tmp1[0];
-		           			var typeFrom = tmp3[1];
-		           		
-		           		
-
-		           			var tmp4 = tmp2[1].split(",");
-		           		
-		           			var realTo = tmp4[0];
-		           			var virtualTo = tmp2[0];
-		           			var typeTo = tmp4[1];
-		           			
-		           			var id_tmp_to;
-		           			var id_tmp_from;
-		           		
-		           			// 	var r = {local:$scope.rule.id, global:
-		           			// id_global_node, type:'RULE'};
-		           			// relation.push(r);
-		           		
-		           			var colorFrom, colorTo, textFrom, textTo;
-		           		// color FROM
-		           			if (typeFrom == "SENSOR"){
-		           				colorFrom = colors[0];
-		           				textFrom = "Sensor ";
-		           			
-		           			
-		           				var r = {local:realFrom, global: id_global_node, type:'SENSOR'};
-					    	
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.sensor_edges.push({ name: "Sensor " + realFrom, local: realFrom, global: id_global_node, type:'SENSOR' });
-		           					id_tmp_from = id_global_node;
-		           					//id_global_node++;
-		           					addNodeVis(textFrom + realFrom, colorFrom);
-		           					count_sensor++;
-		           				}
-		           				else{
-		           					id_tmp_from = checkRepetition (r);
-		           				}
-		           			
-		           			}
-		           			else if (typeFrom == "FUSION"){
-		           				colorFrom = colors[1];
-		           				textFrom = "Fusion ";
-		           				
-		           				var r = {local:realFrom, global: id_global_node, type:'FUSION'};
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.fusion_edges.push({ name: "Fusion " + realFrom, local: realFrom, global: id_global_node, type:'FUSION' });
-		           					id_tmp_from = id_global_node;
-		           					//id_global_node++;
-		           					addNodeVis(textFrom + realFrom, colorFrom);
-		           					count_fusion++;
-		           				}
-		           				else{
-		           					id_tmp_from = checkRepetition (r);
-		           				}
-		           			}
-		           			else if(typeFrom == "RULE"){
-		           				colorFrom = colors[2];
-		           				textFrom = "Rule ";
-		           			
-		           				var r = {local:realFrom, global: id_global_node, type:'RULE'};
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.rule_edges.push({ name: "Rule " + realFrom, local: realFrom, global: id_global_node, type:"RULE" });
-		           					id_tmp_from = id_global_node;
-		           					//id_global_node++;
-		           					addNodeVis(textFrom + realFrom, colorFrom);
-		           					count_rule++;
-		           				}
-		           				else{
-		           					id_tmp_from = checkRepetition (r);
-		           				}
-		           			}
-		           			else if(typeFrom == "ACTUATOR"){
-		           				colorFrom = colors[3];
-		           				textFrom = "Actuator ";
-		           			
-		           				var r = {local:realFrom, global: id_global_node, type:'ACTUATOR'};
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.actuator_edges.push({ name: "Actuator " + realFrom, local: realFrom, global: id_global_node, type:'ACTUATOR'});
-		           					id_tmp_from = id_global_node;
-		           					//id_global_node++;
-		           					addNodeVis(textFrom + realFrom, colorFrom);
-		           					count_actuator++;
-		           				}
-		           				else{
-		           					id_tmp_from = checkRepetition (r);
-		           				}
-		           			}
-		           			else{}
-		           		
-		           			// 	color TO
-		           			if (typeTo == "SENSOR"){
-		           				colorTo = colors[0];
-		           				textTo = "Sensor ";
-		           			
-		           				var r = {local:realTo, global: id_global_node, type:'SENSOR'};
-					    	
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.sensor_edges.push({ name: "Sensor " + realTo, local: realTo, global: id_global_node, type:'SENSOR' });
-		           					id_tmp_to = id_global_node;
-		           					//id_global_node++;
-		           					addNodeVis(textTo + realTo, colorTo);
-		           					count_sensor++;
-		           				}
-		           				else{
-		           					id_tmp_to = checkRepetition (r);
-		           				}
-		           			}
-		           			else if (typeTo == "FUSION"){
-		           				colorTo = colors[1];
-		           				textTo = "Fusion ";
-		           			
-		           				var r = {local:realTo, global: id_global_node, type:'FUSION'};
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.fusion_edges.push({ name: "Fusion " + realTo, local: realTo, global: id_global_node, type:'FUSION' });
-		           					id_tmp_to = id_global_node;
-		           					//id_global_node++;
-		           					addNodeVis(textTo + realTo, colorTo);
-		           					count_fusion++;
-		           				}
-		           				else{
-		           					id_tmp_to = checkRepetition (r);
-		           				}
-		           			}
-		           			else if(typeTo == "RULE"){
-		           				colorTo = colors[2];
-		           				textTo = "Rule ";
-		           			
-		           				var r = {local:realTo, global: id_global_node, type:'RULE'};
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.rule_edges.push({ name: "Rule " + realTo, local: realTo, global: id_global_node, type:"RULE" });
-		           					id_tmp_to = id_global_node;
-		           					//id_global_node++;
-		           					
-		           					addNodeVis(textTo + realTo, colorTo);
-		           					
-		           					count_rule++;
-		           				}
-		           				else{
-		           					id_tmp_to = checkRepetition (r);
-		           				}
-		           			}
-		           			else if(typeTo == "ACTUATOR"){
-		           				colorTo = colors[3];
-		           				textTo = "Actuator ";
-		           			
-		           				var r = {local:realTo, global: id_global_node, type:'ACTUATOR'};
-		           				if (checkRepetition (r) == false ){
-		           					relation.push(r);
-					    		
-		           					$scope.actuator_edges.push({ name: "Actuator " + realTo, local: realTo, global: id_global_node, type:'ACTUATOR'});
-		           					id_tmp_to = id_global_node;
-		           					//id_global_node++;
-		           					
-		           					addNodeVis(textTo + realTo, colorTo);
-		           					
-		           					count_actuator++;
-		           				}
-		           				else{
-		           					id_tmp_to = checkRepetition (r);
-		           				}
-		           			}
-		           			else{}
-		           			
-		           			addEdgeVis(id_tmp_from, id_tmp_to);
-		           		
-
-		           		}
-		           	
-		           	});
-					}
-				//}
-		            
-			}*/
 			
 			if($routeParams.id != null){
 				$scope.searchModelID = $routeParams.id;
