@@ -501,9 +501,16 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						
 						var real = false;
 						var idType = false;
+						var toFrom = false;
+						
 						var newId = '';
 						var newGraphId = '';
 						var newType = '';
+						var idFrom = '';
+						var idTo = '';
+						var typeFrom = '';
+						var typeTo = '';
+						
 						
 						var newSensor = [];
 						var newFusion = [];
@@ -528,48 +535,69 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 									
 									if(newType == 'SENSOR'){
 										
-										if(checkRepetition({id: parseInt(newId), graphId: null}) == false){
+										var r = {local: parseInt(newId), global: id_global_node, type: 'SENSOR'};
 										
+										if(checkRepetition(r) == false){
+											
+											relation.push(r);
+											
 											newSensor.push({
 												id: parseInt(newId),
-												graphId: null
+												graphId: id_global_node
 											});
-										
+											
+											id_global_node++;
+											
 										}
 										
 									}else if(newType == 'FUSION'){
 										
-										if(checkRepetition({id: parseInt(newId), graphId: null, connId: []}) == false){
+										var r = {local: parseInt(newId), global: id_global_node, type: 'FUSION'};
+										
+										if(checkRepetition(r) == false){
+											
+											relation.push(r);
 											
 											newFusion.push({
 												id: parseInt(newId),
-												graphId: null,
-												connId: []
+												graphId: id_global_node
 											});
 											
+											id_global_node++;
+											
 										}
-										
+											
 									}else if(newType == 'RULE'){
 										
-										if(checkRepetition({id: parseInt(newId), graphId: null, connId: []}) == false){
+										var r = {local: parseInt(newId), global: id_global_node, type: 'RULE'};
+										
+										if(checkRepetition(r) == false){
+											
+											relation.push(r);
 											
 											newRule.push({
 												id: parseInt(newId),
-												graphId: null,
-												connId: []
+												graphId: id_global_node
 											});
+											
+											id_global_node++;
 											
 										}
 										
 									}else if(newType == 'ACTUATOR'){
 										
-										if(checkRepetition({id: parseInt(newId), graphId: null, connId: []}) == false){
+										var r = {local: parseInt(newId), global: id_global_node, type: 'ACTUATOR'};
+										
+										if(checkRepetition(r) == false){
+											
+											relation.push(r);
 											
 											newActuator.push({
 												id: parseInt(newId),
-												graphId: null,
-												connId: []
+												graphId: id_global_node
 											});
+											
+											id_global_node++;
 											
 										}
 										
@@ -587,23 +615,162 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						}
 						
 						for(var i=0; i<newSensor.length; i++){
-							addNodeVis('Sensor ', colors[0]);
+							addNodeVis('Sensor '+newSensor[i].id, colors[0]);
            					count_sensor++;
 						}
 						
 						for(var i=0; i<newFusion.length; i++){
-							addNodeVis('Fusion ', colors[1]);
+							addNodeVis('Fusion '+newFusion[i].id, colors[1]);
            					count_fusion++;
 						}
 						
 						for(var i=0; i<newRule.length; i++){
-							addNodeVis('Rule ', colors[2]);
+							addNodeVis('Rule '+newRule[i].id, colors[2]);
            					count_rule++;
 						}
 						
 						for(var i=0; i<newActuator.length; i++){
-							addNodeVis('Actuator ', colors[3]);
+							addNodeVis('Actuator '+newActuator[i].id, colors[3]);
            					count_actuator++;
+						}
+						
+						for(var i=0; i<graphStr.length; i++){
+							
+							if(toFrom == false && graphStr[i] != ':'){
+								
+								if(real == false && graphStr[i] != '*'){
+									newGraphId = newGraphId + graphStr[i];
+								}else if(real == false && graphStr[i] == '*'){
+									real = true;
+								}else if(real == true){
+									
+									if(idType == false && graphStr[i] != ','){
+										idFrom = idFrom + graphStr[i];
+									}else if(idType == false && graphStr[i] == ','){
+										idType = true;
+									}else if(idType == true && graphStr[i] != ':'){
+										typeFrom = typeFrom + graphStr[i];
+									}
+								
+								}
+							
+							}else if(toFrom == false && graphStr[i] == ':'){
+								
+								real = false;
+								idType = false;
+								toFrom = true;
+								
+							}else if(toFrom == true && graphStr[i] != ';'){
+								
+								if(real == false && graphStr[i] != '*'){
+									newGraphId = newGraphId + graphStr[i];
+								}else if(real == false && graphStr[i] == '*'){
+									real = true;
+								}else if(real == true){
+									
+									if(idType == false && graphStr[i] != ','){
+										idTo = idTo + graphStr[i];
+									}else if(idType == false && graphStr[i] == ','){
+										idType = true;
+									}else if(idType == true && graphStr[i] != ';'){
+										typeTo = typeTo + graphStr[i];
+									}
+								
+								}
+								
+							}else if(toFrom == true && graphStr[i] == ';'){
+								
+								var graphIdFrom = null;
+								var graphIdTo = null;
+								
+								if(typeFrom == 'SENSOR'){
+									
+									for(var j=0; j<newSensor.length; j++){
+										if(newSensor[j].id == parseInt(idFrom)){
+											graphIdFrom = newSensor[j].graphId;
+											break;
+										}
+									}
+									
+								}else if(typeFrom == 'FUSION'){
+									
+									for(var j=0; j<newFusion.length; j++){
+										if(newFusion[j].id == parseInt(idFrom)){
+											graphIdFrom = newFusion[j].graphId;
+											break;
+										}
+									}
+									
+								}else if(typeFrom == 'RULE'){
+									
+									for(var j=0; j<newRule.length; j++){
+										if(newRule[j].id == parseInt(idFrom)){
+											graphIdFrom = newRule[j].graphId;
+											break;
+										}
+									}
+									
+								}else if(typeFrom == 'ACTUATOR'){
+									
+									for(var j=0; j<newActuator.length; j++){
+										if(newActuator[j].id == parseInt(idFrom)){
+											graphIdFrom = newActuator[j].graphId;
+											break;
+										}
+									}
+									
+								}
+								
+								if(typeTo == 'SENSOR'){
+									
+									for(var j=0; j<newSensor.length; j++){
+										if(newSensor[j].id == parseInt(idTo)){
+											graphIdTo = newSensor[j].graphId;
+											break;
+										}
+									}
+									
+								}else if(typeTo == 'FUSION'){
+									
+									for(var j=0; j<newFusion.length; j++){
+										if(newFusion[j].id == parseInt(idTo)){
+											graphIdTo = newFusion[j].graphId;
+											break;
+										}
+									}
+									
+								}else if(typeTo == 'RULE'){
+									
+									for(var j=0; j<newRule.length; j++){
+										if(newRule[j].id == parseInt(idTo)){
+											graphIdTo = newRule[j].graphId;
+											break;
+										}
+									}
+									
+								}else if(typeTo == 'ACTUATOR'){
+									
+									for(var j=0; j<newActuator.length; j++){
+										if(newActuator[j].id == parseInt(idTo)){
+											graphIdTo = newActuator[j].graphId;
+											break;
+										}
+									}
+									
+								}
+								
+								addEdgeVis(graphIdFrom, graphIdTo);
+								
+								idFrom = '';
+								idTo = '';
+								typeFrom = '';
+								typeTo = '';
+								real = false;
+								idType = false;
+								toFrom = false;
+								
+							}
+							
 						}
 						
 					});
