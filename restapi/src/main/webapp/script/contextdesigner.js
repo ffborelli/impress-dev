@@ -52,6 +52,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 		var relation = [];
 		
 		var selected = null;
+		var selectedNodes = [];
 		
 		$scope.types = ['Sensor', 'Fusion', 'Rules', 'Actuator'];
 
@@ -271,10 +272,10 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						if(relation[i].type == 'SENSOR'){
 							sensorId = relation[i].global;
 						}else if(relation[i].type == 'FUSION'){
-							if(fusionId.length == 0){
-								fusionId[0] = relation[i].global;
-							}else{
-								fusionId[1] = relation[i].global;
+							for(var j=0; j<selectedNodes.length; j++){
+								if(selectedNodes[j] == relation[i].global){
+									fusionId.splice(j, 0, selectedNodes[j]);
+								}
 							}
 						}else if(relation[i].type == 'RULE'){
 							ruleId = relation[i].global;
@@ -325,6 +326,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 			}
 			
 			$scope.searchModelID = null;
+			selectedNodes = [];
 			
 		};
 		
@@ -834,6 +836,21 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				network.on("select", function(params) {
 					console.log('select Event:', params);
 					selected = params;
+					
+					for(var i=0; i<params.nodes.length; i++){
+						if(selectedNodes.indexOf(params.nodes[i]) == -1){
+							selectedNodes.push(params.nodes[i]);
+						}
+					}
+				});
+				
+				network.on("deselectNode", function(params) {
+					console.log('deselect Event:', params);
+					for(var i=0;i<selectedNodes.length; i++){
+						if(params.nodes.indexOf(selectedNodes[i]) == -1){
+							selectedNodes.splice(i, 1);
+						}
+					}
 				});
 
 			}
