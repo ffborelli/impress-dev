@@ -775,9 +775,26 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 			};
 			
+			$scope.enablePhysics = function(){
+				if($scope.physicsStatus == true){
+					network.setOptions({
+						nodes: {
+							physics: true
+						}
+					});
+				}else{
+					network.setOptions({
+						nodes: {
+							physics: false
+						}
+					});
+				}
+			};
+			
 			if($routeParams.id != null){
 				$scope.searchModelID = $routeParams.id;
 				$scope.apiSearch();
+				setTimeout($scope.enablePhysics, 3000);
 			}
 
 			$scope.draw = function() {
@@ -805,8 +822,10 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 							enabled: false
 						}
 					},
-					nodes: {
-						physics: true
+					physics: {
+						stabilization: {
+							enabled: true
+						}
 					}
 				};
 
