@@ -14,7 +14,6 @@
 		<script type="text/javascript" src="lib/dependencies/angular-resource.min.js"></script>
 		<script type="text/javascript" src="lib/dependencies/ui-bootstrap-tpls.min.js"></script>
 		<script type="text/javascript" src="lib/dependencies/angular-cookies.min.js"></script>
-		<!-- <script type="text/javascript" src="lib/dependencies/angular-ui-router.min.js"></script> -->
 		<script type="text/javascript" src="lib/dependencies/angular-route.min.js"></script>
 		<script type="text/javascript" src="lib/dependencies/ng-grid-2.0.11.min.js"></script>
 		<script type="text/javascript" src="lib/dependencies/ui-bootstrap-tpls.min.js"></script>
@@ -28,11 +27,11 @@
 		<script type="text/javascript" src="script/resource.js"></script>
 		<script type="text/javascript" src="script/fusion.js"></script>
 		<script type="text/javascript" src="script/fusionlog.js"></script>
-		<!-- <script type="text/javascript" src="script/context.js"></script> -->
 		<script type="text/javascript" src="script/contextdesigner.js"></script>
 		<script type="text/javascript" src="script/rule.js"></script>
 		<script type="text/javascript" src="script/action.js"></script>
 		<script type="text/javascript" src="script/rulelog.js"></script>
+		<script type="text/javascript" src="script/contextmonitor.js"></script>
 		<script type="text/javascript" src="script/contexttype.js"></script>
 		<script type="text/javascript" src="script/contextentity.js"></script>
 		<script type="text/javascript" src="script/contextlog.js"></script>
@@ -114,8 +113,7 @@
 						<a style="cursor: pointer" ng-click="contextSubList()">Context</a>
 					</li>
 					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextdesigner">New Context</a></li>
-					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextgrid">Context List</a></li>
-					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextentity">Context Monitor</a></li>
+					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextgrid">Context Monitor</a></li>
 					<li class="sidebar-list sub_lst" ng-show="contextSubListState"><a href="#/contextlog">Context Log</a></li>
 					<li class="sidebar-list">
 						<a style="cursor: pointer" ng-click="actionSubList()">Action</a>

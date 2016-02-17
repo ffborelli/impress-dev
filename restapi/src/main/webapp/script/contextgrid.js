@@ -1,4 +1,4 @@
-var actiontype = angular.module('contextgrid', ['ngResource', 'ngGrid', 'ui.bootstrap','impressApp']);
+var app = angular.module('contextgrid', ['ngResource', 'ngGrid', 'ui.bootstrap','impressApp']);
 
 //Create a controller with name placesListController to bind to the grid section.
 app.controller('contextGridController', function ($scope, $rootScope, $window, contextGridService, contextGridServiceSearch) {
