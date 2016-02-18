@@ -178,6 +178,20 @@
 			</form>
 		</div>
 		
+		<br />
+		
+		<form name="contextInfo">
+			<input id="contextName" name="contextName" type="text"
+				maxlength="100" ng-model="context.contextName"
+				required ng-minlength="1" ng-maxlength="100"
+				placeholder="Context Name" style="width: 200px;"/>
+			<select id="place" name="place" ng-model="context.place"
+				ng-options="item as item.description for item in places"
+				style="width: 200px;">
+				<option value="">Select Place</option>
+			</select>
+		</form>
+		
 		<h1>Context</h1>
 		physics: <input type="checkbox" ng-model="physicsStatus" ng-change="enablePhysics()" />
 		<div id="network"></div>
