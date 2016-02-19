@@ -99,6 +99,9 @@ public class ContextResource {
 			objectToSave.setContextType(context.getContextType());
 			objectToSave.setContext(context.getContext());
 			objectToSave.setPlace(context.getPlace());
+			objectToSave.setContextSequence(context.getContextSequence());
+			objectToSave.setContextCount(context.getContextCount());
+			objectToSave.setContextRegistered(context.getContextRegistred());
 			getContextFacade().create(objectToSave);
 		}else{
 			objectToSave.setId(context.getId());
@@ -107,6 +110,9 @@ public class ContextResource {
 			objectToSave.setContextType(context.getContextType());
 			objectToSave.setContext(context.getContext());
 			objectToSave.setPlace(context.getPlace());
+			objectToSave.setContextSequence(context.getContextSequence());
+			objectToSave.setContextCount(context.getContextCount());
+			objectToSave.setContextRegistered(context.getContextRegistred());
 			getContextFacade().update(objectToSave);
 		}
 		

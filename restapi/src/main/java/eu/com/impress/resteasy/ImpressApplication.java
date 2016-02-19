@@ -10,7 +10,6 @@ public class ImpressApplication extends Application {
 	public Set<Class<?>> getClasses(){
 		Set<Class<?>> s = new HashSet<Class<?>>();
 		s.add(ActionResource.class);
-		s.add(ContextCountResource.class);
 		s.add(ContextLogResource.class);
 		s.add(ContextResource.class);
 		s.add(ContextTypeResource.class);

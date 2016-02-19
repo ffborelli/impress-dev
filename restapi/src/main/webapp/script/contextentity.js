@@ -24,7 +24,7 @@ app.filter('context_status_filter', function(){
 });
 
 //Create a controller with name placesListController to bind to the grid section.
-app.controller('contextEntityListController', function ($scope, $rootScope, contextEntityService, contextEntityServiceSearch) {
+app.controller('contextEntityListController', function ($scope, $rootScope, $window, contextEntityService, contextEntityServiceSearch) {
     // Initialize required information: sorting, the first page to show and the grid options.
     $scope.sortInfo = {fields: ['id'], directions: ['asc']};
     $scope.context = {currentPage: 1};
@@ -37,9 +37,9 @@ app.controller('contextEntityListController', function ($scope, $rootScope, cont
         columnDefs: [
             { field: 'id', displayName: 'Id' },
             { field: 'contextName', displayName: 'Name', enableCellEdit: true },
-            { field: 'contextType.description', displayName: 'Context Type', enableCellEdit: true },
             { field: 'place.description', displayName: 'Place', enableCellEdit: true },
-            { field: 'context.contextName', displayName: 'Context Config', enableCellEdit: true },
+            { field: 'contextCount', displayName: 'Count', enableCellEdit: true },
+            { field: 'contextRegistred', displayName: 'Registred', enableCellEdit: true },
             { field: 'enableDisable', displayName: 'Status', cellFilter: 'context_status_filter', enableCellEdit: true },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
@@ -100,6 +100,10 @@ app.controller('contextEntityListController', function ($scope, $rootScope, cont
     
     $scope.$on('search', function(event, data) {
         $scope.context = data;
+    });
+    
+    $scope.$on('contextEntitySelected', function (event, id) {
+    	$window.location.href = '#/contextdesigner/'+id;
     });
     
     $scope.apiSearch = function() {

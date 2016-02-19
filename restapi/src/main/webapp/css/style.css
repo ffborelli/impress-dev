@@ -236,30 +236,3 @@ h3 {
 .controls_btn:hover {
 	background-color: #009999;
 }
-
-#context_top_menu>ul, #context_top_menu>ul>li {
-	list-style: none;
-}
-
-#context_top_menu>ul>li {
-	float: left;
-	margin-right: 15px;
-}
-
-#context_top_menu>ul>li>button {
-	text-decoration: none;
-	border: none;
-	background: none;
-}
-
-#context_top_menu>ul>li>button:hover {
-	color: #6666ff;
-}
-
-.context_list_btn_false {
-	color: #9999ff;
-}
-
-.context_list_btn_true {
-	color: #3333ff;
-}

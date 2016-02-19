@@ -63,22 +63,6 @@
 						ng-show="contextEntityForm.contextName.$error.maxlength">Context Name
 						cannot be longer than 100 characters.</p>
 				</div>
-				
-				<div class="form-group"
-						ng-class="{'has-error' : contextEntityForm.contextType.$invalid && contextEntityForm.contextType.$dirty}">
-
-						<select id="contextType" name="contextType" ng-model="context.contextType"
-							class="form-control" required
-							ng-options="item as item.description for item in contextTypes"
-							style="min-width: 300px">
-							<option value="">Select Context Type</option>
-						</select>
-
-						<!-- Validation messages to be displayed on required, minlength and maxlength -->
-						<p class="help-block"
-							ng-show="contextEntityForm.contextType.$error.required">Select Context 
-							Type.</p>
-					</div>
 					
 					<div class="form-group"
 						ng-class="{'has-error' : contextEntityForm.place.$invalid && contextEntityForm.place.$dirty}">
@@ -94,22 +78,6 @@
 						<p class="help-block"
 							ng-show="contextEntityForm.place.$error.required">Select 
 							Place.</p>
-					</div>
-					
-					<div class="form-group"
-						ng-class="{'has-error' : contextEntityForm.contextConfig.$invalid && contextEntityForm.contextConfig.$dirty}">
-
-						<select id="contextConfig" name="contextConfig" ng-model="context.context"
-							class="form-control"
-							ng-options="item as item.contextName for item in contexts"
-							style="min-width: 300px">
-							<option value="">Select Context Config</option>
-						</select>
-
-						<!-- Validation messages to be displayed on required, minlength and maxlength -->
-						<!-- <p class="help-block"
-							ng-show="contextEntityForm.contextConfig.$error.required">Select Context 
-							Config.</p> -->
 					</div>
 					
 					<div class="form-group"

@@ -8,7 +8,6 @@
 	
 		<class>eu.com.impress.model.Action</class>
 		<class>eu.com.impress.model.Context</class>
-		<class>eu.com.impress.model.ContextCount</class>
 		<class>eu.com.impress.model.ContextLog</class>
 		<class>eu.com.impress.model.ContextType</class>
 		<class>eu.com.impress.model.Fusion</class>

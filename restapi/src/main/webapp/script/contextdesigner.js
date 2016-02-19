@@ -2,7 +2,7 @@ var app = angular.module('contextdesigner', [ 'ngResource', 'ui.bootstrap', 'imp
 
 // Create a controller with name placesListController to bind to the grid
 // section.
-app.controller('contextDesignerController', function($scope, $rootScope, $http, $routeParams, contextCountService) {
+app.controller('contextDesignerController', function($scope, $rootScope, $http, $routeParams, contextService) {
 	
 	$scope.searchModelID = null;
 	
@@ -497,7 +497,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 							id: $scope.searchModelID
 					};
 					
-					contextCountService.get(listContextArgs, function (data){
+					contextService.get(listContextArgs, function (data){
 						
 						var graphStr = data.contextSequence;
 						
@@ -877,6 +877,6 @@ app.factory('rulesService', function ($resource) {
 });
 
 //Service that provides contextCount operations
-app.factory('contextCountService', function ($resource) {
-    return $resource('service/contextcount/:id');
+app.factory('contextService', function ($resource) {
+    return $resource('service/context/:id');
 });
