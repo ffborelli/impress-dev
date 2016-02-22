@@ -29,6 +29,8 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
     $scope.sortInfo = {fields: ['id'], directions: ['asc']};
     $scope.context = {currentPage: 1};
     
+    $scope.searchModelID = null;
+    
     $scope.gridOptions = {
         data: 'context.list',
         useExternalSorting: true,
@@ -103,8 +105,16 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
     });
     
     $scope.$on('contextEntitySelected', function (event, id) {
-    	$window.location.href = '#/contextdesigner/'+id;
+    	$scope.searchModelID = id;
     });
+    
+    $scope.loadGraph = function(){
+    	if($scope.searchModelID != null){
+    		$window.location.href = '#/contextdesigner/'+$scope.searchModelID;
+    	}else {
+    		alert("Select a context to load its graph.");
+    	}
+    };
     
     $scope.apiSearch = function() {
     	

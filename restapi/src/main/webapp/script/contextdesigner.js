@@ -2,8 +2,9 @@ var app = angular.module('contextdesigner', [ 'ngResource', 'ui.bootstrap', 'imp
 
 // Create a controller with name placesListController to bind to the grid
 // section.
-app.controller('contextDesignerController', function($scope, $rootScope, $http, $routeParams, contextService) {
+app.controller('contextDesignerController', function($scope, $rootScope, $http, $routeParams, contextService, contextPlaceService) {
 	
+	$scope.context = {};
 	$scope.searchModelID = null;
 	
 	$scope.addNodesDiv = true;
@@ -106,6 +107,9 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 	  	
 	        $scope.actuators = angular.fromJson(data);
 	    });
+	    
+	    //get places
+	    $scope.places = contextPlaceService.query();
 	    
 	    $scope.addSensor = function(){
 			
@@ -325,6 +329,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				}
 			}
 			
+			$scope.context.contextName = null;
+			$scope.context.place = null;
 			$scope.searchModelID = null;
 			selectedNodes = [];
 			
@@ -450,26 +456,54 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 				var rel = sensors+fusions+rules+actuators;
 				
-				sendData($scope, rel);
+				sendData(rel);
 				
 				
 			}
 			
-			function sendData($scope, rel) {
-			    $http({
-			        url: 'service/contextcount/',
-			        method: "POST",
-			        data: {contextSequence : rel,
-   						   contextCount : 0,
-						   contextRegistered : 0
-			        	  }
-			    })
-			    .then(function(response) {
-			            // success
-			    }, 
-			    function(response) { // optional
-			            // failed
-			    });
+			function sendData(rel) {
+				if($scope.searchModelID == null){
+					$http({
+			    		url: 'service/context/',
+			        	method: "POST",
+			        	data: {
+			        		contextName: $scope.context.contextName,
+			        		enableDisable: 0,
+			        		contextType: null,
+			        		place: $scope.context.place,
+			        		contextSequence : rel,
+			        		contextCount : 0,
+			        		contextRegistered : 1
+			        	}
+			    	})
+			    	.then(function(response) {
+			    		// success
+			    	}, 
+			    	function(response) { // optional
+			    		// failed
+			    	});
+				}else{
+					$http({
+			    		url: 'service/context/',
+			        	method: "POST",
+			        	data: {
+			        		id: $scope.searchModelID,
+			        		contextName: $scope.context.contextName,
+			        		enableDisable: 0,
+			        		contextType: null,
+			        		place: $scope.context.place,
+			        		contextSequence : rel,
+			        		contextCount : 0,
+			        		contextRegistered : 1
+			        	}
+			    	})
+			    	.then(function(response) {
+			    		// success
+			    	}, 
+			    	function(response) { // optional
+			    		// failed
+			    	});
+				}
 			}
 			
 			function checkRepetition (entity){
@@ -498,6 +532,9 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 					};
 					
 					contextService.get(listContextArgs, function (data){
+						
+						$scope.context.contextName = data.contextName;
+						$scope.context.place = data.place;
 						
 						var graphStr = data.contextSequence;
 						
@@ -545,8 +582,12 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newSensor.push({
 												id: parseInt(newId),
-												graphId: null
+												graphId: id_global_node
 											});
+											
+											$scope.sensor_edges.push({ name: 'Sensor ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'SENSOR' });
+											addNodeVis('Sensor '+parseInt(newId), colors[0]);
+											count_sensor++;
 											
 										}
 										
@@ -560,8 +601,12 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newFusion.push({
 												id: parseInt(newId),
-												graphId: null
+												graphId: id_global_node
 											});
+											
+											$scope.fusion_edges.push({ name: 'Fusion ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'FUSION' });
+											addNodeVis('Fusion '+parseInt(newId), colors[1]);
+				           					count_fusion++;
 											
 										}
 											
@@ -575,8 +620,12 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newRule.push({
 												id: parseInt(newId),
-												graphId: null
+												graphId: id_global_node
 											});
+											
+											$scope.rule_edges.push({ name: 'Rule ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'RULE' });
+											addNodeVis('Rule '+parseInt(newId), colors[2]);
+				           					count_rule++;
 											
 										}
 										
@@ -590,8 +639,12 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newActuator.push({
 												id: parseInt(newId),
-												graphId: null
+												graphId: id_global_node
 											});
+											
+											$scope.actuator_edges.push({ name: 'Actuator ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'ACTUATOR' });
+											addNodeVis('Actuator '+parseInt(newId), colors[3]);
+				           					count_actuator++;
 											
 										}
 										
@@ -606,30 +659,6 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								
 							}
 							
-						}
-						
-						for(var i=0; i<newSensor.length; i++){
-							newSensor[i].graphId = id_global_node;
-							addNodeVis('Sensor '+newSensor[i].id, colors[0]);
-           					count_sensor++;
-						}
-						
-						for(var i=0; i<newFusion.length; i++){
-							newFusion[i].graphId = id_global_node;
-							addNodeVis('Fusion '+newFusion[i].id, colors[1]);
-           					count_fusion++;
-						}
-						
-						for(var i=0; i<newRule.length; i++){
-							newRule[i].graphId = id_global_node;
-							addNodeVis('Rule '+newRule[i].id, colors[2]);
-           					count_rule++;
-						}
-						
-						for(var i=0; i<newActuator.length; i++){
-							newActuator[i].graphId = id_global_node;
-							addNodeVis('Actuator '+newActuator[i].id, colors[3]);
-           					count_actuator++;
 						}
 						
 						for(var i=0; i<graphStr.length; i++){
@@ -856,12 +885,12 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 			}
 		});
 
-//Service that provides places operations
+//Service that provides sensors operations
 app.factory('sensorService', function ($resource) {
     return $resource('service/resource/:id');
 });
 
-//Service that provides sensor operations
+//Service that provides actuators operations
 app.factory('actuatorService', function ($resource) {
     return $resource('service/resource/:id');
 });
@@ -874,6 +903,11 @@ app.factory('fusionService', function ($resource) {
 //Service that provides rules operations
 app.factory('rulesService', function ($resource) {
     return $resource('service/rules/:id');
+});
+
+//Service that provides places operations
+app.factory('contextPlaceService', function ($resource) {
+    return $resource('service/place/all');
 });
 
 //Service that provides contextCount operations

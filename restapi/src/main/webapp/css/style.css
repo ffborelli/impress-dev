@@ -236,3 +236,17 @@ h3 {
 .controls_btn:hover {
 	background-color: #009999;
 }
+
+.load_graph_btn {
+	background-color: #0099ff;
+	border-radius: 10px;
+	border: none;
+	color: #ffffff;
+	width: 180px;
+	height: 40px;
+	font-size: 20px;
+}
+
+.load_graph_btn:hover {
+	background-color: #009999;
+}
