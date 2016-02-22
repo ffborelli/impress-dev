@@ -329,6 +329,9 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				}
 			}
 			
+			id_global_edge = 1;
+			id_global_node = 1;
+			relation = [];
 			$scope.context.contextName = null;
 			$scope.context.place = null;
 			$scope.searchModelID = null;
@@ -420,7 +423,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				return r;
 			}
 			
-			$scope.save = function ($scope, $http){
+			$scope.save = function ($http){
 				
 				//console.log(edges);
 				//console.log(relation);
@@ -458,7 +461,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 				sendData(rel);
 				
-				
+				alert("Context saved.");
+				$scope.clean();
 			}
 			
 			function sendData(rel) {
