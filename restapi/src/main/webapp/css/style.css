@@ -1,3 +1,11 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
 /*body {
     width: 90%;
     margin-left: auto;
@@ -249,4 +257,13 @@ h3 {
 
 .load_graph_btn:hover {
 	background-color: #009999;
+}
+
+#drools_iframe {
+	position: relative;
+	border: none;
+	width: 95%;
+	min-height: 600px;
+	height: auto;
+	margin: 20px 20px 20px 20px;
 }

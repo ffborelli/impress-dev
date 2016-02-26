@@ -105,6 +105,9 @@ impressApp.config(['$routeProvider', function($routeProvider){
 		.when('/newschedule', {
 			templateUrl: 'templates/new_schedule.html'
 		})
+		.when('/drools', {
+			templateUrl: 'templates/drools.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
