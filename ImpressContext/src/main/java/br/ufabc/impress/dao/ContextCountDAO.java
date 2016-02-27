@@ -231,48 +231,6 @@ public class ContextCountDAO extends GenericDAO<ContextCount> implements Seriali
 		
 	}
 	
-	public void searchContext(){
-		
-//        "select dependence_fusion_log_fk from resource where id_resource in "
-//        + "(select id_resource_fk from resource_log where id_resource_log in "
-//        + "(select id_resource_log_fk from rsc_fusion_log where id_fusion_log_fk in "
-//        + "(select id_fusion_log_fk from fusion_rule_log where id_rule_action_log_fk in "
-//        + "(select id_rule_action_log from rule_action_log where creation_date = '15/10/29 16:26:54'))))"  
-		
-		//select id_rule_action_log from rule_action_log
-		RuleActionLogFacade ruleActionLogFacade = new RuleActionLogFacade();
-		List<RuleActionLog> listRuleActionLog = ruleActionLogFacade.listAll();
-		
-		for (int i = 0; i < listRuleActionLog.size(); i++){
-			System.out.println(listRuleActionLog.get(i).getId() );
-		}
-		
-		//select id_fusion_log_fk from fusion_rule_log where id_rule_action_log_fk in
-		FusionRuleLogFacade fusionRuleLogFacade = new FusionRuleLogFacade();
-		List<FusionRuleLog> listFusionRuleLog = fusionRuleLogFacade.getByRuleAction(listRuleActionLog);
-		
-		ArrayList<FusionLog> listFusionLog = new ArrayList<FusionLog>();
-		
-		for (int i = 0; i < listFusionRuleLog.size(); i++){
-			listFusionLog.add(listFusionRuleLog.get(i).getFusionLog());
-		}
-		//select id_resource_log_fk from rsc_fusion_log where id_fusion_log_fk in
-		ResourceFusionLogFacade resourceFusionLogFacade = new ResourceFusionLogFacade();
-		List<ResourceFusionLog> listResourceFusionLog = resourceFusionLogFacade.getByFusionLog(listFusionLog);
-		
-		for (int i = 0; i < listResourceFusionLog.size(); i++ ){
-			System.out.println("FusionLog ID " + listFusionRuleLog.get(i).getFusionLog().getId() + " Dependence " + listResourceFusionLog.get(i).getResourceLog().getResource().getDependentIndependent());
-			//this.recurviseContext(listFusionRuleLog.get(i).getFusionLog());
-			
-		}
-		
-		System.out.println("List");
-		for (int i = 0; i < listFusionRuleLog.size(); i++){
-			System.out.println(listFusionRuleLog.get(i).getId());	
-		}
-		
-	}
-	
 	private CriteriaBuilder getCriteriaBuilder(){
 		if (builder == null){
 		 builder = getEntityManager().getCriteriaBuilder();

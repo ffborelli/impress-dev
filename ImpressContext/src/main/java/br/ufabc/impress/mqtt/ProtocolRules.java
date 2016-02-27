@@ -90,7 +90,7 @@ public class ProtocolRules  implements Runnable{
 		} else { 
 
 			String m[] = message.split(del);
-			System.out.println("teste : "+ num++);
+			//System.out.println("teste : "+ num++);
 			NumberUtil nu = new NumberUtil();
 
 			String r = null;
@@ -150,11 +150,11 @@ public class ProtocolRules  implements Runnable{
 					Resource res = getResourceFacade().find(Integer.parseInt(idResource));
 					lr.setResource(res);
 
-					//this.getResourceLogFacade().create(lr);
+					this.getResourceLogFacade().create(lr);
 					
 					//id_resource_fk, resource_log_value, creation_date 
-					File f = new File();
-					f.write("resourceLog.txt",idResource + ";" + value + ";" );
+					//File f = new File();
+					//f.write("resourceLog.txt",idResource + ";" + value + ";" );
 
 
 					Esper.addEventEsper(lr);
@@ -197,7 +197,5 @@ public class ProtocolRules  implements Runnable{
 		// }
 		return resourceLogFacade;
 	}
-
-
 
 }

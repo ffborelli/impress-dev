@@ -67,7 +67,7 @@ public class TemperatureListener implements UpdateListener {
 		startTime = System.currentTimeMillis();
 
 		Drools drools = new Drools();
-		drools.requestRepository(lr, status);
+		drools.requestRepository(lr);
 
 		finishTime = System.currentTimeMillis();
 

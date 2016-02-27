@@ -76,7 +76,7 @@ public class PresenceListener implements UpdateListener {
 		//LogResourceFacade logResourceFacade = new LogResourceFacade();
 		//logResourceFacade.create(lr);
 
-		ResourceLog status = this.getResourceLogFacade().getLastByResource(Param.sensor_android);
+		//ResourceLog status = this.getResourceLogFacade().getLastByResource(Param.sensor_android);
 		
 		 long finishTime = System.currentTimeMillis();
 		 
@@ -103,7 +103,7 @@ public class PresenceListener implements UpdateListener {
 		 startTime = System.currentTimeMillis();    
 			
 		 Drools drools = new Drools();
-		 drools.requestRepository(lr,status);
+		 drools.requestRepository(lr);
 		 
 		 finishTime = System.currentTimeMillis();
 		 estimatedTime = finishTime - startTime;

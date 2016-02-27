@@ -36,7 +36,8 @@ public class MqttPublish implements MqttCallback, Runnable {
 
 	}
 
-	public void publish(String uri, String clientId, String topic, String messageSend) {
+	public void publish(String uri, String clientId, String topic,
+			String messageSend) {
 
 		MqttClient client = null;
 		MqttConnectOptions options = null;

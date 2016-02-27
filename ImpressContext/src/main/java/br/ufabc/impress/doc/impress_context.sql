@@ -106,12 +106,13 @@ CREATE TABLE action(
 CREATE TABLE rule_action_log(
 	id_rule_action_log serial NOT NULL PRIMARY KEY,
 	id_rule_fk int,
-        CONSTRAINT id_rule_fk FOREIGN KEY (id_rule_fk) REFERENCES rule(id_rule),
-        id_rsc_action_type_fk int,
-        CONSTRAINT id_rsc_action_type_fk FOREIGN KEY (id_rsc_action_type_fk) REFERENCES rsc_action_type(id_rsc_action_type),
+    CONSTRAINT id_rule_fk FOREIGN KEY (id_rule_fk) REFERENCES rule(id_rule),
+    	id_rsc_action_type_fk int,
+    CONSTRAINT id_rsc_action_type_fk FOREIGN KEY (id_rsc_action_type_fk) REFERENCES rsc_action_type(id_rsc_action_type),
         id_resource_fk int,
-        CONSTRAINT id_resource_fk FOREIGN KEY (id_resource_fk) REFERENCES resource(id_resource),
-        creation_date timestamp NOT NULL /* timestamp para creation_date */
+    CONSTRAINT id_resource_fk FOREIGN KEY (id_resource_fk) REFERENCES resource(id_resource),
+    creation_date timestamp NOT NULL, /* timestamp para creation_date */
+    tracker boolean default false NOT NULL
 );
 
 CREATE TABLE fusion_rule_log(
@@ -188,4 +189,10 @@ CREATE TABLE eval_sdp(
 	duration_mil bigint,
 	module varchar(255) NOT NULL,
 	description varchar(255)
+);
+
+CREATE TABLE tracker (
+	id serial NOT NULL PRIMARY KEY,
+	creation_date timestamp,
+	status boolean NOT NULL
 );

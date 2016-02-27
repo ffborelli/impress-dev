@@ -2,7 +2,6 @@ package br.ufabc.impress.esper;
 
 import java.util.ArrayList;
 
-import br.ufabc.impress.Param;
 import br.ufabc.impress.facade.FusionFacade;
 import br.ufabc.impress.model.EsperStatement;
 import br.ufabc.impress.model.ResourceLog;
@@ -180,15 +179,15 @@ public class Esper {
 		EPAdministrator cepAdm = cep.getEPAdministrator();
 		ArrayList<EPStatement> array = new ArrayList<EPStatement>();
 		//Temperature
-		EPStatement cepStatement = cepAdm
-				.createEPL("select  *, avg( cast(DemoEsperType.resourceLogValue, double) ) as avgT" +
-
-						" from "
-
-						+ " DemoEsperType().win:length_batch(" + Param.esper + ")  where DemoEsperType.resource.id = 5 or DemoEsperType.resource.id = 6"
-						+ "  ");
-
-		cepStatement.addListener(new TemperatureListener());
+//		EPStatement cepStatement = cepAdm
+//				.createEPL("select  *, avg( cast(DemoEsperType.resourceLogValue, double) ) as avgT" +
+//
+//						" from "
+//
+//						+ " DemoEsperType().win:length_batch(3)  where DemoEsperType.resource.id = 5 or DemoEsperType.resource.id = 6"
+//						+ "  ");
+//
+//		cepStatement.addListener(new TemperatureListener());
 		//cepStatement.start();
 		//array.add(cepStatement);
 
@@ -203,17 +202,17 @@ public class Esper {
 //						+ " where DemoEsperType.resource.id = 1 or DemoEsperType.resource.id = 2 or DemoEsperType.resource.id = 3 or DemoEsperType.resource.id = 4");
 
 		//BIT A BIT - win:length(5)
-//		EPStatement cepStatement2 = cepAdm
-//				.createEPL("select  DemoEsperType.resourceLogValue as S1 , * "
-//
-//						
-//						+ " from "
-//
-//						//+ " DemoEsperType().win:time_batch(3 sec) "
-//						+ " DemoEsperType().win:length_batch(24) "
-//						+ " where DemoEsperType.resource.id = 16 ");
-//
-//		cepStatement2.addListener(new PresenceListener());
+		EPStatement cepStatement2 = cepAdm
+				.createEPL("select  DemoEsperType.resourceLogValue as S1 , * "
+
+						
+						+ " from "
+
+						//+ " DemoEsperType().win:time_batch(1 sec) "
+						+ " DemoEsperType().win:length_batch(2) "
+						+ " where DemoEsperType.resource.id = 15 ");
+
+		cepStatement2.addListener(new PresenceListener());
 		//cepStatement2.start();
 		//array.add(cepStatement);
 		/* TEMPERATURE

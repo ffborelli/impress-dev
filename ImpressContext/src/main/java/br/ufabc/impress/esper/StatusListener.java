@@ -74,7 +74,7 @@ public class StatusListener implements UpdateListener {
 	     startTime = System.currentTimeMillis();
 			
 		 Drools drools = new Drools();
-		 drools.requestRepository(lr,status);
+		 drools.requestRepository(lr);
 		 
 		 //long finishTime = System.nanoTime();  
 		 finishTime = System.currentTimeMillis();

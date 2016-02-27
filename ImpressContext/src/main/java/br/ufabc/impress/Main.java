@@ -4,15 +4,11 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import br.ufabc.impress.esper.Esper;
-import br.ufabc.impress.facade.EvalSdpFacade;
 import br.ufabc.impress.facade.ResourceFacade;
 import br.ufabc.impress.facade.ResourceLogFacade;
-import br.ufabc.impress.model.EvalSdp;
 import br.ufabc.impress.model.Resource;
 import br.ufabc.impress.model.ResourceLog;
-import br.ufabc.impress.mqtt.MqttPublish;
 import br.ufabc.impress.mqtt.MqttSubscribe;
-import br.ufabc.impress.mqtt.MqttSubscribe2;
 
 public class Main {
 	public static long startTime;
@@ -34,21 +30,27 @@ public class Main {
 		ResourceLogFacade facade = new ResourceLogFacade();
 		facade.create(lr);
 
-		for (int i = 0; i < Param.number_of_topics; i++) {
+		/*for (int i = 0; i < Param.number_of_topics; i++) {
 			// subscribe mqtt
 			MqttSubscribe ms = new MqttSubscribe(Param.address, "impress" + i, Param.topic + i);
 			
 			Thread t = new Thread(ms);
 			t.start();
-		}
+		}*/
+		
+		MqttSubscribe ms = new MqttSubscribe(Param.address, "impress", "impress/demo");
+		Thread t = new Thread(ms);
+		t.start();
+		
 		// esper		
 		Esper.startEsper();
 		
 //		MqttSubscribe2 ms = new MqttSubscribe2(Param.address, "impress" + 0, Param.topic + 0);
 //		ms.subscribe(Param.address, "impress" + 0, Param.topic + 0);
 
-		MqttPublish m = new MqttPublish(Param.address, "id1", Param.topic, "4;2");
-		Thread tp = new Thread(m);
-		tp.start();
+		//MqttPublish m = new MqttPublish(Param.address, "id1", "impress/action", "4;2");
+		//Thread tp = new Thread(m);
+		//tp.start();
 	}
 }
+

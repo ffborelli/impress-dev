@@ -46,11 +46,4 @@ public class ContextCountFacade implements Serializable{
 		contextCountDAO.commitAndCloseTransaction();
 	}
 	
-	public void searchContext(){
-		contextCountDAO.beginTransaction();
-		contextCountDAO.searchContext();
-		contextCountDAO.closeTransaction();
-		
-	}
-	
 }
