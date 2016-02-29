@@ -39,7 +39,6 @@ app.controller('resourceListController', function ($scope, $rootScope, resourceS
             { field: 'description', displayName: 'Description',enableCellEdit: true },
             { field: 'resourceType.description', displayName: 'Resource Type' },
             { field: 'place.description', displayName: 'Place' },
-            { field: 'dependentIndependent', displayName: 'Dependence', cellFilter: 'resource_dependence_filter' },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
 

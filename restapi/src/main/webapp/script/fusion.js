@@ -38,7 +38,6 @@ app.controller('fusionListController', function ($scope, $rootScope, fusionServi
             { field: 'id', displayName: 'Id' },
             { field: 'fusionName', displayName: 'Fusion Name', enableCellEdit: true },
             { field: 'fusionText', displayName: 'Fusion Text', enableCellEdit: true },
-            { field: 'dependentIndependent', displayName: 'Dependecy', cellFilter: 'fusion_dependence_filter', enableCellEdit: true },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
 

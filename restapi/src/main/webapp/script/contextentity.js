@@ -41,7 +41,7 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
             { field: 'contextName', displayName: 'Name', enableCellEdit: true },
             { field: 'place.description', displayName: 'Place', enableCellEdit: true },
             { field: 'contextCount', displayName: 'Count', enableCellEdit: true },
-            { field: 'contextRegistred', displayName: 'Registred', enableCellEdit: true },
+            { field: 'contextRegistred', displayName: 'Registered', enableCellEdit: true },
             { field: 'enableDisable', displayName: 'Status', cellFilter: 'context_status_filter', enableCellEdit: true },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],

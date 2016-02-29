@@ -39,7 +39,6 @@ app.controller('placesListController', function ($scope, $rootScope, placeServic
             { field: 'description', displayName: 'Description',enableCellEdit: true },
             { field: 'placeType.description', displayName: 'Place Type' },
             { field: 'place.description', displayName: 'Place Location' },
-            { field: 'dependentIndependent', displayName: 'Dependence', cellFilter: 'place_dependence_filter' },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
 

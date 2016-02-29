@@ -38,7 +38,6 @@ app.controller('ruleListController', function ($scope, $rootScope, ruleService, 
             { field: 'id', displayName: 'Id' },
             { field: 'ruleName', displayName: 'Rule Name', enableCellEdit: true },
             { field: 'ruleText', displayName: 'Rule Text', enableCellEdit: true },
-            { field: 'dependentIndependent', displayName: 'Dependecy', cellFilter: 'rule_dependence_filter', enableCellEdit: true },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
 
