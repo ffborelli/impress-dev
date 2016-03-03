@@ -17,9 +17,9 @@ app.controller('contextSimpleToggle', function($scope){
 app.filter('context_status_filter', function(){
 	return function(text, length, end){
 		if(text){
-			return 'Disable';
+			return 'Yes';
 		}
-		return 'Enable';
+		return 'No';
 	};
 });
 
@@ -41,8 +41,8 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
             { field: 'contextName', displayName: 'Name', enableCellEdit: true },
             { field: 'place.description', displayName: 'Place', enableCellEdit: true },
             { field: 'contextCount', displayName: 'Count', enableCellEdit: true },
-            { field: 'contextRegistered', displayName: 'Registered', enableCellEdit: true },
-            { field: 'enableDisable', displayName: 'Status', cellFilter: 'context_status_filter', enableCellEdit: true },
+            { field: 'contextRegistered', displayName: 'Manual', cellFilter: 'context_status_filter', enableCellEdit: true },
+            /*{ field: 'enableDisable', displayName: 'Status', cellFilter: 'context_status_filter', enableCellEdit: true },*/
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
 
