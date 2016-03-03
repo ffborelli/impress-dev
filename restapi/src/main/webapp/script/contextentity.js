@@ -41,7 +41,7 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
             { field: 'contextName', displayName: 'Name', enableCellEdit: true },
             { field: 'place.description', displayName: 'Place', enableCellEdit: true },
             { field: 'contextCount', displayName: 'Count', enableCellEdit: true },
-            { field: 'contextRegistred', displayName: 'Registered', enableCellEdit: true },
+            { field: 'contextRegistered', displayName: 'Registered', enableCellEdit: true },
             { field: 'enableDisable', displayName: 'Status', cellFilter: 'context_status_filter', enableCellEdit: true },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
@@ -105,6 +105,7 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
     });
     
     $scope.$on('contextEntitySelected', function (event, id) {
+    	$scope.contextCopy = contextEntityService.get({id: id});
     	$scope.searchModelID = id;
     });
     
@@ -118,8 +119,25 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
     
     $scope.copyContext = function(){
     	if($scope.searchModelID != null){
-    		// TODO
-    		alert("Ok!");
+    		
+    		$scope.contextCopy.id = null;
+    		$scope.contextCopy.contextName = $scope.contextCopy.contextName + ' - COPY';
+    		
+    		contextEntityService.save($scope.contextCopy).$promise.then(
+	            function () {
+	                // Broadcast the event to refresh the grid.
+	                $rootScope.$broadcast('refreshGrid');
+	                // Broadcast the event to display a save message.
+	                $rootScope.$broadcast('contextEntitySaved');
+	                $scope.contextCopy = null;
+	                $rootScope.$broadcast('clear');
+	                alert('Context copied.');
+	            },
+	            function () {
+	                // Broadcast the event for a server error.
+	                $rootScope.$broadcast('error');
+	            });
+    		
     	}else {
     		alert("Select a context to copy.");
     	}

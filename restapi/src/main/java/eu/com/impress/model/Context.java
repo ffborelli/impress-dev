@@ -128,7 +128,7 @@ public class Context implements Serializable {
 		this.contextRegistered = contextRegistered;
 	}
 	
-	public int getContextRegistred(){
+	public int getContextRegistered(){
 		return this.contextRegistered;
 	}
 	
