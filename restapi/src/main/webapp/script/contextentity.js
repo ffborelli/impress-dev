@@ -116,6 +116,15 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
     	}
     };
     
+    $scope.copyContext = function(){
+    	if($scope.searchModelID != null){
+    		// TODO
+    		alert("Ok!");
+    	}else {
+    		alert("Select a context to copy.");
+    	}
+    };
+    
     $scope.apiSearch = function() {
     	
     	var search = "null";

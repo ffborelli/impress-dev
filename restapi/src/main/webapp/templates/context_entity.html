@@ -119,8 +119,20 @@
 			<h3>Context List</h3>
 		</div>
 		
-		<button type="button" class="load_graph_btn"
-			ng-click="loadGraph()" style="margin-bottom: 30px;">Load Graph</button>
+		<div id="controls_div2">
+			<table>
+				<tr>
+					<td>
+						<button type="button" class="load_graph_btn"
+							ng-click="loadGraph()" style="margin-bottom: 30px;">Load Graph</button>
+					</td>
+					<td>
+						<button type="button" class="copy_context_btn"
+							ng-click="copyContext()" style="margin-bottom: 30px;">Copy Context</button>
+					</td>
+				</tr>
+			</table>
+		</div>
 
 		<!-- Binds the grid component to be displayed. -->
 		<div class="gridStyle" ng-grid="gridOptions"  ng-click="Show2()"></div>
