@@ -510,6 +510,40 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				}
 			}
 			
+			$scope.copyContext = function(){
+				
+				if($scope.searchModelID != null){
+		    		
+		    		$scope.context.contextName = $scope.context.contextName + ' - COPY';
+		    		
+		    		$http({
+			    		url: 'service/context/',
+			        	method: "POST",
+			        	data: {
+			        		id: null,
+			        		contextName: $scope.context.contextName,
+			        		enableDisable: 0,
+			        		contextType: null,
+			        		place: $scope.context.place,
+			        		contextSequence: $scope.context.contextSequence,
+			        		contextCount : 0,
+			        		contextRegistered : 1
+			        	}
+			    	})
+			    	.then(function(response) {
+			    		alert('Context copied.');
+			    		$scope.clean();
+			    	}, 
+			    	function(response) { // optional
+			    		alert('Error.');
+			    	});
+		    		
+		    	}else {
+		    		alert("Select a context to copy.");
+		    	}
+				
+			};
+			
 			function checkRepetition (entity){
 				
 				var checkReturn = false;
@@ -537,10 +571,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 					
 					contextService.get(listContextArgs, function (data){
 						
-						$scope.context.contextName = data.contextName;
-						$scope.context.place = data.place;
-						
-						var graphStr = data.contextSequence;
+						$scope.context = data;
+						var graphStr = $scope.context.contextSequence;
 						
 						var real = false;
 						var idType = false;
