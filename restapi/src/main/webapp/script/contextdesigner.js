@@ -408,6 +408,36 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 		 	    	alert(err);
 				}
 		}
+		
+		$scope.Remove = function(){
+			
+			if(selected.nodes[0] != null && selected.edges[0] == null){
+				
+				try {
+					nodes.remove({
+						id : selected.nodes[0]
+					});
+				} catch (err) {
+					alert(err);
+				}
+				
+			}else if(selected.nodes[0] == null && selected.edges[0] != null){
+				
+				try {
+					edges.remove({
+						id : selected.edges[0]
+					});
+		 	    } catch (err) {
+		 	    	alert(err);
+				}
+				
+			}else{
+				
+				alert('Can\'t select more than one node or edge to remove.');
+				
+			}
+			
+		};
 			
 			function findLocalID(global){
 				var r = [];
