@@ -144,6 +144,7 @@ app.controller('fusionFormController', function ($scope, $rootScope, fusionServi
 
     // Calls the rest method to save a place.
     $scope.updateFusion = function () {
+    	$scope.fusion.dependentIndependent = 1;
         fusionService.save($scope.fusion).$promise.then(
             function () {
                 // Broadcast the event to refresh the grid.

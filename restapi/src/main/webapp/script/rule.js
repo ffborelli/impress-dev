@@ -144,6 +144,7 @@ app.controller('ruleFormController', function ($scope, $rootScope, ruleService,$
 
     // Calls the rest method to save a place.
     $scope.updateRule = function () {
+    	$scope.rule.dependentIndependent = 1;
         ruleService.save($scope.rule).$promise.then(
             function () {
                 // Broadcast the event to refresh the grid.

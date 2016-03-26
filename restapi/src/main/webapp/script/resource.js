@@ -163,6 +163,7 @@ app.controller('resourceFormController', function ($scope, $rootScope, resourceS
 
     // Calls the rest method to save a place.
     $scope.updateResource = function () {
+    	$scope.resource.dependentIndependent = 1;
         resourceService.save($scope.resource).$promise.then(
             function () {
                 // Broadcast the event to refresh the grid.

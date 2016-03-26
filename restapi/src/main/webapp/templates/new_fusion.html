@@ -64,23 +64,6 @@
 						ng-show="fusionForm.fusionText.$error.maxlength">Fusion Text
 						cannot be longer than 100 characters.</p>
 				</div>
-				
-				<div class="form-group"
-						ng-class="{'has-error' : fusionForm.dependence.$invalid && fusionForm.dependence.$dirty}">
-
-						<select id="dependence" name="dependence" ng-model="fusion.dependentIndependent"
-							class="form-control" required
-							style="min-width: 300px">
-							<option value="">Select Dependence</option>
-							<option value="0">Dependent</option>
-							<option value="1">Independent</option>
-						</select>
-
-						<!-- Validation messages to be displayed on required, minlength and maxlength -->
-						<p class="help-block"
-							ng-show="fusionForm.dependence.$error.required">Select 
-							Dependence.</p>
-					</div>
 
 				<!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
 				<div class="buttons">

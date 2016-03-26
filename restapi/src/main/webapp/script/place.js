@@ -172,6 +172,7 @@ app.controller('placesFormController', function ($scope, $rootScope, placeServic
 
     // Calls the rest method to save a place.
     $scope.updatePlace = function () {
+    	$scope.place.dependentIndependent = 1;
         placeService.save($scope.place).$promise.then(
             function () {
                 // Broadcast the event to refresh the grid.
