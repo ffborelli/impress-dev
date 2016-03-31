@@ -6,7 +6,7 @@
 
 var impressApp = angular.module('impressApp',
 		['ui.bootstrap', 'ngRoute', 'ngCookies', 'places', 'placetype', 'resourcetype', 'contexttype', 'actiontype',
-		 'contextentity', 'resource', 'fusion', 'contextdesigner', 'action', 'schedule']);
+		 'contextentity', 'resource', 'fusion', 'contextdesigner', 'action', 'schedule', 'actuators']);
 
 // routes
 impressApp.config(['$routeProvider', function($routeProvider){

@@ -290,3 +290,18 @@ h3 {
 	height: auto;
 	margin: 20px 20px 20px 20px;
 }
+
+.show_actuators_btn {
+	background-color: #0099ff;
+	border-radius: 10px;
+	border: none;
+	color: #ffffff;
+	width: 180px;
+	height: 40px;
+	font-size: 20px;
+	margin-right: 30px;
+}
+
+.show_actuators_btn:hover {
+	background-color: #009999;
+}

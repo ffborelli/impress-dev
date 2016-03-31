@@ -1,3 +1,18 @@
 <div class="container" ng-app="actuators">
-	<h1>Actuators</h1>
+	
+	<h1 style="float: left;">Actuators</h1>
+	
+	<br /><br /><br /> <br />
+	
+	<div class="grid" ng-controller="actuatorsController">
+
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="10" items-per-page="10"
+			ng-model="actuators.currentPage" ng-change="refreshGrid()">
+		</pagination>
+	</div>
 </div>

@@ -24,7 +24,7 @@ app.controller('ruleSimpleToggle', function($scope){
 });
 
 //Create a controller with name placesListController to bind to the grid section.
-app.controller('ruleListController', function ($scope, $rootScope, ruleService, ruleServiceSearch) {
+app.controller('ruleListController', function ($scope, $rootScope, $window, ruleService, ruleServiceSearch) {
     // Initialize required information: sorting, the first page to show and the grid options.
     $scope.sortInfo = {fields: ['id'], directions: ['asc']};
     $scope.rule = {currentPage: 1};
@@ -98,6 +98,18 @@ app.controller('ruleListController', function ($scope, $rootScope, ruleService, 
     $scope.$on('search', function(event, data) {
         $scope.rule = data;
     });
+    
+    $scope.$on('ruleSelected', function (event, id) {
+    	$scope.searchModelID = id;
+    });
+    
+    $scope.showActuators = function(){
+    	if($scope.searchModelID != null){
+    		$window.location.href = '#/actuators/'+$scope.searchModelID;
+    	}else {
+    		alert("Select a rule to show its actuators.");
+    	}
+    };
     
     $scope.apiSearch = function() {
     	
