@@ -108,6 +108,12 @@ impressApp.config(['$routeProvider', function($routeProvider){
 		.when('/drools', {
 			templateUrl: 'templates/drools.html'
 		})
+		.when('/actuators', {
+			templateUrl: 'templates/actuators.html'
+		})
+		.when('/actuators/:id', {
+			templateUrl: 'templates/actuators.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
