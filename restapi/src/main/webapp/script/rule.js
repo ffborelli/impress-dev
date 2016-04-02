@@ -100,8 +100,8 @@ app.controller('ruleListController', function ($scope, $rootScope, $window, rule
     });
     
     $scope.$on('ruleSelected', function (event, id) {
+    	$rootScope.$broadcast('loadActions', {id: id});
     	$scope.searchModelID = id;
-    	$scope.$broadcast('loadActions', {id: $scope.searchModelID});
     	$scope.Show();
     });
     
@@ -147,34 +147,34 @@ app.controller('ruleActionsListController', function ($scope, $rootScope, $http)
 	
 	// Usar eventos para chamar esta função!!! 
 	$scope.$on('loadActions', function(event, args){
-		alert('teste');
+		//alert('teste '+args.id);
 		$http({ 
     		method: 'GET',
     		url: 'service/action/all'
     	}).
     	success(function(data) {
     		
-        	$scope.action = angular.fromJson(data);
+    		$scope.actions =[];
+    		
+        	var action = angular.fromJson(data);
         	
-        	for(var i=0; i<$scope.actions.length; i++){
+        	for(var i=0; i<action.length; i++){
         		
-        		if($scope.action[i].rule.id == parseInt(args.id) &&
-        			$scope.action[i].resource.resourceType.sensorActuator == 1){
+        		if(action[i].rule.id == parseInt(args.id) &&
+        			action[i].resource.resourceType.sensorActuator == 1){
         			
-        			$scope.actions.push($scope.action[i]);
+        			$scope.actions.push(action[i]);
         			
         		}
         		
         	}
-        	
-        	alert($scope.actions);
         	
     	});
 	
 	});
 	
 	//$scope.sortInfo = {fields: ['id'], directions: ['asc']};
-    //$scope.rule = {currentPage: 1};
+    $scope.actions = {currentPage: 1};
     
     $scope.gridActionOptions = {
         data: 'actions',
@@ -183,8 +183,8 @@ app.controller('ruleActionsListController', function ($scope, $rootScope, $http)
 
         columnDefs: [
             { field: 'id', displayName: 'Id' },
-            { field: 'description', displayName: 'Actuator', enableCellEdit: true },
-            { field: 'resourceType.description', displayName: 'Resource Type', enableCellEdit: true },
+            { field: 'resource.description', displayName: 'Actuator', enableCellEdit: true },
+            { field: 'resource.resourceType.description', displayName: 'Resource Type', enableCellEdit: true },
             { field: 'resourceActionType.resourceActionTypeText', displayName: 'Action', enableCellEdit: true }
         ],
 
