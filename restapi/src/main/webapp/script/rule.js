@@ -240,6 +240,7 @@ app.controller('ruleFormController', function ($scope, $rootScope, ruleService,$
                 // Broadcast the event to display a save message.
                 $rootScope.$broadcast('ruleSaved');
                 $scope.clearForm();
+                $scope.Hide();
             },
             function () {
                 // Broadcast the event for a server error.
