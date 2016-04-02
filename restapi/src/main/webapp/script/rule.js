@@ -13,12 +13,12 @@ app.controller('ruleSimpleToggle', function($scope){
 	
 	$scope.toggle = false;
 	
-	$scope.Show1 = function(){
-		$scope.toggle = !$scope.toggle; 
+	$scope.Show = function(){
+		if (!$scope.toggle) $scope.toggle = !$scope.toggle; 
 	};
 	
-	$scope.Show2 = function(){
-		if (!$scope.toggle) $scope.toggle = !$scope.toggle; 
+	$scope.Hide = function(){
+		if ($scope.toggle) $scope.toggle = !$scope.toggle; 
 	};
 	
 });
@@ -101,6 +101,8 @@ app.controller('ruleListController', function ($scope, $rootScope, $window, rule
     
     $scope.$on('ruleSelected', function (event, id) {
     	$scope.searchModelID = id;
+    	$scope.$broadcast('loadActions', {id: $scope.searchModelID});
+    	$scope.Show();
     });
     
     $scope.showActuators = function(){
@@ -139,6 +141,80 @@ app.controller('ruleListController', function ($scope, $rootScope, $window, rule
     };
 });
 
+app.controller('ruleActionsListController', function ($scope, $rootScope, $http) {
+    
+	$scope.actions = [];
+	
+	// Usar eventos para chamar esta função!!! 
+	$scope.$on('loadActions', function(event, args){
+		alert('teste');
+		$http({ 
+    		method: 'GET',
+    		url: 'service/action/all'
+    	}).
+    	success(function(data) {
+    		
+        	$scope.action = angular.fromJson(data);
+        	
+        	for(var i=0; i<$scope.actions.length; i++){
+        		
+        		if($scope.action[i].rule.id == parseInt(args.id) &&
+        			$scope.action[i].resource.resourceType.sensorActuator == 1){
+        			
+        			$scope.actions.push($scope.action[i]);
+        			
+        		}
+        		
+        	}
+        	
+        	alert($scope.actions);
+        	
+    	});
+	
+	});
+	
+	//$scope.sortInfo = {fields: ['id'], directions: ['asc']};
+    //$scope.rule = {currentPage: 1};
+    
+    $scope.gridActionOptions = {
+        data: 'actions',
+        useExternalSorting: true,
+        sortInfo: {fields: ['id'], directions: ['asc']},
+
+        columnDefs: [
+            { field: 'id', displayName: 'Id' },
+            { field: 'description', displayName: 'Actuator', enableCellEdit: true },
+            { field: 'resourceType.description', displayName: 'Resource Type', enableCellEdit: true },
+            { field: 'resourceActionType.resourceActionTypeText', displayName: 'Action', enableCellEdit: true }
+        ],
+
+        multiSelect: false,
+        selectedItems: []
+    };
+    
+    // Refresh the grid, calling the appropriate rest method.
+    $scope.refreshGrid = function () {
+    	$scope.actions = [];
+    };
+    
+    $scope.deleteRow = function (row) {
+        $rootScope.$broadcast('deleteActions', row.entity.id);
+    };
+    
+    $scope.$watch('sortInfo.fields[0]', function () {
+        $scope.refreshGrid();
+    }, true);
+    
+    $scope.$on('ngGridEventSorted', function (event, sortInfo) {
+        $scope.sortInfo = sortInfo;
+    });
+    
+    $scope.$on('refreshActionGrid', function () {
+        $scope.refreshGrid();
+    });
+	
+});
+
 //Create a controller with name placesFormController to bind to the form section.
 app.controller('ruleFormController', function ($scope, $rootScope, ruleService,$http) {
 	  	
@@ -169,6 +245,11 @@ app.controller('ruleFormController', function ($scope, $rootScope, ruleService,$
                 // Broadcast the event for a server error.
                 $rootScope.$broadcast('error');
             });
+    };
+    
+    $scope.cancel = function(){
+    	$scope.clearForm();
+    	$scope.Hide();
     };
 
     // Picks up the event broadcasted when the place is selected from the grid and perform the place load by calling
