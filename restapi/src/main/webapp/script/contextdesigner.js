@@ -2,7 +2,7 @@ var app = angular.module('contextdesigner', [ 'ngResource', 'ui.bootstrap', 'imp
 
 // Create a controller with name placesListController to bind to the grid
 // section.
-app.controller('contextDesignerController', function($scope, $rootScope, $http, $routeParams, contextService, contextPlaceService) {
+app.controller('contextDesignerController', function($scope, $rootScope, $http, $q, $routeParams, contextService, contextPlaceService) {
 	
 	$scope.context = {};
 	$scope.searchModelID = null;
@@ -591,6 +591,28 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 			}
 			
+			/*$scope.getDescriptionText = function(entity, id){
+				
+				var deferred = $q.defer();
+				
+				$http.get('service/'+entity+'/'+id)
+			    	.success(function(response, status, headers, config) {
+			    		if(entity == 'resource'){
+			    			deferred.resolve(response.description);
+			    		}else if(entity == 'fusion'){
+			    			deferred.resolve(response.fusionName);
+			    		}else if(entity == 'rule'){
+			    			deferred.resolve(response.ruleName);
+			    		}
+			    	})
+			    	.error(function(response, status, headers, config){
+			    		deferred.reject('Error!');
+			    	});
+				
+				return deferred.promise;
+				
+			};*/
+			
 			$scope.apiSearch = function(){
 				
 				if ($scope.searchModelID != null || $scope.searchModelID != ''){
@@ -893,6 +915,13 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				$scope.apiSearch();
 				setTimeout($scope.enablePhysics, 3000);
 			}
+			
+			/*var testeee = $scope.getDescriptionText('rule', 1);
+			testeee.then(function(resolve){
+				alert(resolve);
+			}, function(reject){
+				alert(reject);
+			});*/
 
 			$scope.draw = function() {
 				// create an array with nodes
