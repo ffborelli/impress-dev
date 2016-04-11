@@ -1,5 +1,15 @@
 var app = angular.module('contextdesigner', [ 'ngResource', 'ui.bootstrap', 'impressApp', 'ngRoute' ]);
 
+app.directive('descText', function(){
+	return {
+		link: function(scope, element, attr){
+			
+			
+			
+		}
+	};
+});
+
 // Create a controller with name placesListController to bind to the grid
 // section.
 app.controller('contextDesignerController', function($scope, $rootScope, $http, $q, $routeParams, contextService, contextPlaceService) {
@@ -591,27 +601,15 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 			}
 			
-			/*$scope.getDescriptionText = function(entity, id){
+			var getDescriptionText = function(entity, id){
 				
-				var deferred = $q.defer();
+				return $.ajax({
+					type: 'GET',
+					url: 'service/'+entity+'/'+id,
+					async: false
+				}).responseText;
 				
-				$http.get('service/'+entity+'/'+id)
-			    	.success(function(response, status, headers, config) {
-			    		if(entity == 'resource'){
-			    			deferred.resolve(response.description);
-			    		}else if(entity == 'fusion'){
-			    			deferred.resolve(response.fusionName);
-			    		}else if(entity == 'rule'){
-			    			deferred.resolve(response.ruleName);
-			    		}
-			    	})
-			    	.error(function(response, status, headers, config){
-			    		deferred.reject('Error!');
-			    	});
-				
-				return deferred.promise;
-				
-			};*/
+			};
 			
 			$scope.apiSearch = function(){
 				
@@ -673,8 +671,10 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 												graphId: id_global_node
 											});
 											
-											$scope.sensor_edges.push({ name: 'Sensor ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'SENSOR' });
-											addNodeVis('Sensor '+parseInt(newId), colors[0]);
+											var nm = JSON.parse(getDescriptionText('resource', parseInt(newId))).description;
+											
+											$scope.sensor_edges.push({ name: 'Sensor: ' + nm , local: parseInt(newId), global: id_global_node, type: 'SENSOR' });
+											addNodeVis('Sensor: '+nm, colors[0]);
 											count_sensor++;
 											
 										}
@@ -692,8 +692,10 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 												graphId: id_global_node
 											});
 											
-											$scope.fusion_edges.push({ name: 'Fusion ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'FUSION' });
-											addNodeVis('Fusion '+parseInt(newId), colors[1]);
+											var nm = JSON.parse(getDescriptionText('fusion', parseInt(newId))).fusionName;
+											
+											$scope.fusion_edges.push({ name: 'Fusion: ' + nm , local: parseInt(newId), global: id_global_node, type: 'FUSION' });
+											addNodeVis('Fusion: '+nm, colors[1]);
 				           					count_fusion++;
 											
 										}
@@ -711,8 +713,10 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 												graphId: id_global_node
 											});
 											
-											$scope.rule_edges.push({ name: 'Rule ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'RULE' });
-											addNodeVis('Rule '+parseInt(newId), colors[2]);
+											var nm = JSON.parse(getDescriptionText('rule', parseInt(newId))).ruleName;
+											
+											$scope.rule_edges.push({ name: 'Rule: ' + nm , local: parseInt(newId), global: id_global_node, type: 'RULE' });
+											addNodeVis('Rule: '+nm, colors[2]);
 				           					count_rule++;
 											
 										}
@@ -730,8 +734,10 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 												graphId: id_global_node
 											});
 											
-											$scope.actuator_edges.push({ name: 'Actuator ' + id_global_node , local: parseInt(newId), global: id_global_node, type: 'ACTUATOR' });
-											addNodeVis('Actuator '+parseInt(newId), colors[3]);
+											var nm = JSON.parse(getDescriptionText('resource', parseInt(newId))).description;
+											
+											$scope.actuator_edges.push({ name: 'Actuator: ' + nm , local: parseInt(newId), global: id_global_node, type: 'ACTUATOR' });
+											addNodeVis('Actuator: '+nm, colors[3]);
 				           					count_actuator++;
 											
 										}
@@ -916,13 +922,6 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				setTimeout($scope.enablePhysics, 3000);
 			}
 			
-			/*var testeee = $scope.getDescriptionText('rule', 1);
-			testeee.then(function(resolve){
-				alert(resolve);
-			}, function(reject){
-				alert(reject);
-			});*/
-
 			$scope.draw = function() {
 				// create an array with nodes
 				nodes = new vis.DataSet();
