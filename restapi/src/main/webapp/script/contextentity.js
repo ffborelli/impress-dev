@@ -35,6 +35,7 @@ app.controller('contextEntityListController', function ($scope, $rootScope, $win
         data: 'context.list',
         useExternalSorting: true,
         sortInfo: $scope.sortInfo,
+        dblClickFn: $scope.loadGraph,
 
         columnDefs: [
             { field: 'id', displayName: 'Id' },
