@@ -423,23 +423,11 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 			
 			if(selected.nodes[0] != null && selected.edges[0] == null){
 				
-				try {
-					nodes.remove({
-						id : selected.nodes[0]
-					});
-				} catch (err) {
-					alert(err);
-				}
+				$scope.removeNode();
 				
 			}else if(selected.nodes[0] == null && selected.edges[0] != null){
 				
-				try {
-					edges.remove({
-						id : selected.edges[0]
-					});
-		 	    } catch (err) {
-		 	    	alert(err);
-				}
+				$scope.removeEdge();
 				
 			}else{
 				
@@ -475,27 +463,30 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				
 				//At first we have to find all sensors node -- the order is real -- virtual
 				
-				for (i = 1; i <= edges.length; i++) {
-
-					var f = findLocalID(edges._data[i].from);
-					var t = findLocalID(edges._data[i].to);
+				edges.forEach(function(name){
+					
+					//alert(JSON.stringify(name));
+					
+					var f = findLocalID(edges._data[name.id].from);
+					var t = findLocalID(edges._data[name.id].to);
 					
 					if(t[1] == 'SENSOR'){
-						sensors += edges._data[i].from + '*' + f[0]  + ',' + f[1] + ':' +edges._data[i].to + '*' + t[0] + ',' + t[1] + ';'
+						sensors += edges._data[name.id].from + '*' + f[0]  + ',' + f[1] + ':' +edges._data[name.id].to + '*' + t[0] + ',' + t[1] + ';';
 					}
 					else if(t[1] == 'RULE'){
-						rules += edges._data[i].from + '*' + f[0] + ',' + f[1] + ':'  +edges._data[i].to + '*' + t[0] + ',' + t[1] + ';' 
+						rules += edges._data[name.id].from + '*' + f[0] + ',' + f[1] + ':'  +edges._data[name.id].to + '*' + t[0] + ',' + t[1] + ';' ;
 					}
 					else if(t[1] == 'FUSION'){
-						fusions += edges._data[i].from + '*' + f[0] + ',' + f[1] + ':' +edges._data[i].to + '*' + t[0] + ',' + t[1] + ';'
+						fusions += edges._data[name.id].from + '*' + f[0] + ',' + f[1] + ':' +edges._data[name.id].to + '*' + t[0] + ',' + t[1] + ';';
 					}
 					else if(t[1] == 'ACTUATOR'){
-						actuators += edges._data[i].from + '*' + f[0] + ',' + f[1] + ':' +edges._data[i].to + '*' + t[0] + ',' + t[1] + ';'
+						actuators += edges._data[name.id].from + '*' + f[0] + ',' + f[1] + ':' +edges._data[name.id].to + '*' + t[0] + ',' + t[1] + ';';
 					}
 					else{
 						
-					}					
-				}
+					}
+					
+				});
 				
 				var rel = sensors+fusions+rules+actuators;
 				
