@@ -580,7 +580,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 				var checkReturn = false;
 				
 				for (p = 0; p < relation.length; p++) {
-					if (entity.type == relation[p].type && entity.local == relation[p].local  ){
+					if (entity.type == relation[p].type && entity.local == relation[p].local
+						&& entity.virtual == relation[p].virtual){
 						//break;
 						checkReturn = entity.local;
 						break;
@@ -622,6 +623,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 						var newId = '';
 						var newGraphId = '';
 						var newType = '';
+						var virtualIdFrom = '';
+						var virtualIdTo = '';
 						var idFrom = '';
 						var idTo = '';
 						var typeFrom = '';
@@ -651,7 +654,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 									
 									if(newType == 'SENSOR'){
 										
-										var r = {local: parseInt(newId), global: id_global_node, type: 'SENSOR'};
+										var r = {local: parseInt(newId), global: id_global_node, virtual: newGraphId, type: 'SENSOR'};
 										
 										if(checkRepetition(r) == false){
 											
@@ -659,7 +662,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newSensor.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: id_global_node,
+												virtual: newGraphId
 											});
 											
 											var nm = JSON.parse(getDescriptionText('resource', parseInt(newId))).description;
@@ -672,7 +676,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 										
 									}else if(newType == 'FUSION'){
 										
-										var r = {local: parseInt(newId), global: id_global_node, type: 'FUSION'};
+										var r = {local: parseInt(newId), global: id_global_node, virtual: newGraphId, type: 'FUSION'};
 										
 										if(checkRepetition(r) == false){
 											
@@ -680,7 +684,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newFusion.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: id_global_node,
+												virtual: newGraphId
 											});
 											
 											var nm = JSON.parse(getDescriptionText('fusion', parseInt(newId))).fusionName;
@@ -693,7 +698,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 									}else if(newType == 'RULE'){
 										
-										var r = {local: parseInt(newId), global: id_global_node, type: 'RULE'};
+										var r = {local: parseInt(newId), global: id_global_node, virtual: newGraphId, type: 'RULE'};
 										
 										if(checkRepetition(r) == false){
 											
@@ -701,7 +706,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newRule.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: id_global_node,
+												virtual: newGraphId
 											});
 											
 											var nm = JSON.parse(getDescriptionText('rule', parseInt(newId))).ruleName;
@@ -714,7 +720,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 										
 									}else if(newType == 'ACTUATOR'){
 										
-										var r = {local: parseInt(newId), global: id_global_node, type: 'ACTUATOR'};
+										var r = {local: parseInt(newId), global: id_global_node, virtual: newGraphId, type: 'ACTUATOR'};
 										
 										if(checkRepetition(r) == false){
 											
@@ -722,7 +728,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 											
 											newActuator.push({
 												id: parseInt(newId),
-												graphId: id_global_node
+												graphId: id_global_node,
+												virtual: newGraphId
 											});
 											
 											var nm = JSON.parse(getDescriptionText('resource', parseInt(newId))).description;
@@ -737,6 +744,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 									
 									newType = '';
 									newId = '';
+									newGraphId = '';
 									real = false;
 									idType = false;
 									
@@ -751,7 +759,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 							if(toFrom == false && graphStr[i] != ':'){
 								
 								if(real == false && graphStr[i] != '*'){
-									newGraphId = newGraphId + graphStr[i];
+									virtualIdFrom = virtualIdFrom + graphStr[i];
 								}else if(real == false && graphStr[i] == '*'){
 									real = true;
 								}else if(real == true){
@@ -775,7 +783,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 							}else if(toFrom == true && graphStr[i] != ';'){
 								
 								if(real == false && graphStr[i] != '*'){
-									newGraphId = newGraphId + graphStr[i];
+									virtualIdTo = virtualIdTo + graphStr[i];
 								}else if(real == false && graphStr[i] == '*'){
 									real = true;
 								}else if(real == true){
@@ -798,7 +806,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								if(typeFrom == 'SENSOR'){
 									
 									for(var j=0; j<newSensor.length; j++){
-										if(newSensor[j].id == parseInt(idFrom)){
+										if(newSensor[j].id == parseInt(idFrom) && newSensor[j].virtual == parseInt(virtualIdFrom)){
 											graphIdFrom = newSensor[j].graphId;
 											break;
 										}
@@ -807,7 +815,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								}else if(typeFrom == 'FUSION'){
 									
 									for(var j=0; j<newFusion.length; j++){
-										if(newFusion[j].id == parseInt(idFrom)){
+										if(newFusion[j].id == parseInt(idFrom) && newFusion[j].virtual == parseInt(virtualIdFrom)){
 											graphIdFrom = newFusion[j].graphId;
 											break;
 										}
@@ -816,7 +824,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								}else if(typeFrom == 'RULE'){
 									
 									for(var j=0; j<newRule.length; j++){
-										if(newRule[j].id == parseInt(idFrom)){
+										if(newRule[j].id == parseInt(idFrom) && newRule[j].virtual == parseInt(virtualIdFrom)){
 											graphIdFrom = newRule[j].graphId;
 											break;
 										}
@@ -825,7 +833,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								}else if(typeFrom == 'ACTUATOR'){
 									
 									for(var j=0; j<newActuator.length; j++){
-										if(newActuator[j].id == parseInt(idFrom)){
+										if(newActuator[j].id == parseInt(idFrom) && newActuator[j].virtual == parseInt(virtualIdFrom)){
 											graphIdFrom = newActuator[j].graphId;
 											break;
 										}
@@ -836,7 +844,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								if(typeTo == 'SENSOR'){
 									
 									for(var j=0; j<newSensor.length; j++){
-										if(newSensor[j].id == parseInt(idTo)){
+										if(newSensor[j].id == parseInt(idTo) && newSensor[j].virtual == parseInt(virtualIdTo)){
 											graphIdTo = newSensor[j].graphId;
 											break;
 										}
@@ -845,7 +853,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								}else if(typeTo == 'FUSION'){
 									
 									for(var j=0; j<newFusion.length; j++){
-										if(newFusion[j].id == parseInt(idTo)){
+										if(newFusion[j].id == parseInt(idTo) && newFusion[j].virtual == parseInt(virtualIdTo)){
 											graphIdTo = newFusion[j].graphId;
 											break;
 										}
@@ -854,7 +862,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								}else if(typeTo == 'RULE'){
 									
 									for(var j=0; j<newRule.length; j++){
-										if(newRule[j].id == parseInt(idTo)){
+										if(newRule[j].id == parseInt(idTo) && newRule[j].virtual == parseInt(virtualIdTo)){
 											graphIdTo = newRule[j].graphId;
 											break;
 										}
@@ -863,7 +871,7 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								}else if(typeTo == 'ACTUATOR'){
 									
 									for(var j=0; j<newActuator.length; j++){
-										if(newActuator[j].id == parseInt(idTo)){
+										if(newActuator[j].id == parseInt(idTo) && newActuator[j].virtual == parseInt(virtualIdTo)){
 											graphIdTo = newActuator[j].graphId;
 											break;
 										}
@@ -877,6 +885,8 @@ app.controller('contextDesignerController', function($scope, $rootScope, $http, 
 								idTo = '';
 								typeFrom = '';
 								typeTo = '';
+								virtualIdFrom = '';
+								virtualIdTo = '';
 								real = false;
 								idType = false;
 								toFrom = false;
