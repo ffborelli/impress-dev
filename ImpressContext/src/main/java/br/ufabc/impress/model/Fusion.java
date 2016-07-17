@@ -36,6 +36,12 @@ public class Fusion implements Serializable {
 	@Column(name = "dependent_0_independent_1", nullable = false)
 	private int dependentIndependent;
 	
+	@Column(name = "is_running")
+	private boolean isRunning;
+	
+	@Column(name = "is_avaliable")
+	private boolean isAvaliable;
+	
 	public Fusion(){
 		
 	}
@@ -70,6 +76,22 @@ public class Fusion implements Serializable {
 	
 	public int getDependentIndependent(){
 		return this.dependentIndependent;
+	}
+
+	public boolean isRunning() {
+		return isRunning;
+	}
+
+	public void setRunning(boolean isRunning) {
+		this.isRunning = isRunning;
+	}
+	
+	public boolean isAvaliable() {
+		return isRunning;
+	}
+
+	public void setAvaliable(boolean isAvaliable) {
+		this.isAvaliable = isAvaliable;
 	}
 	
 }

@@ -42,10 +42,16 @@ public class Resource implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_place_fk", referencedColumnName = "id_place")
 	private Place place;
+
+	@Column(name = "uid")
+	private String uid;
+
+	@Column(name = "is_reserved", nullable = false)
+	private boolean isReserved;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "dependence_fusion_log_fk", referencedColumnName = "id_fusion_log")
-//	private FusionLog fusionLog;
+	@ManyToOne
+	@JoinColumn(name = "dependence_fusion_log_fk", referencedColumnName = "id_fusion_log")
+	private FusionLog fusionLog;
 	
 	public Resource(){
 		
@@ -90,6 +96,22 @@ public class Resource implements Serializable {
 	public Place getPlace(){
 		return this.place;
 	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public boolean isReserved() {
+		return isReserved;
+	}
+
+	public void setReserved(boolean isReserved) {
+		this.isReserved = isReserved;
+	}
 	
 //	public void setFusionLog(FusionLog fusionLog){
 //		this.fusionLog = fusionLog;
@@ -98,5 +120,7 @@ public class Resource implements Serializable {
 //	public FusionLog getFusionLog(){
 //		return this.fusionLog;
 //	}
+	
+	
 	
 }

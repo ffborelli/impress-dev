@@ -1,8 +1,6 @@
-package br.ufabc.impress.mqtt;
+package br.ufabc.impress;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -12,7 +10,13 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-public class MqttSubscribe implements MqttCallback, Runnable {
+import br.ufabc.impress.facade.ResourceFacade;
+import br.ufabc.impress.model.Resource;
+import br.ufabc.impress.mqtt.ProtocolRules;
+
+public class GRM implements Runnable, MqttCallback {
+	
+	private ResourceFacade resourceFacade;
 
 	private String uri;
 	private String clientId;
@@ -21,7 +25,7 @@ public class MqttSubscribe implements MqttCallback, Runnable {
 	private MqttClient client;
 	private MqttConnectOptions options;
 
-	public MqttSubscribe(String uri, String clientId, String topic) {
+	public GRM(String uri, String clientId, String topic) {
 		this.clientId = clientId;
 		this.uri = uri;
 		this.topic = topic;
@@ -36,14 +40,9 @@ public class MqttSubscribe implements MqttCallback, Runnable {
 	private void subscribe(String uri, String clientId, String topic) {
 
 		System.out.println("Subscribing topic " + topic);
-//		DemoUtil demoUtil = new DemoUtil();
-//		demoUtil.saveLog("Subscribing topic " + topic);
+
 		try {
-			// this.startEsper();
-			// MqttClient client = new MqttClient("tcp://localhost:61613",
-			// "pahomqttpublish1");
-			// MqttClient client = new MqttClient("tcp://10.0.0.107:1883",
-			// "pahomqttpublish1");
+
 			Random random = new Random();
 			String id = clientId+random.nextInt(2000);
 			client = new MqttClient(uri, id);
@@ -106,14 +105,58 @@ public class MqttSubscribe implements MqttCallback, Runnable {
 	public void messageArrived(String topic, MqttMessage message)
 			throws Exception {
 		
-		System.out.println("MQTT S: message arrived --> topic:\t" + topic
+		System.out.println("GRM : message arrived --> topic:\t" + topic
 				+ "  message:\t" + new String(message.getPayload()));
+		
+		if (new String(message.getPayload()).equalsIgnoreCase("ON")){
+			
+			Resource r = this.getResourceFacade().find(7);
+			r.setReserved(true);
+			this.getResourceFacade().update(r);
+			
+			r = this.getResourceFacade().find(8);
+			r.setReserved(true);
+			this.getResourceFacade().update(r);
+			
+			r = this.getResourceFacade().find(9);
+			r.setReserved(true);
+			this.getResourceFacade().update(r);
+			
+			r = this.getResourceFacade().find(10);
+			r.setReserved(true);
+			this.getResourceFacade().update(r);
+			
+			
+			
+		}
+		else if (new String(message.getPayload()).equalsIgnoreCase("OFF")) {
+			
+			Resource r = this.getResourceFacade().find(7);
+			r.setReserved(false);
+			this.getResourceFacade().update(r);
+			
+			r = this.getResourceFacade().find(8);
+			r.setReserved(false);
+			this.getResourceFacade().update(r);
+			
+			r = this.getResourceFacade().find(9);
+			r.setReserved(false);
+			this.getResourceFacade().update(r);
+			
+			r = this.getResourceFacade().find(10);
+			r.setReserved(false);
+			this.getResourceFacade().update(r);
+			
+		}
+		else{}
 
-
-		ProtocolRules pr = new ProtocolRules(new String(message.getPayload()));
-		Thread t = new Thread(pr);
-		t.start();
-
+	}
+	
+	private ResourceFacade getResourceFacade(){
+		if (resourceFacade == null){
+			resourceFacade = new ResourceFacade();
+		}
+		return resourceFacade;
 	}
 
 }

@@ -86,9 +86,44 @@ public class ResourceLogDAO extends GenericDAO<ResourceLog> implements Serializa
 		
 	}
 	
+	public List<ResourceLog> getLastByResource(int resourceID, int measures){
+		
+		
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<ResourceLog> query = builder.createQuery(ResourceLog.class);
+		Root<ResourceLog> variableRoot = query.from(ResourceLog.class);
+		query.select(variableRoot);
+		
+		Join<ResourceLog, Resource> resource = variableRoot.join("resource");
+		
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Expression expressionResource = (Expression) resource
+				.get("id");
+
+		
+		predicates.add(getCriteriaBuilder().equal(expressionResource, resourceID));
+		
+		query.where(predicates.toArray(new Predicate[] {}));
+		
+		query.orderBy(builder.desc(variableRoot.get("creationDate")));
+		
+		TypedQuery<ResourceLog> listQuery = getEntityManager().createQuery(query).setHint("javax.persistence.cache.storeMode", "REFRESH");
+//		listQuery.setFirstResult(startIndex);
+		//We want only the last value
+		listQuery.setMaxResults(measures);
+
+		// retorna a lista paginada
+		//LogResource r = listQuery.getSingleResult();
+		List<ResourceLog> r = listQuery.getResultList();
+
+		return r;
+		
+	}
+	
 	private CriteriaBuilder getCriteriaBuilder(){
 		if (builder == null){
-		 builder = getEntityManager().getCriteriaBuilder();
+			builder = getEntityManager().getCriteriaBuilder();
 		}
 		return builder;
 	}

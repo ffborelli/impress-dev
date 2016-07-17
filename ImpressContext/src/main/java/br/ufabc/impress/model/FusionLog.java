@@ -24,12 +24,12 @@ public class FusionLog implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "fusion_log_func", sequenceName = "fusion_log_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "fusion_log_func", sequenceName = "fusion_log_id_fusion_log_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fusion_log_func")
 	@Column(name = "id_fusion_log", nullable = false)
 	private Integer id;
 	
-	@Column(name = "fusion_value_log", nullable = false)
+	@Column(name = "fusion_log_value", nullable = false)
 	private String fusionLogValue;
 	
 	@Temporal(TemporalType.TIMESTAMP)

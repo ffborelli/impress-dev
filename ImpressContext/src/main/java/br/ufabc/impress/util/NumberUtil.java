@@ -10,5 +10,19 @@ public class NumberUtil {
 			return false;
 		}
 	}
+	
+	public int convertBinarytoInt(String input){
+		
+		
+		char[] charArray = input.toCharArray();
+		
+		int r = 0;
+		
+		for (int i = 0; i < charArray.length; i++){
+			r += Integer.parseInt(String.valueOf(charArray[i])) * Math.pow(2, (charArray.length - 1 - i));
+		}
+		
+		return r;
+	}
 
 }

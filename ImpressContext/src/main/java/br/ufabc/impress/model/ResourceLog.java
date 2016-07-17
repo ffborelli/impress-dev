@@ -29,7 +29,7 @@ public class ResourceLog implements Serializable {
 	@Column(name = "id_resource_log", nullable = false)
 	private Integer id;
 	
-	@Column(name = "resource_value_log", nullable = false)
+	@Column(name = "resource_log_value", nullable = false)
 	private String resourceLogValue;
 	
 	@Temporal(TemporalType.TIMESTAMP)

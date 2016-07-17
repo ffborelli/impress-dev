@@ -21,8 +21,14 @@ CREATE TABLE resource_type(
 
 CREATE TABLE resource(
 	id_resource serial NOT NULL PRIMARY KEY,
+	uid varchar(255),
 	description text NOT NULL,
+	dependence_fusion_log_fk int,
 	id_resource_type_fk int,
+	is_reserved boolean default false,
+	mqtt_topic varchar(255),
+    mqtt_address varchar(255),
+    rai_address varchar(255),
 	CONSTRAINT id_resource_type_fk FOREIGN KEY (id_resource_type_fk) REFERENCES resource_type(id_resource_type),
 	id_place_fk int,
 	CONSTRAINT id_place_fk FOREIGN KEY (id_place_fk) REFERENCES place(id_place),
@@ -33,7 +39,7 @@ CREATE TABLE resource_log(
 	id_resource_log serial NOT NULL PRIMARY KEY,
 	id_resource_fk int,
 	CONSTRAINT id_resource_fk FOREIGN KEY (id_resource_fk) REFERENCES resource(id_resource),
-	resource_value_log text NOT NULL, /* value para log_resource_value */
+	resource_log_value text NOT NULL, /* value para log_resource_value */
 	creation_date timestamp NOT NULL /* timestamp para creation_date */
 );
 
@@ -41,6 +47,8 @@ CREATE TABLE fusion(
 	id_fusion serial NOT NULL PRIMARY KEY,
 	fusion_name text NOT NULL, 
 	fusion_text text NOT NULL, /* text para fusion_text */
+	is_running boolean default false,
+	is_avaliable boolean default false,
 	dependent_0_independent_1 int NOT NULL
 );
 
@@ -133,6 +141,9 @@ CREATE TABLE context(
 	id_context serial NOT NULL PRIMARY KEY,
 	context_name text NOT NULL,
 	id_place_fk int,
+	context_sequence text NOT NULL,
+    context_count int NOT NULL default 0,
+    context_registered int NOT NULL default 0,
 	CONSTRAINT id_place_fk FOREIGN KEY (id_place_fk) REFERENCES place(id_place),
 	id_context_type_fk int,
 	CONSTRAINT id_context_type_fk FOREIGN KEY (id_context_type_fk) REFERENCES context_type(id_context_type),

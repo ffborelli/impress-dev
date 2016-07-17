@@ -4,7 +4,7 @@ import com.espertech.esper.client.EPStatement;
 public class EsperStatement {
 	
 	private EPStatement cepStatement;
-	private long idFusion;
+	private int idFusion;
 	
 	public EPStatement getCepStatement() {
 		return cepStatement;
@@ -12,10 +12,10 @@ public class EsperStatement {
 	public void setCepStatement(EPStatement cepStatement) {
 		this.cepStatement = cepStatement;
 	}
-	public long getIdFusion() {
+	public int getIdFusion() {
 		return idFusion;
 	}
-	public void setIdFusion(long idFusion) {
+	public void setIdFusion(int idFusion) {
 		this.idFusion = idFusion;
 	}
 	

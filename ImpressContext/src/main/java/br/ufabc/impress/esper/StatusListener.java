@@ -54,22 +54,22 @@ public class StatusListener implements UpdateListener {
 
 		long estimatedTime = finishTime - startTime;
 
-		if (Param.is_eval) {
-			// eval time
-			EvalSdp eval = new EvalSdp();
-			eval.setStart(new Timestamp(new Date().getTime()));
-			eval.setFinish(new Timestamp(finishTime));
-			eval.setDuration(new Timestamp(estimatedTime));
-			eval.setDurationMil(estimatedTime);
-			eval.setName(Param.name_experiment);
-			eval.setModule(Param.module_fusion_status);
-			eval.setDescription(this.getClass().toString());
-			//this.getEvalSdpFacade().create(eval);
-			
-			//name , start, finish, duration,  duration_mil, module, description
-			File f = new File();
-			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_fusion_status + ";" + this.getClass().toString());
-		}
+//		if (Param.is_eval) {
+//			// eval time
+//			EvalSdp eval = new EvalSdp();
+//			eval.setStart(new Timestamp(new Date().getTime()));
+//			eval.setFinish(new Timestamp(finishTime));
+//			eval.setDuration(new Timestamp(estimatedTime));
+//			eval.setDurationMil(estimatedTime);
+//			eval.setName(Param.name_experiment);
+//			eval.setModule(Param.module_fusion_status);
+//			eval.setDescription(this.getClass().toString());
+//			//this.getEvalSdpFacade().create(eval);
+//			
+//			//name , start, finish, duration,  duration_mil, module, description
+//			File f = new File();
+//			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_fusion_status + ";" + this.getClass().toString());
+//		}
 		 
 	     startTime = System.currentTimeMillis();
 			
@@ -81,24 +81,24 @@ public class StatusListener implements UpdateListener {
 		 
 		 estimatedTime = finishTime - startTime;
 		 
-		if (Param.is_eval) {
-			// eval time
-			EvalSdp eval = new EvalSdp();
-			eval.setStart(new Timestamp(startTime));
-			eval.setFinish(new Timestamp(finishTime));
-			eval.setDuration(new Timestamp(estimatedTime));
-			eval.setDurationMil(estimatedTime);
-			eval.setName(Param.name_experiment);
-			eval.setModule(Param.module_rule_status);
-			eval.setDescription("Inference " + Param.module_rule_status);
-			//this.getEvalSdpFacade().create(eval);
-			//System.out.println(Param.module_rule_status);
-			
-
-			//name , start, finish, duration,  duration_mil, module, description
-			File f = new File();
-			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_rule_status + ";" + this.getClass().toString());
-		}
+//		if (Param.is_eval) {
+//			// eval time
+//			EvalSdp eval = new EvalSdp();
+//			eval.setStart(new Timestamp(startTime));
+//			eval.setFinish(new Timestamp(finishTime));
+//			eval.setDuration(new Timestamp(estimatedTime));
+//			eval.setDurationMil(estimatedTime);
+//			eval.setName(Param.name_experiment);
+//			eval.setModule(Param.module_rule_status);
+//			eval.setDescription("Inference " + Param.module_rule_status);
+//			//this.getEvalSdpFacade().create(eval);
+//			//System.out.println(Param.module_rule_status);
+//			
+//
+//			//name , start, finish, duration,  duration_mil, module, description
+//			File f = new File();
+//			f.write("evalSDP.txt", Param.name_experiment + ";" + String.valueOf(startTime) + ";" + String.valueOf(finishTime) + ";" + String.valueOf(estimatedTime) + ";" + String.valueOf(estimatedTime) + ";" +  Param.module_rule_status + ";" + this.getClass().toString());
+//		}
 	}
 	
 	private ResourceFacade getResourceFacade(){

@@ -15,7 +15,7 @@ import java.io.*;
 
 import br.ufabc.impress.Param;
 
-public class TrackerContext {
+public class TrackerContext2 {
 
 	private int index_db = 0;
 
@@ -206,8 +206,8 @@ public class TrackerContext {
 					}
 				}
 
-				//FileWriter arquivo = new FileWriter(new File("teste.txt"), true);
-				//PrintWriter gravarArq = new PrintWriter(arquivo);
+				FileWriter arquivo = new FileWriter(new File("teste.txt"), true);
+				PrintWriter gravarArq = new PrintWriter(arquivo);
 
 				int j;
 				int m = lista2.size();
@@ -220,18 +220,13 @@ public class TrackerContext {
 
 					lista2real = lista2.get(j);
 					lista3virtual = lista3.get(j);
+
 					ResultSet rs13 = stm
-							.executeQuery("select id_resource, dependence_fusion_log_fk from resource where id_resource in (select id_resource_fk from resource_log where id_resource_log in (select id_resource_log_fk from rsc_fusion_log where id_fusion_log_fk = '" + elemento + "'))");
+							.executeQuery("select id_resource, dependence_fusion_log_fk from resource where id_resource in (select id_resource_fk from resource_log where id_resource_log in (select id_resource_log_fk from rsc_fusion_log where id_fusion_log_fk = '"
+									+ 8 + "'))");
 
 					ArrayList<String> lista13 = new ArrayList<String>();
 					ArrayList<String> lista14 = new ArrayList<String>();
-
-					while (rs13.next()) {
-
-						lista13.add(rs13.getString("dependence_fusion_log_fk"));
-						lista14.add(rs13.getString("id_resource"));
-
-					}
 
 					while (rs13.next()) {
 
@@ -516,8 +511,8 @@ public class TrackerContext {
 			}
 
 			int j;
-			//int m = lista.size();
-			int m = lista2.size();
+			int m = lista.size();
+
 			for (j = 0; j < m; j++) {
 				if (lista.get(j) != null) {
 

@@ -45,4 +45,11 @@ public class ContextFacade implements Serializable{
 		contextDAO.commitAndCloseTransaction();
 	}
 	
+	public Context getLast() {
+		contextDAO.beginTransaction();
+		Context obj = contextDAO.getLast();
+		contextDAO.closeTransaction();
+		return obj;
+	}
+	
 }

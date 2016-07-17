@@ -2,7 +2,7 @@ package br.ufabc.impress.mqtt;
 
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 
-import br.ufabc.impress.tracker.PoolingTracker;
+import br.ufabc.impress.tracker.TrackerPooling;
 import br.ufabc.impress.tracker.TrackerContext;
 
 public class ProdConsTest {
@@ -37,7 +37,7 @@ public class ProdConsTest {
 		//TrackerContext t = new TrackerContext();
 		//t.tracker(null);
 		
-		PoolingTracker p = new PoolingTracker();
+		TrackerPooling p = new TrackerPooling();
 		Thread thread= new Thread(p);
 		thread.start();
 		

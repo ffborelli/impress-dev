@@ -30,6 +30,13 @@ public class ResourceFacade implements Serializable{
 		resourceDAO.closeTransaction();
 		return obj;
 	}
+	
+	public Resource findByUid(String uid) {
+		resourceDAO.beginTransaction();
+		Resource obj = resourceDAO.findByUid(uid);
+		resourceDAO.closeTransaction();
+		return obj;
+	}
 
 	public List<Resource> listAll() {
 		resourceDAO.beginTransaction();

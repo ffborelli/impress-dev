@@ -30,6 +30,13 @@ public class FusionLogFacade implements Serializable{
 		fusionLogDAO.closeTransaction();
 		return obj;
 	}
+	
+	public FusionLog find(FusionLog fl) {
+		fusionLogDAO.beginTransaction();
+		FusionLog obj = fusionLogDAO.find(fl);
+		fusionLogDAO.closeTransaction();
+		return obj;
+	}
 
 	public List<FusionLog> listAll() {
 		fusionLogDAO.beginTransaction();

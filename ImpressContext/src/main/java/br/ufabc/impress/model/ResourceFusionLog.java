@@ -24,7 +24,7 @@ public class ResourceFusionLog implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "rsc_fusion_log_func", sequenceName = "rsc_fusion_log_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "rsc_fusion_log_func", sequenceName = "rsc_fusion_log_id_rsc_fusion_log_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rsc_fusion_log_func")
 	@Column(name = "id_rsc_fusion_log", nullable = false)
 	private Integer id;

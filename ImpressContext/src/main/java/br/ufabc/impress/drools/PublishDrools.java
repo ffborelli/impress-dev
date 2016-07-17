@@ -5,11 +5,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.ufabc.impress.Param;
+import br.ufabc.impress.RestFull;
+import br.ufabc.impress.facade.FusionRuleLogFacade;
+import br.ufabc.impress.facade.ResourceActionTypeFacade;
 import br.ufabc.impress.facade.ResourceFacade;
 import br.ufabc.impress.facade.ResourceLogFacade;
+import br.ufabc.impress.facade.RuleActionLogFacade;
+import br.ufabc.impress.facade.RuleFacade;
+import br.ufabc.impress.model.FusionRuleLog;
 import br.ufabc.impress.model.Resource;
+import br.ufabc.impress.model.ResourceActionType;
 import br.ufabc.impress.model.ResourceLog;
-import br.ufabc.impress.mqtt.MqttPublish;
+import br.ufabc.impress.model.Rule;
+import br.ufabc.impress.model.RuleActionLog;
 
 public class PublishDrools {
 
@@ -17,11 +25,25 @@ public class PublishDrools {
 
 	private ResourceFacade resourceFacade;
 	private ResourceLogFacade resourceLogFacade;
+	private ResourceActionTypeFacade resourceActionTypeFacade;
+	private RuleFacade ruleFacade;
+	private RuleActionLogFacade ruleActionLogFacade;
+	private FusionRuleLogFacade fusionRuleLogFacade;
 
 	public PublishDrools(ArrayList<String> messages) {
 		this.messages = messages;
 	}
 
+	/*
+	 * protocol operation/resource/action/resource_action_type/rule
+	 * 
+	 * 0 --> operation 
+	 * 1 --> resource 
+	 * 2 --> action 
+	 * 3 --> resource_action_type 
+	 * 4 --> rule 
+	 * 5--> rule_action_log
+	 */
 	public void publish() {
 
 		if (messages.isEmpty() == false) {
@@ -40,7 +62,9 @@ public class PublishDrools {
 					// fields[0] + " " + fields[1] + " "+ fields[2] );
 
 					Resource r;
-					MqttPublish m;
+					// MqttPublish m;
+
+					RestFull rest;
 
 					ResourceLog lr = new ResourceLog();
 					if (fields[0].equals("4")) {
@@ -48,24 +72,80 @@ public class PublishDrools {
 						lr.setResourceLogValue(fields[1]);
 						r = this.getResourceFacade().find(Param.sensor_android);
 
-						m = new MqttPublish(Param.address, "id1",
-								"demo/android", messages.get(i));
+						// m = new MqttPublish(Param.address, "id1",
+						// "demo/android", messages.get(i));
 
 					} else {
 						lr.setResourceLogValue(fields[2]);
 						r = this.getResourceFacade().find(
 								Integer.parseInt(fields[1]));
+						//System.out.println("RAL");						
+						// m = new MqttPublish(Param.address, "id1",
+						// Param.topic_publish, messages.get(i));
 
-						m = new MqttPublish(Param.address, "id1",
-								Param.topic_publish, messages.get(i));
+						ResourceActionType rat = this
+								.getResourceActionTypeFacade().find(
+										Integer.parseInt(fields[3]));
+
+						Rule rule = this.getRuleFacade().find(
+								Integer.parseInt(fields[4]));
+
+//						Resource resource = this.getResourceFacade().find(
+//								Integer.parseInt(fields[4]));
+
+						RuleActionLog ral = new RuleActionLog();
+						ral.setCreationDate(new Timestamp(new Date().getTime()));
+						ral.setResourceActionType(rat);
+						ral.setRule(rule);
+						ral.setResource(r);
+						ral.setTracker(false);
+						
+						this.getRuleActionLogFacade().create(ral);
+
+						FusionRuleLog frl = new FusionRuleLog();
+						frl.setCreationDate(new Timestamp(new Date().getTime()));
+						frl.setRuleActionLog(ral);
+
+						this.getFusionRuleLogFacade().create(frl);
+
+						if (r.isReserved() == false) {
+
+							rest = new RestFull();
+
+							try {
+								// auth
+								String url = Param.address_rai_rest
+										+ r.getUid() + "/authorize_access ";
+								rest.sendPost(url);
+
+								if (fields[2].equalsIgnoreCase("0")) {
+
+									// act
+									rest.sendGet(Param.address_rai_rest
+											+ r.getUid() + "/turnOff");
+								} else {
+									rest.sendGet(Param.address_rai_rest
+											+ r.getUid() + "/turnOn");
+									
+//									rest.sendPut(Param.address_rai_rest
+//											+ r.getUid() + "/rgb");
+									
+								}
+
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+
 					}
 					lr.setResource(r);
 					lr.setCreationDate(new Timestamp(new Date().getTime()));
 
 					this.getResourceLogFacade().create(lr);
 
-					Thread thread = new Thread(m);
-					thread.start();
+					// Thread thread = new Thread(m);
+					// thread.start();
 				}
 			}
 		}
@@ -73,17 +153,44 @@ public class PublishDrools {
 	}
 
 	private ResourceFacade getResourceFacade() {
-		// if (resourceFacade == null){
-		resourceFacade = new ResourceFacade();
-		// }
+		if (resourceFacade == null) {
+			resourceFacade = new ResourceFacade();
+		}
 		return resourceFacade;
 	}
 
 	private ResourceLogFacade getResourceLogFacade() {
-		// if (resourceLogFacade == null){
-		resourceLogFacade = new ResourceLogFacade();
-		// }
+		if (resourceLogFacade == null) {
+			resourceLogFacade = new ResourceLogFacade();
+		}
 		return resourceLogFacade;
 	}
 
+	private ResourceActionTypeFacade getResourceActionTypeFacade() {
+		if (resourceActionTypeFacade == null){
+			resourceActionTypeFacade = new ResourceActionTypeFacade();
+		}
+		return resourceActionTypeFacade;
+	}
+
+	private RuleFacade getRuleFacade() {
+		if (ruleFacade == null){
+			ruleFacade = new RuleFacade();
+		}
+		return ruleFacade;
+	}
+
+	private RuleActionLogFacade getRuleActionLogFacade() {
+		if (ruleActionLogFacade == null){
+			ruleActionLogFacade = new RuleActionLogFacade();
+		}
+		return ruleActionLogFacade;
+	}
+
+	private FusionRuleLogFacade getFusionRuleLogFacade() {
+		if (fusionRuleLogFacade == null){
+			fusionRuleLogFacade = new FusionRuleLogFacade();
+		}
+		return fusionRuleLogFacade;
+	}
 }

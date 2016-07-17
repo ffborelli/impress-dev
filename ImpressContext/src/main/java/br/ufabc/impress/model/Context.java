@@ -47,6 +47,18 @@ public class Context implements Serializable {
 	@JoinColumn(name = "id_place_fk", referencedColumnName = "id_place")
 	private Place place;
 	
+	@Column(name = "context_sequence", nullable = false)
+	private String contextSequence;
+	
+	@Column(name = "context_count", nullable = false)
+	private int contextCount;
+	
+	@Column(name = "context_registered", nullable = false)
+	private int contextRegistered;
+	
+	@Column(name = "running", nullable = false)
+	private int running;	
+	
 	public Context(){
 		
 	}
@@ -99,4 +111,36 @@ public class Context implements Serializable {
 		return this.place;
 	}
 	
+	public void setContextSequence(String contextSequence){
+		this.contextSequence = contextSequence;
+	}
+	
+	public String getContextSequence(){
+		return this.contextSequence;
+	}
+	
+	public void setContextCount(int contextCount){
+		this.contextCount = contextCount;
+	}
+	
+	public int getContextCount(){
+		return this.contextCount;
+	}
+	
+	public void setContextRegistered(int contextRegistered){
+		this.contextRegistered = contextRegistered;
+	}
+	
+	public int getContextRegistered(){
+		return this.contextRegistered;
+	}
+
+	public int getRunning() {
+		return running;
+	}
+
+	public void setRunning(int running) {
+		this.running = running;
+	}
+
 }

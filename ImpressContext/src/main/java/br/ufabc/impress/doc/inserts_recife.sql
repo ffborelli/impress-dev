@@ -1,5 +1,4 @@
 
-
 insert into place_type(description) values ('BUILD');
 insert into place_type(description) values ('FLOOR');
 insert into place_type(description) values ('CLASS ROOM');
