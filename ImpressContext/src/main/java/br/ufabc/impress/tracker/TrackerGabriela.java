@@ -229,7 +229,7 @@ public class TrackerGabriela {
 
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 		int idvirtual_regra = 1;
 		int idvirtual_sensor = 0;
@@ -491,6 +491,6 @@ public class TrackerGabriela {
 			e.printStackTrace();
 		}
 
-	}
+	} */
 
 }

@@ -332,6 +332,18 @@ public class ProtocolRules implements Runnable {
 			}
 			
 		}
+		
+		if (Param.mqtt_ivan){
+			String m[] = message.split(del);
+			
+			String type[] = m[0].split("=");
+			
+			if (type[1].equalsIgnoreCase("air")){
+				
+			}else if (type[1].equalsIgnoreCase("air")){
+				
+			}
+		}
 
 		return true;
 	}

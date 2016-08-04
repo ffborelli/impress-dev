@@ -9,7 +9,7 @@ public class Param {
 	
 	//public static int number_of_topics = 1;
 	
-	//public static int number_of_devices = 10;
+	public static int number_of_devices = 10;
 	
 	//public static final String module_fusion_status = "fusion status";
 	//public static final String module_fusion_presence = "fusion presence";
@@ -40,13 +40,19 @@ public class Param {
 	//public static final String address_grm = "ws://130.188.58.101:10011/";
 	public static final String address_grm = "ws://192.168.1.222:10011/";
 	
+	public static final int sensor_light = 1;
+	public static final int sensor_air = 2;
+	public static final int sensor_traffic = 3;
+	public static final int sensor_noise = 4;
+	public static final int sensor_structural = 5;
+	public static final int sensor_waste = 6;
 	
-	
-	public static final boolean grm = false;
-	public static final boolean rai = false;
-	public static final boolean tracker = true;
-	public static final boolean esper = false;
-	public static final boolean mqtt_ufabc = false;
+	public static boolean grm = false;
+	public static boolean rai = false;
+	public static boolean tracker = false;
+	public static boolean esper = true;
+	public static boolean mqtt_ufabc = false;
+	public static boolean mqtt_ivan = false;
 	
 	public static String address_db = "jdbc:postgresql://localhost/impress_recife_test?user=postgres&password=postgres";
 

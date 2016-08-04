@@ -53,6 +53,12 @@ public class Resource implements Serializable {
 	@JoinColumn(name = "dependence_fusion_log_fk", referencedColumnName = "id_fusion_log")
 	private FusionLog fusionLog;
 	
+	@Column(name = "mqtt_topic")
+	private String mqttTopic;
+	
+	@Column(name = "mqtt_address")
+	private String mqttAddress;
+	
 	public Resource(){
 		
 	}
@@ -112,6 +118,24 @@ public class Resource implements Serializable {
 	public void setReserved(boolean isReserved) {
 		this.isReserved = isReserved;
 	}
+
+	public String getMqttTopic() {
+		return mqttTopic;
+	}
+
+	public void setMqttTopic(String mqttTopic) {
+		this.mqttTopic = mqttTopic;
+	}
+
+	public String getMqttAddress() {
+		return mqttAddress;
+	}
+
+	public void setMqttAddress(String mqttAddress) {
+		this.mqttAddress = mqttAddress;
+	}
+	
+	
 	
 //	public void setFusionLog(FusionLog fusionLog){
 //		this.fusionLog = fusionLog;
