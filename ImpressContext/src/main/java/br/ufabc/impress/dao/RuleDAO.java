@@ -1,10 +1,13 @@
 package br.ufabc.impress.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import br.ufabc.impress.model.Rule;
@@ -12,6 +15,7 @@ import br.ufabc.impress.model.Rule;
 public class RuleDAO extends GenericDAO<Rule> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private CriteriaBuilder builder;
 	
 	public RuleDAO() {
 		super(Rule.class);
@@ -42,6 +46,14 @@ public class RuleDAO extends GenericDAO<Rule> implements Serializable {
 			throw new IllegalStateException("Find All Error!");
 		}
 
+	}
+	
+	
+	private CriteriaBuilder getCriteriaBuilder(){
+		if (builder == null){
+		 builder = getEntityManager().getCriteriaBuilder();
+		}
+		return builder;
 	}
 	
 }

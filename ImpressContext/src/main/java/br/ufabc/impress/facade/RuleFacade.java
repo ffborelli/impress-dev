@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import br.ufabc.impress.dao.RuleDAO;
+import br.ufabc.impress.model.Resource;
 import br.ufabc.impress.model.Rule;
 
 public class RuleFacade implements Serializable{
@@ -44,5 +45,5 @@ public class RuleFacade implements Serializable{
 		ruleDAO.delete(persistedCurso);
 		ruleDAO.commitAndCloseTransaction();
 	}
-	
+		
 }

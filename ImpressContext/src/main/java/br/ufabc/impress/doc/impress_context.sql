@@ -49,7 +49,6 @@ CREATE TABLE fusion(
 	fusion_text text NOT NULL, /* text para fusion_text */
 	is_running boolean default false,
 	is_avaliable boolean default false,
-	dependent_0_independent_1 int NOT NULL
 );
 
 CREATE TABLE fusion_log(

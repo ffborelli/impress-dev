@@ -39,9 +39,6 @@ public class LightListener implements UpdateListener {
 
 	public void update(EventBean[] newData, EventBean[] oldData) {
 
-		 //long startTime = System.nanoTime();  
-		//long startTime = System.currentTimeMillis();
-
 		int count = 0;
 	
      	count = Integer.parseInt(newData[0].get("value").toString());
