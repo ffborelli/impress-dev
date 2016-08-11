@@ -22,13 +22,19 @@
 		<class>br.ufabc.impress.model.Rule</class>
 		<class>br.ufabc.impress.model.RuleActionLog</class>
 		<class>br.ufabc.impress.model.RuleContext</class>
-		<class>br.ufabc.impress.model.EvalSdp</class>
-		
+		<class>br.ufabc.impress.model.EvalSdp</class>		
 		<properties>
+<!-- 			Postgres config -->
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/ivan"/>
 			<property name="javax.persistence.jdbc.user" value="postgres"/>
 			<property name="javax.persistence.jdbc.password" value="postgres"/>
+			
+<!-- 			MySQL config -->
+<!--       			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
+<!--      			<property name="javax.persistence.jdbc.url"    value="jdbc:mysql://localhost/ivan" /> -->
+<!--       			<property name="javax.persistence.jdbc.user" value="root" /> -->
+<!--      			<property name="javax.persistence.jdbc.password" value="postgres" /> -->
 <!-- 			<property name="eclipselink.weaving.changetracking" value="true" /> -->
 <!-- 			<property name="eclipselink.weaving.lazy" value="true" /> -->
 <!-- 			<property name="eclipselink.weaving.eager" value="true" /> -->

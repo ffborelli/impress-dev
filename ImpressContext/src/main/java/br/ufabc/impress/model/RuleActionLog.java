@@ -26,6 +26,7 @@ public class RuleActionLog implements Serializable {
 	@Id
 	@SequenceGenerator(name = "rule_action_log_func", sequenceName = "rule_action_log_id_rule_action_log_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rule_action_log_func")
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_rule_action_log", nullable = false)
 	private Integer id;
 	

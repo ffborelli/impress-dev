@@ -46,12 +46,12 @@ public class PublishDrools {
 	public void publish() {
 
 		if (Param.mqtt_ivan == true) {
-
-			if (messages.isEmpty() == false) {
+			System.out.println("SENDING MESSAGE TO IVAN");
+			//if (messages.isEmpty() == false) {
 
 				for (int i = 0; i < messages.size(); i++) {
 
-					if (!messages.get(i).equalsIgnoreCase("-1")) {
+					//if (!messages.get(i).equalsIgnoreCase("-1")) {
 
 						String fields[] = messages.get(i).split(";");
 
@@ -98,8 +98,10 @@ public class PublishDrools {
 						this.getResourceLogFacade().create(lr);
 						
 						m = new MqttPublish(r.getMqttAddress(), "ivan"+r.getId(), "/ivan/publish", value);
-					}
-				}
+						Thread t = new Thread(m);
+						t.start();
+					//}
+				//}
 
 			}
 		} else {

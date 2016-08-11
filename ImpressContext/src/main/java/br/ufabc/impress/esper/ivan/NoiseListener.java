@@ -38,20 +38,18 @@ public class NoiseListener implements UpdateListener {
 	private EvalSdpFacade evalSdpFacade;
 
 	public void update(EventBean[] newData, EventBean[] oldData) {
+		
+		System.out.println("NOISE FUSION HAS BEEN FIRED ");
 
-		 //long startTime = System.nanoTime();  
-		//long startTime = System.currentTimeMillis();
-
-		int count = 0;
-	
-     	count = Integer.parseInt(newData[0].get("value").toString());
-
-		System.out.println("Noise " + count);
-				
+		int max_replication= Integer.parseInt(newData[0].get("maxReplication").toString());
+		System.out.println("Noise max replication " + max_replication);
+		String value = newData[0].get("value").toString();
+		String bornDate = newData[0].get("maxBornDate").toString();
+								
 		Resource r = this.getResourceFacade().find(Param.sensor_noise);
 
 		ResourceLog lr = new ResourceLog();
-		lr.setResourceLogValue(String.valueOf(count));
+		lr.setResourceLogValue(value);
 		lr.setResource(r);
 		lr.setCreationDate(new Timestamp(new Date().getTime()));
 		
@@ -62,7 +60,7 @@ public class NoiseListener implements UpdateListener {
 		FusionLog fl = new FusionLog();
 		fl.setCreationDate(new Timestamp(new Date().getTime()));
 		fl.setFusion(f);
-		fl.setFusionLogValue(String.valueOf(count));
+		fl.setFusionLogValue(max_replication+ ";"+ bornDate);
 		
 		this.getFusionLogFacade().create(fl);
 		
@@ -78,7 +76,6 @@ public class NoiseListener implements UpdateListener {
 			
 		Drools drools = new Drools();
 		drools.requestRepository(lr);
-
 	}
 	
 	private ResourceFacade getResourceFacade(){

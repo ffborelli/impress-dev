@@ -36,9 +36,16 @@ public class ResourceLog implements Serializable {
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "born_date", nullable = false)
+	private Date bornDate;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_resource_fk", referencedColumnName = "id_resource")
 	private Resource resource;
+	
+	@Column(name = "replication", nullable = false)
+	private Integer replication;
 	
 	public ResourceLog(){
 		
@@ -68,12 +75,28 @@ public class ResourceLog implements Serializable {
 		return this.creationDate;
 	}
 	
+	public Date getBornDate() {
+		return bornDate;
+	}
+
+	public void setBornDate(Date bornDate) {
+		this.bornDate = bornDate;
+	}
+
 	public void setResource(Resource resource){
 		this.resource = resource;
 	}
 	
 	public Resource getResource(){
 		return this.resource;
+	}
+
+	public Integer getReplication() {
+		return replication;
+	}
+
+	public void setReplication(Integer replication) {
+		this.replication = replication;
 	}
 	
 }

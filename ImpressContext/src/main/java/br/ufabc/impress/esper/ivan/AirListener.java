@@ -38,28 +38,29 @@ public class AirListener implements UpdateListener {
 	private EvalSdpFacade evalSdpFacade;
 
 	public void update(EventBean[] newData, EventBean[] oldData) {
+		
+		System.out.println("AIR FUSION HAS BEEN FIRED ");
 
-		int count = 0;
-	
-     	count = Integer.parseInt(newData[0].get("value").toString());
-
-		System.out.println("Air " + count);
-				
+		int max_replication= Integer.parseInt(newData[0].get("maxReplication").toString());
+		System.out.println("Air max replication " + max_replication);
+		String value = newData[0].get("value").toString();
+		String bornDate = newData[0].get("maxBornDate").toString();
+		
 		Resource r = this.getResourceFacade().find(Param.sensor_air);
 
 		ResourceLog lr = new ResourceLog();
-		lr.setResourceLogValue(String.valueOf(count));
+		lr.setResourceLogValue(value);
 		lr.setResource(r);
 		lr.setCreationDate(new Timestamp(new Date().getTime()));
 		
-		this.getResourceLogFacade().create(lr);
+		this.getResourceLogFacade().create(lr); 
 		
 		Fusion f = this.getFusionFacade().find(Param.sensor_air);
 		
 		FusionLog fl = new FusionLog();
 		fl.setCreationDate(new Timestamp(new Date().getTime()));
 		fl.setFusion(f);
-		fl.setFusionLogValue(String.valueOf(count));
+		fl.setFusionLogValue(max_replication+ ";"+ bornDate);
 		
 		this.getFusionLogFacade().create(fl);
 		
@@ -71,8 +72,10 @@ public class AirListener implements UpdateListener {
 		rfl.setFusionLog(fl);
 		rfl.setResourceLog(lr);
 		
-		this.getResourceFusionLogFacade().create(rfl);
-			
+		this.getResourceFusionLogFacade().create(rfl); 
+		
+		//System.out.println("REQUEST DROOLS AIR");
+		
 		Drools drools = new Drools();
 		drools.requestRepository(lr);
 

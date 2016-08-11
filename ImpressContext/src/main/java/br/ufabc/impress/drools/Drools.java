@@ -18,6 +18,7 @@ public class Drools {
 		
 		StatefulKnowledgeSession ksession = null;
 		try {
+			System.out.println("STARTING DROOLS");
 			// load up the knowledge base
 			//KnowledgeBase kbase = readKnowledgeBase();
 			KnowledgeBase kbase = DroolsUtil.readKnowledgeBase("IMPReSSAgent", "ChangeSet.xml");
@@ -35,57 +36,22 @@ public class Drools {
 	        
 	        int size = s.getMessages().size();
 	        
-	        for (int j = 0; j < size; j++) {
-	        	String r = s.getMessages().get(j);
-	        	String fields[] = r.split(";");
-    		
-	        	String actuator = fields[1];
-	        	String v = fields[2];
-	        	//System.out.println(s.getMessages().size() + "ID " + Integer.parseInt(actuator) + "-->Buffer: --> " + buffer[Integer.parseInt(actuator)] + " Drools  :" + Integer.parseInt(v));
-	        	if (buffer[Integer.parseInt(actuator)] == Integer.parseInt(v) ){
-	        		s.removeMessage(j);
-	        		
-	        	}
-	        	else{
-	        		buffer[Integer.parseInt(actuator)] = Integer.parseInt(v);
-	        	}
-	        }
+//	        for (int j = 0; j < size; j++) {
+//	        	String r = s.getMessages().get(j);
+//	        	String fields[] = r.split(";");
+//    		
+//	        	String actuator = fields[1];
+//	        	String v = fields[2];
+//	        	//System.out.println(s.getMessages().size() + "ID " + Integer.parseInt(actuator) + "-->Buffer: --> " + buffer[Integer.parseInt(actuator)] + " Drools  :" + Integer.parseInt(v));
+//	        	if (buffer[Integer.parseInt(actuator)] == Integer.parseInt(v) ){
+//	        		s.removeMessage(j);
+//	        		
+//	        	}
+//	        	else{
+//	        		buffer[Integer.parseInt(actuator)] = Integer.parseInt(v);
+//	        	}
+//	        }
 	        
-//	        //check if status of sensor has changed - old
-//	        
-//	    	for (int j = 0; j < s.getMessages().size(); j++) {
-//	    		
-//	    		String r1 = s.getMessages().get(j);
-//	    		String fields1[] = r1.split(";");
-//	    		
-//	    		String actuator1 = fields1[1];
-//	    		String v1 = fields1[2];
-//	    			    		
-//	    		
-//	    		for (int i = 0; i < buffer.size(); i++) {
-//	    			
-//		    		String r2 = s.getMessages().get(i);
-//		    		String fields2[] = r2.split(";");
-//		    		
-//		    		String v2 = fields2[2];
-//		    		String actuator2 = fields2[1];
-//	    			
-//	    			if (actuator1.equalsIgnoreCase(actuator2)){
-//	    				//it is the same value --> remove from messages
-//	    				if (v1.equalsIgnoreCase(v2)){
-//	    					s.getMessages().remove(j);	
-//	    				}
-//	    				
-//		    			else{
-//		    				//the status has changed
-//		    				buffer.remove(i);
-//		    				buffer.add(s.getMessages().get(j));
-//		   				
-//		    			}
-//	    			}
-//
-//	    		}
-//	    	}
 	
 	    	PublishDrools pu = new PublishDrools(s.getMessages());
 	    	pu.publish();

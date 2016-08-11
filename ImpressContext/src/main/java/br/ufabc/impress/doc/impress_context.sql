@@ -43,6 +43,10 @@ CREATE TABLE resource_log(
 	creation_date timestamp NOT NULL /* timestamp para creation_date */
 );
 
+ALTER TABLE resource_log ADD COLUMN born_date timestamp without time zone;
+
+ALTER TABLE resource_log ADD COLUMN replication int;
+
 CREATE TABLE fusion(
 	id_fusion serial NOT NULL PRIMARY KEY,
 	fusion_name text NOT NULL, 

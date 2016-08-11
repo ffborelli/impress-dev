@@ -338,37 +338,24 @@ public class ProtocolRules implements Runnable {
 			
 			//String type[] = m[0].split("=");
 			
+			String id[] = m[1].split("=");
+			
+			String data[] = m[2].split("-");
+			
 			ResourceLog lr = new ResourceLog();
 			lr.setResourceLogValue(message);
 			lr.setCreationDate(new Timestamp(new Date().getTime()));
-			
-			String id[] = m[1].split("=");
+			lr.setBornDate(new Date(Long.valueOf(data[data.length-1])));
+			lr.setReplication(Integer.valueOf(data[data.length-2]));
 			
 			Resource res = getResourceFacade().find(Integer.parseInt(id[1]));
 			lr.setResource(res);
 			
 			this.getResourceLogFacade().create(lr);
 			
-//			if (type[1].equalsIgnoreCase("light")){
-//				
-//			}else if (type[1].equalsIgnoreCase("air")){
-//				
-//			}
-//			
-//			else if (type[1].equalsIgnoreCase("traffic")){
-//				
-//			}
-//			else if (type[1].equalsIgnoreCase("noise")){
-//				
-//			}
-//			else if (type[1].equalsIgnoreCase("structural")){
-//				
-//			}
-//			else if (type[1].equalsIgnoreCase("waste")){
-//				
-//			}
-			
-			
+			Esper.addEventEsper(lr);
+			System.out.println("ESPER EVENT HAS BEEN CREATED --> RESOURCE ID" + res.getId());
+						
 		}
 
 		return true;

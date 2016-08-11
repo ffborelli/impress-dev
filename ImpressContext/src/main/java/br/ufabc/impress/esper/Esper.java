@@ -76,6 +76,8 @@ public class Esper {
 	 * */
 	public static boolean createArrayEsper() {
 
+		System.out.println("ESPER STARTING");
+		
 		arrCepStatement = new ArrayList<EsperStatement>();
 
 		// The Configuration is meant only as an initialization-time object.
@@ -92,8 +94,10 @@ public class Esper {
 
 		for (int i = 0; i < listFusion.size(); i++) {
 
-			if (listFusion.get(i).isAvaliable() == true) {
+			//if (listFusion.get(i).isAvaliable() == true) {
 
+				System.out.println(listFusion.get(i).getFusionName() + "  HAS BEEN CREATED");
+				
 				cepStatement = cepAdm.createEPL(listFusion.get(i)
 						.getFusionText().toString());
 				
@@ -107,7 +111,7 @@ public class Esper {
 				es.setCepStatement(cepStatement);
 
 				arrCepStatement.add(es);
-			}
+			//}
 
 		}
 

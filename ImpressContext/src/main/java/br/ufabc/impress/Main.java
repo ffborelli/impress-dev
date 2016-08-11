@@ -65,7 +65,7 @@ public class Main {
 		}
 		
 		//reset the buffer os the resource os drools
-		new Drools().resetBuffer();
+		//new Drools().resetBuffer();
 		
 		if (Param.esper) {
 			//EsperPooling esperPooling = new EsperPooling();
@@ -94,7 +94,8 @@ public class Main {
 		}
 
 		// esper
-		Esper.startEsper();
+		//Esper.startEsper();
+		//Esper.createArrayEsper();
 		
 
 	}

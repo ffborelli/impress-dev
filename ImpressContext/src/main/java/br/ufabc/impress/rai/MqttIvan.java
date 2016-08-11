@@ -5,37 +5,38 @@ import java.util.List;
 import br.ufabc.impress.Main;
 import br.ufabc.impress.Param;
 import br.ufabc.impress.facade.ResourceFacade;
+import br.ufabc.impress.facade.ResourceTypeFacade;
 import br.ufabc.impress.model.Resource;
 import br.ufabc.impress.model.ResourceRAI;
+import br.ufabc.impress.model.ResourceType;
 import br.ufabc.impress.mqtt.MqttSubscribe;
 
 public class MqttIvan {
 
 	ResourceFacade resourceFacade;
+	ResourceTypeFacade resourceTypeFacade;
 
 	public void connect() {
 
 		ResourceRAI resourceRAI;
-		List<Resource> resourceList = this.getResourceFacade().listAll();
+		//List<Resource> list = this.getResourceFacade().listAll();
+		List<ResourceType> list = this.getResourceTypeFacade().listAll();
 
-		for (int i = 0; i < resourceList.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 
-			if (resourceList.get(i).isReserved() == true) {
+			//if (resourceList.get(i).isReserved() == true) {
 
-				resourceRAI = new ResourceRAI();
+				//resourceRAI = new ResourceRAI();
 
-				resourceRAI.setTopic(resourceList.get(i).getMqttTopic());
-				resourceRAI.setType(resourceList.get(i).getResourceType()
-						.getDescription());
-				resourceRAI.setUid(String.valueOf(resourceList.get(i).getId()));
-				Main.resourceRAIarr.add(resourceRAI);
+				//resourceRAI.setTopic(list.get(i).getMqttTopic());
+				//resourceRAI.setType(list.get(i).getResourceType().getDescription());
+				//resourceRAI.setUid(String.valueOf(list.get(i).getId()));
+				//Main.resourceRAIarr.add(resourceRAI);
 
-				MqttSubscribe ms = new MqttSubscribe(resourceList.get(i)
-						.getMqttAddress(), "impress" + i, Main.resourceRAIarr
-						.get(i).getTopic());
+				MqttSubscribe ms = new MqttSubscribe("tcp://localhost:1883", "impress" + i, "/ivan/" +list.get(i).getId());
 				Thread t = new Thread(ms);
 				t.start();
-			}
+			//}
 
 		}
 
@@ -47,6 +48,13 @@ public class MqttIvan {
 			resourceFacade = new ResourceFacade();
 		}
 		return resourceFacade;
+	}
+	private ResourceTypeFacade getResourceTypeFacade() {
+
+		if (resourceTypeFacade == null) {
+			resourceTypeFacade = new ResourceTypeFacade();
+		}
+		return resourceTypeFacade;
 	}
 
 }
