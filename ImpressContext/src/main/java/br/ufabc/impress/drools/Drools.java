@@ -7,12 +7,59 @@ import org.drools.runtime.StatefulKnowledgeSession;
 
 import br.ufabc.impress.model.ResourceLog;
 import br.ufabc.impress.util.DroolsUtil;
+import br.ufabc.impress.util.EvalUtil;
 
 public class Drools {
 	
 //	private static ArrayList<String> buffer = new ArrayList<String>();
 	
 	private static int buffer[] = new int[16];
+	
+	public boolean requestRepository(Object o, String message) {
+		
+		StatefulKnowledgeSession ksession = null;
+		try {
+			System.out.println("STARTING DROOLS");
+			
+			message = EvalUtil.setTime("P4", message, ";", "=");
+			System.out.println("P4 : --> " + message);
+			// load up the knowledge base
+			//KnowledgeBase kbase = readKnowledgeBase();
+			KnowledgeBase kbase = DroolsUtil.readKnowledgeBase("IMPReSSAgent", "ChangeSet.xml");
+			
+			SenderDrools s = new SenderDrools();
+			
+			ResourceLog lr = (ResourceLog)o;
+			lr.setResourceLogValue(message);
+			
+			ksession = kbase.newStatefulKnowledgeSession();
+	        ksession.insert(lr);
+	        ksession.insert(s);
+	        //ksession.insert(status);
+	        
+	        int rules = ksession.fireAllRules();
+	        
+	        System.out.println("Drools: Fired " + rules + " rules. ");
+	        	
+	        //message = EvalUtil.setTime("P5", message, ";", "=");
+	
+	    	PublishDrools pu = new PublishDrools(s.getMessages());
+	    	pu.publish();
+	    	
+	    	//message = EvalUtil.setTime("P6", message, ";", "=");
+	    	
+	    	
+	    	
+			
+		} finally {
+			if (ksession != null) {
+				ksession.dispose();
+				
+			}
+		}
+		
+		return false;
+	}
 
 	public boolean requestRepository(Object o) {
 		

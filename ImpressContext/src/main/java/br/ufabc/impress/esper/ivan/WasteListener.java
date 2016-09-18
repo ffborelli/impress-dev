@@ -23,6 +23,7 @@ import br.ufabc.impress.model.ResourceFusionLog;
 import br.ufabc.impress.model.ResourceLog;
 import br.ufabc.impress.model.RuleActionLog;
 import br.ufabc.impress.mqtt.MqttPublish;
+import br.ufabc.impress.util.EvalUtil;
 
 import com.espertech.esper.client.EventBean;
 import com.espertech.esper.client.UpdateListener;
@@ -45,6 +46,8 @@ public class WasteListener implements UpdateListener {
 		System.out.println("Waste max replication " + max_replication);
 		String value = newData[0].get("value").toString();
 		String bornDate = newData[0].get("maxBornDate").toString();
+		
+		value = EvalUtil.setTime("P3", value, ";", "=");
 				
 		Resource r = this.getResourceFacade().find(Param.sensor_waste);
 
@@ -75,7 +78,7 @@ public class WasteListener implements UpdateListener {
 		this.getResourceFusionLogFacade().create(rfl);
 			
 		Drools drools = new Drools();
-		drools.requestRepository(lr);
+		drools.requestRepository(lr,value);
 
 	}
 	

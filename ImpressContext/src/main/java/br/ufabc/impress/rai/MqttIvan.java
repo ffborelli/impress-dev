@@ -18,25 +18,15 @@ public class MqttIvan {
 
 	public void connect() {
 
-		ResourceRAI resourceRAI;
+		
 		//List<Resource> list = this.getResourceFacade().listAll();
 		List<ResourceType> list = this.getResourceTypeFacade().listAll();
 
 		for (int i = 0; i < list.size(); i++) {
 
-			//if (resourceList.get(i).isReserved() == true) {
-
-				//resourceRAI = new ResourceRAI();
-
-				//resourceRAI.setTopic(list.get(i).getMqttTopic());
-				//resourceRAI.setType(list.get(i).getResourceType().getDescription());
-				//resourceRAI.setUid(String.valueOf(list.get(i).getId()));
-				//Main.resourceRAIarr.add(resourceRAI);
-
 				MqttSubscribe ms = new MqttSubscribe("tcp://localhost:1883", "impress" + i, "/ivan/" +list.get(i).getId());
 				Thread t = new Thread(ms);
 				t.start();
-			//}
 
 		}
 

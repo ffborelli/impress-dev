@@ -21,6 +21,7 @@ import br.ufabc.impress.model.ResourceLog;
 import br.ufabc.impress.model.Rule;
 import br.ufabc.impress.model.RuleActionLog;
 import br.ufabc.impress.mqtt.MqttPublish;
+import br.ufabc.impress.util.EvalUtil;
 
 public class PublishDrools {
 
@@ -46,6 +47,7 @@ public class PublishDrools {
 	public void publish() {
 
 		if (Param.mqtt_ivan == true) {
+			
 			System.out.println("SENDING MESSAGE TO IVAN");
 			//if (messages.isEmpty() == false) {
 
@@ -55,7 +57,7 @@ public class PublishDrools {
 
 						String fields[] = messages.get(i).split(";");
 
-						String value = fields[0] + ";" + fields[1] + ";" + fields[fields.length - 2] + ";" + fields[fields.length - 1]; 
+						//String value = fields[0] + ";" + fields[1] + ";" + fields[fields.length - 2] + ";" + fields[fields.length - 1]; 
 						
 						String id_resource_str[] = fields[1].split("=");
 						
@@ -66,7 +68,8 @@ public class PublishDrools {
 
 						ResourceLog lr = new ResourceLog();
 
-						lr.setResourceLogValue(value);
+						//lr.setResourceLogValue(value);
+						lr.setResourceLogValue(messages.get(i));
 						r = this.getResourceFacade().find(id_resource);
 
 						//DANGER
@@ -97,7 +100,8 @@ public class PublishDrools {
 
 						this.getResourceLogFacade().create(lr);
 						
-						m = new MqttPublish(r.getMqttAddress(), "ivan"+r.getId(), "/ivan/publish", value);
+						m = new MqttPublish(r.getMqttAddress(), "ivan"+r.getId(), "/ivan/demo", messages.get(i));
+						//m = new MqttPublish(r.getMqttAddress(), "ivan"+r.getId(), "/ivan/demo", value);
 						Thread t = new Thread(m);
 						t.start();
 					//}

@@ -96,7 +96,8 @@ public class Main {
 		// esper
 		//Esper.startEsper();
 		//Esper.createArrayEsper();
-		
+		Param.mqtt_ivan = true;
+		new MqttIvan().connect();
 
 	}
 }
