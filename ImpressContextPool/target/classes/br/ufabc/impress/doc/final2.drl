@@ -1,0 +1,60 @@
+import br.ufabc.impress.drools.SenderDrools;
+
+rule "kinect 1 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) > 0 && resource.id == 14) && ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 1) || (Double.parseDouble(resourceLogValue) == 1 && resource.id == 2) )  )
+		s : SenderDrools()
+	then 
+		//PS 4 is active
+		System.out.println("kinect 1 is true");
+		s.addMessage("2;7;1;1;1;1");
+		s.addMessage("2;8;1;1;1;1");
+                //s.addMessage("2;9;1;1;1;1");
+		//s.addMessage("2;10;0;2;1;1");
+
+end
+
+
+rule "kinect 1 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 14) && ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 1) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 2) )  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("kinect 1 is false");
+		s.addMessage("2;7;0;2;1;1");
+		s.addMessage("2;8;0;2;1;1");
+                //s.addMessage("2;9;1;1;1;1");
+		//s.addMessage("2;10;0;2;1;1");
+
+end
+
+
+rule "kinect 2 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) > 0 && resource.id == 15) && ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 3) || (Double.parseDouble(resourceLogValue) == 1 && resource.id == 4) )  )
+		s : SenderDrools()
+	then 
+		//PS 4 is active
+		System.out.println("kinect 1 is true");
+		//s.addMessage("2;7;1;1;1;1");
+		//s.addMessage("2;8;1;1;1;1");
+                s.addMessage("2;9;1;1;1;1");
+		s.addMessage("2;10;1;1;1;1");
+
+end
+
+
+rule "kinect 2 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 15) && ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 3) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 4) )  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("kinect 1 is false");
+		//s.addMessage("2;7;0;2;1;1");
+		//s.addMessage("2;8;0;2;1;1");
+                s.addMessage("2;9;0;2;1;1");
+		s.addMessage("2;10;0;2;1;1");
+
+end

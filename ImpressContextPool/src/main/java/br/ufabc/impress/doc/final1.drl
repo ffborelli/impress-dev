@@ -1,0 +1,265 @@
+import br.ufabc.impress.drools.SenderDrools;
+
+/*
+	 * protocol operation/resource/action/resource_action_type/rule
+	 * 
+	 * 0 --> operation 
+	 * 1 --> resource 
+	 * 2 --> action 
+	 * 3 --> resource_action_type 
+	 * 4 --> rule 
+	 * 5--> rule_action_log
+	 */
+rule "ultrasonic sensor 4 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 4)  )
+		s : SenderDrools()
+	then 
+		//PS 4 is active
+		System.out.println("PS 4 is active");
+		//s.addMessage("2;7;1;1;1;1");
+		//s.addMessage("2;8;1;1;1;1");
+                //s.addMessage("2;9;1;1;1;1");
+		s.addMessage("2;10;1;1;1;1");
+
+end
+
+rule "ultrasonic sensor 4 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 4)  )
+		s : SenderDrools()
+	then 
+		//PS 4 is not active
+		System.out.println("PS 4 is not active");
+		//s.addMessage("2;7;1;1;2;2");
+		//s.addMessage("2;8;1;1;2;2");
+                //s.addMessage("2;9;1;1;2;2");
+		s.addMessage("2;10;0;2;2;2");
+
+end
+
+rule "ultrasonic sensor 3 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 3)  )
+		s : SenderDrools()
+	then 
+		//PS 3 is active
+		System.out.println("PS 3 is active");
+		//s.addMessage("2;7;1;1;3;3");
+		//s.addMessage("2;8;1;1;3;3");
+                s.addMessage("2;9;1;1;3;3");
+		//s.addMessage("2;10;1;1;3;3");
+
+end
+
+rule "ultrasonic sensor 3 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 3)  )
+		s : SenderDrools()
+	then 
+		//PS 3 is not active
+		System.out.println("PS 3 is not active");
+		//s.addMessage("2;7;1;1;4;4");
+		//s.addMessage("2;8;1;1;4;4");
+                s.addMessage("2;9;0;2;4;4");
+		//s.addMessage("2;10;0;2;4;4");
+
+end
+
+rule "ultrasonic sensor 2 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 2)  )
+		s : SenderDrools()
+	then 
+		//PS 2 is active
+		System.out.println("PS 2 is active");
+		//s.addMessage("2;7;1;1;5;5");
+		s.addMessage("2;8;1;1;5;5");
+                //s.addMessage("2;9;1;1;5;5");
+		//s.addMessage("2;10;1;1;5;5");
+
+end
+
+rule "ultrasonic sensor 2 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 2)  )
+		s : SenderDrools()
+	then 
+		//PS 2 is not active
+		System.out.println("PS 2 is not active");
+		//s.addMessage("2;7;1;1;6;6");
+		s.addMessage("2;8;0;2;6;6");
+                //s.addMessage("2;9;1;1;6;6");
+		//s.addMessage("2;10;0;2;6;6");
+
+end
+
+rule "ultrasonic sensor 1 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 1)  )
+		s : SenderDrools()
+	then 
+		//PS 1 is active
+		System.out.println("PS 1 is active");
+		s.addMessage("2;7;1;1;7;7");
+		//s.addMessage("2;8;1;1;7;7");
+                //s.addMessage("2;9;1;1;7;7");
+		//s.addMessage("2;10;1;1;7;7");
+
+end
+
+rule "ultrasonic sensor 1 is false"
+		when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 1)  )
+		s : SenderDrools()
+	then 
+		//PS 1 is not active
+		System.out.println("PS 1 is not active");
+		s.addMessage("2;7;0;2;8;8");
+		//s.addMessage("2;8;1;1;8;8");
+                //s.addMessage("2;9;1;1;8;8");
+		//s.addMessage("2;10;0;2;8;8");
+
+end
+
+rule "AC turn ON"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) > 22 && (resource.id == 12) )  )
+		s : SenderDrools()
+	then 
+		
+		System.out.println("AC Turn On");
+		s.addMessage("2;11;1;3;9;9");
+		//s.addMessage("2;8;1;1;9;9");
+                //s.addMessage("2;9;1;1;9;9");
+		//s.addMessage("2;10;0;2;9;9");
+
+end
+
+rule "AC turn OFF"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) < 22 && (resource.id == 12 ) )  )
+		s : SenderDrools()
+	then 
+		
+		System.out.println("AC Turn On");
+		s.addMessage("2;11;0;4;10;10");
+		//s.addMessage("2;8;1;1;10;10");
+                //s.addMessage("2;9;1;1;10;10");
+		//s.addMessage("2;10;0;2;10;10");
+
+end
+
+
+rule "NS 1 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 16)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 1 is false");
+		s.addMessage("2;7;0;2;11;11");
+		//s.addMessage("2;8;0;2;11;11");
+                //s.addMessage("2;9;1;1;11;11");
+		//s.addMessage("2;10;0;2;11;11");
+
+end
+
+rule "NS 1 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 16)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 1 is true");
+		s.addMessage("2;7;1;1;12;12");
+		//s.addMessage("2;8;0;2;12;12");
+                //s.addMessage("2;9;1;1;12;12");
+		//s.addMessage("2;10;0;2;12;12");
+
+end
+
+rule "NS 2 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 17)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 2 is false");
+		s.addMessage("2;8;0;2;13;13");
+		//s.addMessage("2;8;0;2;13;13");
+                //s.addMessage("2;9;1;1;13;13");
+		//s.addMessage("2;10;0;2;13;13");
+
+end
+
+rule "NS 2 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 17)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 2 is true");
+		s.addMessage("2;8;1;1;14;14");
+		//s.addMessage("2;8;0;2;14;14");
+                //s.addMessage("2;9;1;1;14;14");
+		//s.addMessage("2;10;0;2;14;14");
+
+end
+
+rule "NS 3 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 18)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 1 is false");
+		s.addMessage("2;9;0;2;15;15");
+		//s.addMessage("2;8;0;2;15;15");
+                //s.addMessage("2;9;1;1;15;15");
+		//s.addMessage("2;10;0;2;15;15");
+
+end
+
+rule "NS 3 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 18)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 3 is true");
+		s.addMessage("2;9;1;1;16;16");
+		//s.addMessage("2;8;0;2;16;16");
+                //s.addMessage("2;9;1;1;16;16");
+		//s.addMessage("2;10;0;2;16;16");
+
+end
+
+
+rule "NS 4 is false"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 19)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 4 is false");
+		s.addMessage("2;10;0;2;17;17");
+		//s.addMessage("2;8;0;2;17;17");
+                //s.addMessage("2;9;1;1;17;17");
+		//s.addMessage("2;10;0;2;17;17");
+
+end
+
+rule "NS 4 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 19)  )
+		s : SenderDrools()
+	then 
+
+		System.out.println("NS 4 is true");
+		s.addMessage("2;10;1;1;18;18");
+		//s.addMessage("2;8;0;2;18;18");
+                //s.addMessage("2;9;1;1;18;18");
+		//s.addMessage("2;10;0;2;18;18");
+
+end

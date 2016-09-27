@@ -1,0 +1,200 @@
+import br.ufabc.impress.drools.SenderDrools;
+
+rule "ultrasonic sensor 4 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 4)  )
+		s : SenderDrools()
+	then 
+		//PS 4 is active
+		System.out.println("PS 4 is active");
+		s.addMessage("2;7;1;1;1");
+		s.addMessage("2;8;1;1;1");
+		s.addMessage("2;9;1;1;1");
+		s.addMessage("2;10;1;1;1");
+
+end
+
+rule "ultrasonic sensor 3 is true"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 4) &&  (Double.parseDouble(resourceLogValue) == 1 && resource.id == 3)  )
+		s : SenderDrools()
+	then 
+		//PS 3 is active
+		System.out.println("PS 2 is active");
+		s.addMessage("2;7;1;1;2");
+		s.addMessage("2;8;1;1;2");
+		s.addMessage("2;9;1;1;2");
+		s.addMessage("2;10;0;2;2");
+
+end
+
+rule "presence sensor decision PS 2"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 4) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 3) && (Double.parseDouble(resourceLogValue) == 1 && resource.id == 2) )
+		s : SenderDrools()
+	then 
+		//PS 2 is active
+		System.out.println("PS 2 is active");
+		s.addMessage("2;7;1;1;3");
+		s.addMessage("2;8;1;1;3");
+		s.addMessage("2;9;0;2;3");
+		s.addMessage("2;10;0;2;3");
+
+end
+
+rule "presence sensor decision PS 1"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 4) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 3) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 2) && (Double.parseDouble(resourceLogValue) == 1 && resource.id == 1) )
+		s : SenderDrools()
+	then 
+		//PS 1 is active
+		System.out.println("PS 3 is active");
+		s.addMessage("2;7;1;1;4");
+		s.addMessage("2;8;0;2;4");
+		s.addMessage("2;9;0;2;4");
+		s.addMessage("2;10;0;2;4");
+end
+
+rule "presence sensor decision  not PS active"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 4) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 3) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 2) && (Double.parseDouble(resourceLogValue) == 0 && resource.id == 1)   )
+		s : SenderDrools()
+	then 
+		//turn off the temperature actuator
+		System.out.println("None active");
+		s.addMessage("2;7;0;2;5");
+		s.addMessage("2;6;0;2;5");
+		s.addMessage("2;7;0;2;5");
+		s.addMessage("2;8;0;2;5");
+
+end
+
+rule "average temperature is high"
+	
+	when 
+		p : ResourceLog ( Double.parseDouble(resourceLogValue) > 20 && resource.id == 14 )
+		s : SenderDrools()
+	then		//active temperature actuator
+		System.out.println("Temperature is high");
+		s.addMessage("2;11;1;3;6");
+end
+
+
+rule "average temperature is low"
+	when 
+		p : ResourceLog ( Double.parseDouble(resourceLogValue) <= 20  && resource.id == 14 )
+		s : SenderDrools()
+	then 
+		//turn off the temperature actuator
+		System.out.println("Temperature is low");
+		s.addMessage("2;11;0;4;7");
+end
+
+// 00 -> 0
+// 01 -> 1
+// 10 -> 2
+// 11 -> 3
+rule "Kinect 1 - Rule 1"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 2 && resource.id == 15) ||  (Double.parseDouble(resourceLogValue) == 3 && resource.id == 15)  )
+		s : SenderDrools()
+	then 
+		//Kinect 1 - turn on all lights
+		System.out.println("Kinect 1 - Rule 1");
+		s.addMessage("2;7;1;1;8");
+		s.addMessage("2;8;1;1;8");
+		s.addMessage("2;9;1;1;8");
+		s.addMessage("2;10;1;1;8");
+
+end
+
+rule "Kinect 2 - Rule 2"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 15)   )
+		s : SenderDrools()
+	then 
+		//Kinect 2 - Rule 2
+		System.out.println("Kinect 2 - Rule 2");
+		s.addMessage("2;7;1;1;9");
+		s.addMessage("2;8;1;1;9");
+		s.addMessage("2;9;1;1;9");
+		s.addMessage("2;10;0;2;9");
+
+end
+
+rule "Kinect - Rule 3"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 15) && ( (Double.parseDouble(resourceLogValue) == 3 && resource.id == 14) || (Double.parseDouble(resourceLogValue) == 2 && resource.id == 14)  )  )
+		s : SenderDrools()
+	then 
+		//Kinect - Rule 3
+		System.out.println("Kinect 1 - Rule 2");
+		s.addMessage("2;7;1;1;10");
+		s.addMessage("2;8;1;1;10");
+		s.addMessage("2;9;0;2;10");
+		s.addMessage("2;10;0;2;10");
+
+end
+
+rule "Kinect - Rule 4"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 15) && ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 14) )  )
+		s : SenderDrools()
+	then 
+		//Kinect - Rule 4
+		System.out.println("Kinect 1 - Rule 4");
+		s.addMessage("2;7;1;1;11");
+		s.addMessage("2;8;0;2;11");
+		s.addMessage("2;9;0;2;11");
+		s.addMessage("2;10;0;2;11");
+
+end
+
+rule "Kinect - Rule 5"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 15) && ( (Double.parseDouble(resourceLogValue) == 0 && resource.id == 14) )  )
+		s : SenderDrools()
+	then 
+		//Kinect - Rule 5
+		System.out.println("Kinect - Rule 5");
+		s.addMessage("2;7;0;2;12");
+		s.addMessage("2;8;0;2;12");
+		s.addMessage("2;9;0;2;12");
+		s.addMessage("2;10;0;2;12");
+
+end
+
+rule "Ultrasonic Sensor - Distance TRUE"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) <= 120 && (resource.id == 1 || resource.id == 2 || resource.id == 3 || resource.id == 4)  )   )
+			s : SenderDrools()
+	then 
+		//Ultrassonic Sensor Distance
+		System.out.println("Ultrassonic Sensor Distance TRUE");
+		s.addMessage("2;1;1;5;13");
+
+end
+
+rule "Ultrasonic Sensor - Distance FALSE"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) > 120 && (resource.id == 1 || resource.id == 2 || resource.id == 3 || resource.id == 4)  )   )
+		s : SenderDrools()
+	then 
+		//Ultrassonic Sensor Distance
+		System.out.println("Ultrassonic Sensor Distance FALSE");
+		s.addMessage("2;1;0;6;14");
+
+end
+
+rule "US TEST"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 1 && resource.id == 4)  )
+		s : SenderDrools()
+	then 
+		//PS 1 is active
+		System.out.println("PS 3 is active");
+		s.addMessage("2;7;1;1;4");
+		s.addMessage("2;8;1;1;4");
+		s.addMessage("2;9;1;1;4");
+		s.addMessage("2;10;1;1;4");
+end

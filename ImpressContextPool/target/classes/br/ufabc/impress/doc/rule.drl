@@ -1,0 +1,135 @@
+import br.ufabc.impress.drools.SenderDrools;
+
+rule "average temperature is high"
+	
+	when 
+		p : ResourceLog ( Double.parseDouble(resourceLogValue) > 34 && resource.id == 15 )
+		s : SenderDrools()
+	then		//active temperature actuator
+		System.out.println("Temperature is high");
+		s.addMessage("2;12;1");
+end
+
+
+rule "average temperature is low"
+	when 
+		p : ResourceLog ( Double.parseDouble(resourceLogValue) <= 34  && resource.id == 15 )
+		s : SenderDrools()
+	then 
+		//turn off the temperature actuator
+		System.out.println("Temperature is low");
+		s.addMessage("2;12;0");
+end
+
+rule "manual operation OFF"
+	when 
+		p1 : ResourceLog ( resource.id == 13 , Double.parseDouble(resourceLogValue) == 0   )
+		
+		s : SenderDrools()
+	then 
+		//turn off all lights
+		System.out.println("turn off all lights");
+		s.addMessage("2;8;0");
+		s.addMessage("2;9;0");
+		s.addMessage("2;10;0");
+		s.addMessage("2;11;0");
+end
+
+rule "manual operation ON"
+	when 
+		p1 : ResourceLog ( resource.id == 13 , Double.parseDouble(resourceLogValue) == 1   )
+		
+		s : SenderDrools()
+	then 
+		//turn on all lights
+		System.out.println("turn on all lights");
+		s.addMessage("2;8;1");
+		s.addMessage("2;9;1");
+		s.addMessage("2;10;1");
+		s.addMessage("2;11;1");
+end
+
+
+
+rule "presence sensor decision PS 4"
+	when 
+		p1 : ResourceLog ( resource.id == 13 , Double.parseDouble(resourceLogValue) == 2   )
+		p: ResourceLog( Double.parseDouble(resourceLogValue) ==  1 , resource.id == 16 )
+		s : SenderDrools()
+	then 
+		//PS 4 is active
+		System.out.println("PS 4 is active");
+		s.addMessage("2;8;1");
+		s.addMessage("2;9;0");
+		s.addMessage("2;10;0");
+		s.addMessage("2;11;0");
+end
+
+rule "presence sensor decision PS 3"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) >= 2 && Double.parseDouble(resourceLogValue) <= 3  && resource.id == 16 )  )
+		p1 : ResourceLog ( resource.id == 13 , Double.parseDouble(resourceLogValue) == 2   )
+		s : SenderDrools()
+	then 
+		//PS 3 is active
+		System.out.println("PS 3 is active");
+		s.addMessage("2;8;1");
+		s.addMessage("2;9;1");
+		s.addMessage("2;10;0");
+		s.addMessage("2;11;0");
+end
+
+rule "presence sensor decision PS 2"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) >= 4 && Double.parseDouble(resourceLogValue) <= 7  && resource.id == 16)  )
+		p1 : ResourceLog ( resource.id == 13 , Double.parseDouble(resourceLogValue) == 2   )
+		s : SenderDrools()
+	then 
+		//PS 2 is active
+		System.out.println("PS 2 is active");
+		s.addMessage("2;8;1");
+		s.addMessage("2;9;1");
+		s.addMessage("2;10;1");
+		s.addMessage("2;11;0");
+end
+
+rule "presence sensor decision PS 1"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) >= 8 && Double.parseDouble(resourceLogValue) <= 15  && resource.id == 16) )
+		p1 : ResourceLog ( resource.id == 13 , Double.parseDouble(resourceLogValue) == 2   )
+		s : SenderDrools()
+	then 
+		//PS 1 is active
+		System.out.println("PS 3 is active");
+		s.addMessage("2;8;1");
+		s.addMessage("2;9;1");
+		s.addMessage("2;10;1");
+		s.addMessage("2;11;1");
+end
+
+rule "presence sensor decision  not PS active"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0)  && resource.id == 16   )
+		p1 : ResourceLog ( resource.id == 13 , Double.parseDouble(resourceLogValue) == 2   )
+		s : SenderDrools()
+	then 
+		//turn off the temperature actuator
+		System.out.println("None active");
+		s.addMessage("2;8;0");
+		s.addMessage("2;9;0");
+		s.addMessage("2;10;0");
+		s.addMessage("2;11;0");
+
+end
+
+rule "presence sensor decision  not PS active 2"
+	when 
+		p : ResourceLog ( (Double.parseDouble(resourceLogValue) == 0)  && resource.id == 16   )
+		p1 : ResourceLog ( resource.id == 13 &&  (Double.parseDouble(resourceLogValue) == 0 ||  Double.parseDouble(resourceLogValue) == 1) )
+		s : SenderDrools()
+	then 
+		//turn off the temperature actuator
+		System.out.println("AUTO");
+		//AUTO
+		s.addMessage("4;2");
+end
