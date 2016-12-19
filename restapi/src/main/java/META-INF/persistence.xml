@@ -10,6 +10,7 @@
 		<class>eu.com.impress.model.Context</class>
 		<class>eu.com.impress.model.ContextLog</class>
 		<class>eu.com.impress.model.ContextType</class>
+		<class>eu.com.impress.model.EvalSdp</class>
 		<class>eu.com.impress.model.Fusion</class>
 		<class>eu.com.impress.model.FusionContext</class>
 		<class>eu.com.impress.model.FusionLog</class>
@@ -33,7 +34,7 @@
 		
 		
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/impress2" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/ivan" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="postgres" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

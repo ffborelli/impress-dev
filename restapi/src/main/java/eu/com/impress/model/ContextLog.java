@@ -24,7 +24,7 @@ public class ContextLog implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "context_log_func", sequenceName = "context_log_id_context_log_seq", allocationSize = 1)
+	@SequenceGenerator(name = "context_log_func", sequenceName = "context_log_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "context_log_func")
 	@Column(name = "id_context_log", nullable = false)
 	private Integer id;

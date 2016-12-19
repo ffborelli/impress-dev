@@ -21,7 +21,7 @@ public class FusionRule implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "fusion_rule_func", sequenceName = "fusion_rule_id_fusion_rule_seq", allocationSize = 1)
+	@SequenceGenerator(name = "fusion_rule_func", sequenceName = "fusion_rule_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fusion_rule_func")
 	@Column(name = "id_fusion_rule", nullable = false)
 	private Integer id;

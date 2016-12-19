@@ -21,7 +21,7 @@ public class ResourceSchedule implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "resource_schedule_func", sequenceName = "resource_schedule_id_resource_schedule_seq", allocationSize = 1)
+	@SequenceGenerator(name = "resource_schedule_func", sequenceName = "resource_schedule_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resource_schedule_func")
 	@Column(name = "id_resource_schedule", nullable = false)
 	private Integer id;

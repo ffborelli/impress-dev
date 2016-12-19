@@ -42,10 +42,22 @@ public class Resource implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_place_fk", referencedColumnName = "id_place")
 	private Place place;
+
+	@Column(name = "uid")
+	private String uid;
+
+	@Column(name = "is_reserved", nullable = false)
+	private boolean isReserved;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "dependence_fusion_log_fk", referencedColumnName = "id_fusion_log")
-//	private FusionLog fusionLog;
+	@ManyToOne
+	@JoinColumn(name = "dependence_fusion_log_fk", referencedColumnName = "id_fusion_log")
+	private FusionLog fusionLog;
+	
+	@Column(name = "mqtt_topic")
+	private String mqttTopic;
+	
+	@Column(name = "mqtt_address")
+	private String mqttAddress;
 	
 	public Resource(){
 		
@@ -90,6 +102,40 @@ public class Resource implements Serializable {
 	public Place getPlace(){
 		return this.place;
 	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public boolean isReserved() {
+		return isReserved;
+	}
+
+	public void setReserved(boolean isReserved) {
+		this.isReserved = isReserved;
+	}
+
+	public String getMqttTopic() {
+		return mqttTopic;
+	}
+
+	public void setMqttTopic(String mqttTopic) {
+		this.mqttTopic = mqttTopic;
+	}
+
+	public String getMqttAddress() {
+		return mqttAddress;
+	}
+
+	public void setMqttAddress(String mqttAddress) {
+		this.mqttAddress = mqttAddress;
+	}
+	
+	
 	
 //	public void setFusionLog(FusionLog fusionLog){
 //		this.fusionLog = fusionLog;
@@ -98,5 +144,7 @@ public class Resource implements Serializable {
 //	public FusionLog getFusionLog(){
 //		return this.fusionLog;
 //	}
+	
+	
 	
 }

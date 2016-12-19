@@ -26,6 +26,7 @@ public class RuleActionLog implements Serializable {
 	@Id
 	@SequenceGenerator(name = "rule_action_log_func", sequenceName = "rule_action_log_id_rule_action_log_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rule_action_log_func")
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_rule_action_log", nullable = false)
 	private Integer id;
 	
@@ -44,6 +45,9 @@ public class RuleActionLog implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_rsc_action_type_fk", referencedColumnName = "id_rsc_action_type")
 	private ResourceActionType resourceActionType;
+	
+	@Column(name = "tracker")
+	private boolean tracker;
 	
 	public RuleActionLog(){
 		
@@ -88,5 +92,13 @@ public class RuleActionLog implements Serializable {
 	public ResourceActionType getResourceActionType(){
 		return this.resourceActionType;
 	}
-	
+
+	public boolean isTracker() {
+		return tracker;
+	}
+
+	public void setTracker(boolean tracker) {
+		this.tracker = tracker;
+	}
+
 }

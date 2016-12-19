@@ -56,6 +56,9 @@ public class Context implements Serializable {
 	@Column(name = "context_registered", nullable = false)
 	private int contextRegistered;
 	
+	@Column(name = "running", nullable = false)
+	private int running;	
+	
 	public Context(){
 		
 	}
@@ -131,5 +134,13 @@ public class Context implements Serializable {
 	public int getContextRegistered(){
 		return this.contextRegistered;
 	}
-	
+
+	public int getRunning() {
+		return running;
+	}
+
+	public void setRunning(int running) {
+		this.running = running;
+	}
+
 }

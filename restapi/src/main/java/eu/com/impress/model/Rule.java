@@ -24,6 +24,7 @@ public class Rule implements Serializable {
 	@Id
 	@SequenceGenerator(name = "rule_func", sequenceName = "rule_id_rule_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rule_func")
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_rule", nullable = false)
 	private Integer id;
 	

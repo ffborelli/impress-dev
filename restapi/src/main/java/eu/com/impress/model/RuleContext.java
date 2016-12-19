@@ -21,7 +21,7 @@ public class RuleContext implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "rule_context_func", sequenceName = "rule_context_id_rule_context_seq", allocationSize = 1)
+	@SequenceGenerator(name = "rule_context_func", sequenceName = "rule_context_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rule_context_func")
 	@Column(name = "id_rule_context", nullable = false)
 	private Integer id;

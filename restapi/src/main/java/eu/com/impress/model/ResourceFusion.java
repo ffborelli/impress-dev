@@ -21,7 +21,7 @@ public class ResourceFusion implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "resource_fusion_func", sequenceName = "resource_fusion_id_resource_fusion_seq", allocationSize = 1)
+	@SequenceGenerator(name = "resource_fusion_func", sequenceName = "resource_fusion_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resource_fusion_func")
 	@Column(name = "id_resource_fusion", nullable = false)
 	private Integer id;

@@ -69,21 +69,21 @@ public class ActionFacade implements Serializable{
 	public Integer countActions() {
 		
 		actionDAO.beginTransaction();
-		Integer places = actionDAO.countActions();
+		Integer evalSdp = actionDAO.countActions();
 		actionDAO.closeTransaction();
 		
-		return places;
+		return evalSdp;
 	}
 	
 	public Integer getRowCountSearch(int startPosition, int maxResults,
 			String sortField, String sortDirections, String search) {
 		
 		actionDAO.beginTransaction();
-		Integer placeTypes = actionDAO.getRowCountSearch(startPosition, maxResults,
+		Integer evalSdp = actionDAO.getRowCountSearch(startPosition, maxResults,
 				sortField, sortDirections, search);
 		actionDAO.closeTransaction();
 		
-		return placeTypes;
+		return evalSdp;
 	}
 	
 }

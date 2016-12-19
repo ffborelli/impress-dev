@@ -21,7 +21,7 @@ public class ResourceContext implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "resource_context_func", sequenceName = "resource_context_id_resource_context_seq", allocationSize = 1)
+	@SequenceGenerator(name = "resource_context_func", sequenceName = "resource_context_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resource_context_func")
 	@Column(name = "id_resource_context", nullable = false)
 	private Integer id;

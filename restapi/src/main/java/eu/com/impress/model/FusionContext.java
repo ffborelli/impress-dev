@@ -21,7 +21,7 @@ public class FusionContext implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "fusion_context_func", sequenceName = "fusion_context_id_fusion_context_seq", allocationSize = 1)
+	@SequenceGenerator(name = "fusion_context_func", sequenceName = "fusion_context_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fusion_context_func")
 	@Column(name = "id_fusion_context", nullable = false)
 	private Integer id;

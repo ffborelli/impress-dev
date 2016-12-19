@@ -24,7 +24,7 @@ public class Schedule implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "schedule_func", sequenceName = "schedule_id_schedule_seq", allocationSize = 1)
+	@SequenceGenerator(name = "schedule_func", sequenceName = "schedule_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "schedule_func")
 	@Column(name = "id_schedule", nullable = false)
 	private Integer id;

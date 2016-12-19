@@ -29,7 +29,7 @@ public class FusionLog implements Serializable {
 	@Column(name = "id_fusion_log", nullable = false)
 	private Integer id;
 	
-	@Column(name = "fusion_value_log", nullable = false)
+	@Column(name = "fusion_log_value", nullable = false)
 	private String fusionLogValue;
 	
 	@Temporal(TemporalType.TIMESTAMP)
